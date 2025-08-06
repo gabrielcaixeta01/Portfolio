@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 const navItems = [
@@ -15,12 +15,15 @@ const Navbar: React.FC = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true); // Evita erros de hydration
+    const timeout = setTimeout(() => setMounted(true), 50); // pequeno delay evita flick
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
     <nav
-      className="flex justify-between items-center px-8 py-4 bg-white text-black dark:bg-zinc-900 dark:text-white transition-colors duration-300"
+      className={`flex justify-between items-center px-8 py-4 transition-all duration-500 ${
+        mounted ? 'opacity-100' : 'opacity-0'
+      } bg-white text-black dark:bg-zinc-900 dark:text-white`}
     >
       <div className="font-bold text-xl">Portfolio</div>
       <ul className="flex gap-8 list-none m-0 p-0">
@@ -35,15 +38,13 @@ const Navbar: React.FC = () => {
           </li>
         ))}
       </ul>
-      {mounted && (
-        <button
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="ml-8 px-4 py-2 rounded bg-cyan-400 text-black dark:bg-white dark:text-zinc-900 font-medium transition-all"
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-        </button>
-      )}
+      <button
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className="ml-8 px-4 py-2 rounded bg-cyan-400 text-black dark:bg-white dark:text-zinc-900 font-medium transition-all"
+        aria-label="Toggle theme"
+      >
+        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+      </button>
     </nav>
   );
 };

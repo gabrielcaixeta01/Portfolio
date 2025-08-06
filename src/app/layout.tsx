@@ -1,10 +1,11 @@
+// src/app/layout.tsx
 import './globals.css';
 import { ThemeProvider } from '../components/ThemeProvider';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
   title: 'Meu Portfólio',
-  description: 'Descrição do site',
+  description: 'Descrição aqui',
 };
 
 export default function RootLayout({
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="en">
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
