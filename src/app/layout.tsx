@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import './globals.css';
 import { ThemeProvider } from '../components/ThemeProvider';
+import ParticlesBackground from '../components/ParticlesBackground';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
@@ -14,11 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
+          <ParticlesBackground />
+          <div className="relative z-10">
+            <Navbar />
+            <main>{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>
