@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />

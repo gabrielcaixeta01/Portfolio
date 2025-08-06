@@ -15,15 +15,16 @@ const Navbar: React.FC = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setMounted(true), 50); // pequeno delay evita flick
+    // pequena pausa antes de revelar com fade
+    const timeout = setTimeout(() => setMounted(true), 50);
     return () => clearTimeout(timeout);
   }, []);
 
   return (
     <nav
-      className={`flex justify-between items-center px-8 py-4 transition-all duration-500 ${
-        mounted ? 'opacity-100' : 'opacity-0'
-      } bg-white text-black dark:bg-zinc-900 dark:text-white`}
+      className={`opacity-0 transition-opacity duration-300 ${
+        mounted ? 'opacity-100' : ''
+      } flex justify-between items-center px-8 py-4 bg-white text-black dark:bg-zinc-900 dark:text-white`}
     >
       <div className="font-bold text-xl">Portfolio</div>
       <ul className="flex gap-8 list-none m-0 p-0">
