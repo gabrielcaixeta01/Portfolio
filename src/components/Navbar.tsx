@@ -17,18 +17,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
-      <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-4 text-sm font-medium text-gray-700 dark:text-gray-300">
-        {/* Links */}
-        <div className="flex gap-6">
+    <nav className="fixed min-h-1/24 flex flex-row items-center justify-around top-0 left-0 w-full z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
           <button onClick={() => scrollToSection('sobre')} className="hover:text-cyan-400 transition">Sobre Mim</button>
           <button onClick={() => scrollToSection('projetos')} className="hover:text-cyan-400 transition">Projetos</button>
           <button onClick={() => scrollToSection('conhecimentos')} className="hover:text-cyan-400 transition">Conhecimentos</button>
           <button onClick={() => scrollToSection('contato')} className="hover:text-cyan-400 transition">Contato</button>
-        </div>
-
-        {/* Ícones */}
-        <div className="flex items-center gap-4">
+       
           <a href="https://github.com/gabrielcaixeta01" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <FaGithub size={20} />
           </a>
@@ -41,8 +35,6 @@ export default function Navbar() {
               {theme === 'dark' ? <BsSun size={20} /> : <BsMoon size={20} />}
             </button>
           )}
-        </div>
-      </div>
     </nav>
   );
 }
