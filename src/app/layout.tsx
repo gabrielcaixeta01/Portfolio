@@ -15,14 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-br" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ParticlesBackground />
-          <div className="relative z-10">
-            <Navbar />
-            <main>{children}</main>
-          </div>
+          <Navbar />
+          <main className="pt-20 px-4 sm:px-6">{children}</main>
         </ThemeProvider>
       </body>
     </html>
