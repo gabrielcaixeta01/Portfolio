@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 w-full h-16 border-b backdrop-blur-md z-50 bg-white/70 dark:bg-black/50">
+    <nav className="mb-20 top-0 w-full h-16 border-b backdrop-blur-md z-50 bg-white/70 dark:bg-black/50">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-4 text-sm font-medium text-gray-700 dark:text-gray-300">
         {/* Links */}
         <div className="flex gap-6">
