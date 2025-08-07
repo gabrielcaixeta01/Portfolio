@@ -12,6 +12,7 @@
     "@tsparticles/basic": "^3.9.1",
     "@tsparticles/react": "^3.0.0",
     "country-flag-icons": "^1.5.19",
+    "framer-motion": "^12.23.12",
     "next": "15.4.5",
     "next-themes": "^0.4.6",
     "react": "19.1.0",
