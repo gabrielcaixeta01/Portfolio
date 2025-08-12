@@ -17,44 +17,44 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md border-b border-white/20 dark:border-white/10 py-6 px-8">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md py-4 px-8">
       <div className="flex items-center justify-between w-full">
         {/* Navigation sections - Left side */}
-        <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-4">
           <button
             onClick={() => scrollToSection("sobre")}
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             Sobre Mim
           </button>
           <button
             onClick={() => scrollToSection("projetos")}
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             Projetos
           </button>
           <button
             onClick={() => scrollToSection("conhecimentos")}
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             Conhecimentos
           </button>
           <button
             onClick={() => scrollToSection("contato")}
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             Contato
           </button>
         </div>
 
         {/* Icons and theme switcher - Right side */}
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-2">
           <a
             href="https://github.com/gabrielcaixeta01"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             <FaGithub size={20} />
           </a>
@@ -63,19 +63,21 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+            className="transition-colors duration-200"
           >
             <FaLinkedin size={20} />
           </a>
-          <BR
-            title="Português (Brasil)"
-            style={{ width: "24px", height: "16px" }}
-          />
+          <div className="px-2">
+            <BR
+              title="Português (Brasil)"
+              style={{ width: "24px", height: "16px" }}
+            />
+          </div>
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="text-black dark:text-white hover:text-cyan-400 transition-colors duration-200"
+              className="transition-colors duration-200"
             >
               {theme === "dark" ? <BsSun size={20} /> : <BsMoon size={20} />}
             </button>

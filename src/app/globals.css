@@ -39,13 +39,41 @@ html.dark nav a {
   color: #ffffff !important;
 }
 
-/* Hover states for navbar */
-html:not(.dark) nav button:hover,
-html:not(.dark) nav a:hover {
-  color: #22d3ee !important; /* cyan-400 */
+/* Navbar border - different shades for light and dark themes */
+html:not(.dark) nav {
+  border-bottom: 1px solid #d1d5db !important; /* light gray for light mode */
 }
 
-html.dark nav button:hover,
+html.dark nav {
+  border-bottom: 1px solid #4b5563 !important; /* darker gray for dark mode */
+}
+
+/* Apple-style hover effects for navbar buttons */
+nav button {
+  padding: 8px 16px;
+  border-radius: 30px;
+  transition: background-color 0.2s ease;
+}
+
+nav button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+html.dark nav button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hover effects for navbar links (icons) */
+nav a {
+  padding: 8px;
+  border-radius: 30px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 html.dark nav a:hover {
-  color: #22d3ee !important; /* cyan-400 */
+  background-color: rgba(255, 255, 255, 0.1);
 }
