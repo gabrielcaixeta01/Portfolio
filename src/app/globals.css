@@ -74,6 +74,11 @@ html.dark .language-dropdown button {
   cursor: pointer;
 }
 
+/* 3D perspective utility for image tilt effect */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 /* Apple-style hover effects for navbar buttons */
 nav button {
   padding: 8px 16px;
