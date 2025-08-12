@@ -1,8 +1,11 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 export default function SobreMim() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="sobre"
@@ -15,19 +18,10 @@ export default function SobreMim() {
         viewport={{ once: true }}
         className="text-center max-w-3xl"
       >
-        <h2 className="text-4xl font-bold mb-6">Sobre mim</h2>
-        <p className="text-lg leading-relaxed mb-4">
-          Olá! Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB). 
-          Tenho grande interesse por tecnologia, com foco em desenvolvimento web full stack e inteligência artificial.
-        </p>
-        <p className="text-lg leading-relaxed mb-4">
-          Ao longo da minha jornada acadêmica e profissional, busquei combinar habilidades técnicas com criatividade,
-          contribuindo para soluções eficientes, intuitivas e modernas. 
-        </p>
-        <p className="text-lg leading-relaxed">
-          Atualmente, estou aprofundando meus conhecimentos em frameworks como Next.js e NestJS, além de explorar áreas como aprendizado de máquina e sistemas embarcados. 
-          Acredito no poder da tecnologia para transformar o mundo, e estou sempre em busca de novos desafios e oportunidades de aprendizado.
-        </p>
+        <h2 className="text-4xl font-bold mb-6">{t.about.title}</h2>
+        <p className="text-lg leading-relaxed mb-4">{t.about.paragraph1}</p>
+        <p className="text-lg leading-relaxed mb-4">{t.about.paragraph2}</p>
+        <p className="text-lg leading-relaxed">{t.about.paragraph3}</p>
       </motion.div>
     </section>
   );

@@ -4,11 +4,12 @@ import { useEffect, useState, useRef } from "react";
 import { FaGithub, FaLinkedin, FaChevronDown } from "react-icons/fa";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { BR, US } from "country-flag-icons/react/3x2";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
-  const [language, setLanguage] = useState("pt");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +40,6 @@ export default function Navbar() {
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
     setIsLanguageDropdownOpen(false);
-    // Here you can add logic to actually change the language content
     console.log("Language changed to:", lang);
   };
 
@@ -66,25 +66,25 @@ export default function Navbar() {
             onClick={() => scrollToSection("sobre")}
             className="transition-colors duration-200"
           >
-            Sobre Mim
+            {t.navbar.about}
           </button>
           <button
             onClick={() => scrollToSection("projetos")}
             className="transition-colors duration-200"
           >
-            Projetos
+            {t.navbar.projects}
           </button>
           <button
             onClick={() => scrollToSection("conhecimentos")}
             className="transition-colors duration-200"
           >
-            Conhecimentos
+            {t.navbar.skills}
           </button>
           <button
             onClick={() => scrollToSection("contato")}
             className="transition-colors duration-200"
           >
-            Contato
+            {t.navbar.contact}
           </button>
         </div>
 
@@ -133,14 +133,14 @@ export default function Navbar() {
                   className={`w-full px-4 py-3 mb-1 text-left flex items-center space-x-3 transition-colors duration-200`}
                 >
                   <BR style={{ width: "18px", height: "13px" }} />
-                  <span className="text-sm">Português</span>
+                  <span className="text-sm">{t.navbar.portuguese}</span>
                 </button>
                 <button
                   onClick={() => handleLanguageChange("en")}
                   className={`w-full px-4 py-3 text-left flex items-center space-x-3 transition-colors duration-200`}
                 >
                   <US style={{ width: "18px", height: "13px" }} />
-                  <span className="text-sm">English</span>
+                  <span className="text-sm">{t.navbar.english}</span>
                 </button>
               </div>
             )}

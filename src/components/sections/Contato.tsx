@@ -1,8 +1,11 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 export default function Contato() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="contato"
@@ -15,14 +18,11 @@ export default function Contato() {
         viewport={{ once: true }}
         className="text-center max-w-2xl"
       >
-        <h2 className="text-4xl font-bold mb-6">Contato</h2>
-        <p className="text-lg leading-relaxed mb-6">
-          Ficarei feliz em conversar com você sobre oportunidades, ideias ou qualquer projeto interessante.
-          Sinta-se à vontade para entrar em contato pelas redes abaixo ou por e-mail.
-        </p>
+        <h2 className="text-4xl font-bold mb-6">{t.contact.title}</h2>
+        <p className="text-lg leading-relaxed mb-6">{t.contact.description}</p>
         <div className="text-lg space-y-3">
           <p>
-            💼 <strong>LinkedIn:</strong>{' '}
+            💼 <strong>{t.contact.linkedin}</strong>{" "}
             <a
               href="https://www.linkedin.com/in/gabriel-caixeta-romero"
               className="text-cyan-500 hover:underline"
@@ -33,7 +33,7 @@ export default function Contato() {
             </a>
           </p>
           <p>
-            🧠 <strong>GitHub:</strong>{' '}
+            🧠 <strong>{t.contact.github}</strong>{" "}
             <a
               href="https://github.com/gabrielcaixeta01"
               className="text-cyan-500 hover:underline"
@@ -44,7 +44,7 @@ export default function Contato() {
             </a>
           </p>
           <p>
-            📧 <strong>E-mail:</strong>{' '}
+            📧 <strong>{t.contact.email}</strong>{" "}
             <a
               href="mailto:gabrielcaixetaromero@gmail.com"
               className="text-cyan-500 hover:underline"
