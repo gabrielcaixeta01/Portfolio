@@ -24,12 +24,12 @@ export default function Contato() {
           <p>
             💼 <strong>LinkedIn:</strong>{' '}
             <a
-              href="https://www.linkedin.com/in/gabrielcaixetahomero"
+              href="https://www.linkedin.com/in/gabriel-caixeta-romero"
               className="text-cyan-500 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >
-              gabrielcaixetahomero
+              gabriel-caixeta-romero
             </a>
           </p>
           <p>
@@ -46,10 +46,10 @@ export default function Contato() {
           <p>
             📧 <strong>E-mail:</strong>{' '}
             <a
-              href="mailto:gabrielcaixetahomero.com"
+              href="mailto:gabrielcaixetaromero@gmail.com"
               className="text-cyan-500 hover:underline"
             >
-              gabrielcaixetahomero.com
+              gabrielcaixetaromero@gmail.com
             </a>
           </p>
         </div>

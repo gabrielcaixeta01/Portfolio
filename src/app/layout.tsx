@@ -20,7 +20,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ParticlesBackground />
           <Navbar />
-          <main className="pt-20 px-4 sm:px-6">{children}</main>
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>

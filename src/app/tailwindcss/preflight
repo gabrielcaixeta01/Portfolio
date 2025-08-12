@@ -1,0 +1,4 @@
+/* Preflight CSS for TailwindCSS */
+
+@import "tailwindcss/preflight";
+@tailwind utilities;
