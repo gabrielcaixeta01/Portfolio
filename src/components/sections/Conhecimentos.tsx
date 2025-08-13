@@ -183,7 +183,7 @@ export default function Conhecimentos() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 text-center">
+                  <p className="skills-description text-sm leading-relaxed mb-6 text-center">
                     {currentSkill.description}
                   </p>
 
