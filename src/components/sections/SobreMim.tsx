@@ -16,9 +16,22 @@ export default function SobreMim() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Calculate rotation based on mouse position (-10 to 10 degrees)
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
+    // Normalize coordinates to -1 to 1 range
+    const normalizedX = (x - centerX) / centerX;
+    const normalizedY = (y - centerY) / centerY;
+
+    // Clamp values to prevent extreme rotations at edges
+    const clampedX = Math.max(-1, Math.min(1, normalizedX));
+    const clampedY = Math.max(-1, Math.min(1, normalizedY));
+
+    // Apply easing function for smoother transitions
+    const easeOut = (t: number) => 1 - Math.pow(1 - Math.abs(t), 3);
+    const easedX = Math.sign(clampedX) * easeOut(clampedX);
+    const easedY = Math.sign(clampedY) * easeOut(clampedY);
+
+    // Calculate rotation with reduced intensity for smoother effect
+    const rotateX = easedY * -8; // Reduced from -10 to -8
+    const rotateY = easedX * 8; // Reduced from 10 to 8
 
     setMousePosition({ x: rotateY, y: rotateX });
   }, []);
@@ -55,7 +68,8 @@ export default function SobreMim() {
               style={{
                 transform: `perspective(1000px) rotateX(${mousePosition.y}deg) rotateY(${mousePosition.x}deg)`,
                 transformStyle: "preserve-3d",
-                transition: "transform 0.1s ease-out",
+                transition:
+                  "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 willChange: "transform",
               }}
             >

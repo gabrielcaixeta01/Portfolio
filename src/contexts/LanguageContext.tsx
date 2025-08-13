@@ -55,6 +55,64 @@ const translations = {
       title: "Conhecimentos",
       description:
         "Tenho sólida experiência nas principais tecnologias de desenvolvimento web, além de uma base forte em algoritmos e sistemas digitais.",
+      skillsData: [
+        {
+          name: "React",
+          description:
+            "Uma biblioteca JavaScript para criar interfaces de usuário interativas e reativas, com foco em componentes reutilizáveis.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Next.js",
+          description:
+            "Framework React para produção que oferece renderização híbrida, roteamento automático e otimizações de performance.",
+          experience: 2.5,
+          maxExperience: 3,
+        },
+        {
+          name: "TypeScript",
+          description:
+            "Superset do JavaScript que adiciona tipagem estática, melhorando a robustez e manutenibilidade do código.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "Tailwind CSS",
+          description:
+            "Framework CSS utilitário que permite criar designs personalizados rapidamente usando classes pré-definidas.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Node.js",
+          description:
+            "Runtime JavaScript que permite executar código JavaScript no servidor, ideal para APIs e aplicações backend.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "NestJS",
+          description:
+            "Framework Node.js progressivo para construir aplicações server-side eficientes e escaláveis com TypeScript.",
+          experience: 1.5,
+          maxExperience: 3,
+        },
+        {
+          name: "Python",
+          description:
+            "Linguagem versátil usada para desenvolvimento web, análise de dados, machine learning e automação.",
+          experience: 2.5,
+          maxExperience: 3,
+        },
+        {
+          name: "Git",
+          description:
+            "Sistema de controle de versão distribuído essencial para colaboração em projetos de desenvolvimento.",
+          experience: 3,
+          maxExperience: 3,
+        },
+      ],
       frontend: "Front-end:",
       frontendSkills: "React, Next.js, Tailwind CSS, TypeScript",
       backend: "Back-end:",
@@ -66,6 +124,10 @@ const translations = {
       otherSkills: "Git, GitHub, VHDL, C++, testes automatizados, Figma",
       conclusion:
         "Estou constantemente estudando para me manter atualizado com o mercado e as inovações da área.",
+      experienceLabel: "Experiência",
+      yearsLabel: "anos",
+      pauseLabel: "Pausar",
+      playLabel: "Reproduzir",
     },
     // Contact Section
     contact: {
@@ -128,6 +190,64 @@ const translations = {
       title: "Skills",
       description:
         "I have solid experience in the main web development technologies, in addition to a strong foundation in algorithms and digital systems.",
+      skillsData: [
+        {
+          name: "React",
+          description:
+            "A JavaScript library for building interactive and reactive user interfaces, focusing on reusable components.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Next.js",
+          description:
+            "React framework for production that offers hybrid rendering, automatic routing and performance optimizations.",
+          experience: 2.5,
+          maxExperience: 3,
+        },
+        {
+          name: "TypeScript",
+          description:
+            "JavaScript superset that adds static typing, improving code robustness and maintainability.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "Tailwind CSS",
+          description:
+            "Utility-first CSS framework that allows creating custom designs quickly using predefined classes.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Node.js",
+          description:
+            "JavaScript runtime that allows executing JavaScript code on the server, ideal for APIs and backend applications.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "NestJS",
+          description:
+            "Progressive Node.js framework for building efficient and scalable server-side applications with TypeScript.",
+          experience: 1.5,
+          maxExperience: 3,
+        },
+        {
+          name: "Python",
+          description:
+            "Versatile language used for web development, data analysis, machine learning and automation.",
+          experience: 2.5,
+          maxExperience: 3,
+        },
+        {
+          name: "Git",
+          description:
+            "Distributed version control system essential for collaboration in development projects.",
+          experience: 3,
+          maxExperience: 3,
+        },
+      ],
       frontend: "Front-end:",
       frontendSkills: "React, Next.js, Tailwind CSS, TypeScript",
       backend: "Back-end:",
@@ -139,6 +259,10 @@ const translations = {
       otherSkills: "Git, GitHub, VHDL, C++, automated testing, Figma",
       conclusion:
         "I am constantly studying to stay updated with the market and innovations in the field.",
+      experienceLabel: "Experience",
+      yearsLabel: "years",
+      pauseLabel: "Pause",
+      playLabel: "Play",
     },
     // Contact Section
     contact: {
