@@ -1,16 +1,123 @@
 @import "tailwindcss";
 
-/* Cores e tema base */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  /* Cores e tema base */
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* Project Card Variables - Light Mode */
+    --pc-bg: rgba(255, 255, 255, 0.92); /* lighter card in light mode */
+    --pc-border: rgba(15, 23, 42, 0.1); /* slate-ish, not white */
+    --pc-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+    --pc-title: #0f172a; /* slate-900 */
+    --pc-text: #475569; /* slate-600 */
+    --pc-chip-bg: #f1f5f9; /* slate-100 */
+    --pc-chip-text: #334155; /* slate-700 */
+    --pc-badge-bg: rgba(0, 0, 0, 0.85);
+    --pc-badge-text: #ffffff;
+    --pc-btn-bg: #0f172a; /* slate-900 */
+    --pc-btn-text: #ffffff;
+    --pc-outline: rgba(15, 23, 42, 0.08);
+  }
+
+  .dark {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Project Card Variables - Dark Mode */
+    --pc-bg: rgba(24, 24, 27, 0.55); /* deeper glass in dark */
+    --pc-border: transparent; /* remove white border effect */
+    --pc-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    --pc-title: #e5e7eb; /* zinc-200/300 */
+    --pc-text: #cbd5e1; /* slate-300 */
+    --pc-chip-bg: rgba(39, 39, 42, 0.8); /* zinc-800 */
+    --pc-chip-text: #e5e7eb;
+    --pc-badge-bg: rgba(255, 255, 255, 0.92);
+    --pc-badge-text: #0a0a0a;
+    --pc-btn-bg: #ffffff;
+    --pc-btn-text: #0a0a0a;
+    --pc-outline: rgba(255, 255, 255, 0.06); /* very subtle inner outline */
+  }
 }
 
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+@layer components {
+  .project-card {
+    background: var(--pc-bg);
+    border: 1px solid var(--pc-border);
+    box-shadow: var(--pc-shadow), inset 0 0 0 1px var(--pc-outline);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem; /* ~rounded-2xl */
+    transition: box-shadow 200ms ease, transform 200ms ease,
+      background 200ms ease, border-color 200ms ease;
+  }
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(2, 6, 23, 0.1);
+  }
+
+  .project-title {
+    color: var(--pc-title);
+  }
+
+  .project-desc {
+    color: var(--pc-text);
+  }
+
+  .project-chip {
+    background: var(--pc-chip-bg);
+    color: var(--pc-chip-text);
+    border: 1px solid color-mix(in oklab, var(--pc-chip-text) 20%, transparent);
+    border-radius: 9999px;
+  }
+
+  .project-badge {
+    background: var(--pc-badge-bg);
+    color: var(--pc-badge-text);
+    border-radius: 9999px;
+  }
+
+  .project-button {
+    background: var(--pc-btn-bg);
+    color: var(--pc-btn-text);
+    border-radius: 1rem;
+    transition: background-color 180ms ease, color 180ms ease,
+      box-shadow 180ms ease, transform 120ms ease;
+  }
+  .project-button:hover {
+    transform: translateY(-1px);
+  }
+  .project-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--pc-btn-bg) 35%, transparent);
+  }
 }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card:hover,
+  .project-button,
+  .project-button:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/*
+Usage Example (JSX):
+<div className="project-card p-6 md:p-7 ring-1 ring-transparent">
+  <span className="project-badge px-3 py-1 text-sm font-semibold">CS50 Capstone</span>
+  <h3 className="project-title text-2xl font-bold mt-4">Stock Predictor</h3>
+  <p className="project-desc mt-2 text-base leading-relaxed">Short description…</p>
+  <div className="mt-4 flex flex-wrap gap-2">
+    <span className="project-chip px-3 py-1 text-sm">Next.js</span>
+    <span className="project-chip px-3 py-1 text-sm">TypeScript</span>
+  </div>
+  <a href="https://…" className="project-button mt-6 w-full inline-flex items-center justify-center gap-2 py-3 text-base font-semibold">Link</a>
+</div>
+*/
 
 body {
   background-color: var(--background);
@@ -233,4 +340,13 @@ html:not(.dark) section#hero h2 {
 
 html.dark section#hero h2 {
   color: #e5e7eb !important; /* gray-200 equivalent */
+}
+
+/* Fix for projects section description - make darker */
+html:not(.dark) section#projetos p {
+  color: #475569 !important; /* slate-600 equivalent - darker */
+}
+
+html.dark section#projetos p {
+  color: #d1d5db !important; /* gray-300 equivalent */
 }

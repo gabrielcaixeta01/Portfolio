@@ -95,24 +95,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         ease: "easeOut",
       }}
       viewport={{ once: true }}
-      className="group relative flex flex-col h-full p-6 rounded-2xl border shadow-sm bg-white/90 dark:bg-zinc-900/60 backdrop-blur-md ring-1 ring-slate-200/60 dark:ring-white/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 motion-reduce:hover:transform-none motion-reduce:transition-none"
+      className="project-card group relative flex flex-col h-full p-6 md:p-7"
     >
       {/* Badge */}
       {badge && (
         <div className="mb-4">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold bg-black/80 text-white dark:bg-white/90 dark:text-black">
+          <span className="project-badge inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold">
             {badge}
           </span>
         </div>
       )}
 
       {/* Title */}
-      <h3 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
+      <h3 className="project-title text-xl md:text-2xl font-bold mb-3">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-slate-600 dark:text-zinc-300 mb-4 flex-grow leading-relaxed">
+      <p className="project-desc mb-4 flex-grow leading-relaxed">
         {description}
       </p>
 
@@ -129,7 +129,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               ease: "easeOut",
             }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-200 border border-slate-200/60 dark:border-zinc-700/50 hover:bg-slate-200 dark:hover:bg-zinc-700 transition-colors duration-200"
+            className="project-chip inline-flex items-center gap-2 px-3 py-1 text-sm font-medium"
           >
             {techIcons[techName]}
             {techName}
@@ -167,7 +167,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           href={link}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full mt-6 inline-flex items-center justify-center gap-2 rounded-2xl text-base font-semibold py-3 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400/60 dark:focus:ring-zinc-500/60 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-900"
+          className="project-button w-full mt-6 inline-flex items-center justify-center gap-2 py-3 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400/60 dark:focus:ring-zinc-500/60 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-900"
         >
           <HiExternalLink className="w-5 h-5" />
           {linkLabel}
