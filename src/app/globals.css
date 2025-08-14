@@ -20,6 +20,21 @@
     --pc-btn-bg: #0f172a; /* slate-900 */
     --pc-btn-text: #ffffff;
     --pc-outline: rgba(15, 23, 42, 0.08);
+
+    /* Contact Card Variables - Light Mode */
+    --cc-bg: rgba(255, 255, 255, 0.9); /* main contact card bg */
+    --cc-border: rgba(15, 23, 42, 0.08); /* subtle border */
+    --cc-shadow: 0 12px 32px rgba(2, 6, 23, 0.08);
+    --cc-title: #0f172a; /* slate-900 for heading */
+    --cc-text: #475569; /* slate-600 for description */
+    --cc-link-bg: rgba(255, 255, 255, 0.95); /* contact link cards */
+    --cc-link-border: rgba(15, 23, 42, 0.06); /* link card borders */
+    --cc-link-hover-border: rgba(15, 23, 42, 0.12);
+    --cc-link-shadow: 0 4px 16px rgba(2, 6, 23, 0.04);
+    --cc-link-hover-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+    --cc-icon: #374151; /* slate-700 for icons */
+    --cc-label: #64748b; /* slate-500 for labels */
+    --cc-value: #0f172a; /* slate-900 for values */
   }
 
   .dark {
@@ -39,6 +54,21 @@
     --pc-btn-bg: #ffffff;
     --pc-btn-text: #0a0a0a;
     --pc-outline: rgba(255, 255, 255, 0.06); /* very subtle inner outline */
+
+    /* Contact Card Variables - Dark Mode */
+    --cc-bg: rgba(24, 24, 27, 0.5); /* deeper glass contact card */
+    --cc-border: rgba(255, 255, 255, 0.05); /* very subtle border */
+    --cc-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    --cc-title: #e5e7eb; /* zinc-200 for heading */
+    --cc-text: #cbd5e1; /* slate-300 for description */
+    --cc-link-bg: rgba(39, 39, 42, 0.6); /* zinc-800 for link cards */
+    --cc-link-border: rgba(255, 255, 255, 0.04);
+    --cc-link-hover-border: rgba(255, 255, 255, 0.08);
+    --cc-link-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --cc-link-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --cc-icon: #d1d5db; /* gray-300 for icons */
+    --cc-label: #9ca3af; /* gray-400 for labels */
+    --cc-value: #e5e7eb; /* gray-200 for values */
   }
 }
 
@@ -92,6 +122,52 @@
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--pc-btn-bg) 35%, transparent);
   }
+
+  /* Contact Card Components */
+  .contact-card {
+    background: var(--cc-bg);
+    border: 1px solid var(--cc-border);
+    box-shadow: var(--cc-shadow);
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    transition: box-shadow 200ms ease, transform 200ms ease,
+      background 200ms ease;
+  }
+
+  .contact-title {
+    color: var(--cc-title);
+  }
+
+  .contact-desc {
+    color: var(--cc-text);
+  }
+
+  .contact-link {
+    background: var(--cc-link-bg);
+    border: 1px solid var(--cc-link-border);
+    box-shadow: var(--cc-link-shadow);
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+    transition: all 200ms ease;
+  }
+
+  .contact-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--cc-link-hover-border);
+    box-shadow: var(--cc-link-hover-shadow);
+  }
+
+  .contact-icon {
+    color: var(--cc-icon);
+  }
+
+  .contact-label {
+    color: var(--cc-label);
+  }
+
+  .contact-value {
+    color: var(--cc-value);
+  }
 }
 
 /* Reduce motion for accessibility */
@@ -99,7 +175,10 @@
   .project-card,
   .project-card:hover,
   .project-button,
-  .project-button:hover {
+  .project-button:hover,
+  .contact-card,
+  .contact-link,
+  .contact-link:hover {
     transition: none;
     transform: none;
   }
@@ -350,3 +429,22 @@ html:not(.dark) section#projetos p {
 html.dark section#projetos p {
   color: #d1d5db !important; /* gray-300 equivalent */
 }
+
+/*
+Contact Card Usage Example (JSX):
+<div className="contact-card p-8 md:p-10">
+  <h2 className="contact-title text-4xl md:text-5xl font-bold mb-4">Contact</h2>
+  <p className="contact-desc text-base md:text-lg leading-relaxed mb-8">Description...</p>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <a href="..." className="contact-link flex items-center justify-between gap-3 px-4 py-4">
+      <div className="flex items-center gap-3">
+        <FaLinkedin className="contact-icon text-xl" />
+        <div className="flex flex-col">
+          <span className="contact-label text-sm">LinkedIn</span>
+          <span className="contact-value text-sm font-medium">username</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+*/

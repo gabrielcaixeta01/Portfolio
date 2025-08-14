@@ -54,23 +54,17 @@ export default function Contato() {
         className="relative w-full max-w-3xl"
       >
         {/* card glass mais claro no modo claro */}
-        <motion.div
-          variants={item}
-          className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-xl shadow-xl p-8 md:p-10"
-        >
+        <motion.div variants={item} className="contact-card p-8 md:p-10">
           <motion.h2
             variants={item}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4
-                       bg-gradient-to-r from-slate-700 via-slate-500 to-slate-700
-                       dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100
-                       bg-clip-text text-transparent"
+            className="contact-title text-4xl md:text-5xl font-bold tracking-tight mb-4"
           >
             {t.contact.title}
           </motion.h2>
 
           <motion.p
             variants={item}
-            className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-zinc-300 mb-8"
+            className="contact-desc text-base md:text-lg leading-relaxed mb-8"
           >
             {t.contact.description}
           </motion.p>
@@ -84,21 +78,21 @@ export default function Contato() {
               href="https://www.linkedin.com/in/gabriel-caixeta-romero"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-slate-100 dark:border-zinc-700/40 bg-white/95 dark:bg-zinc-900/60 backdrop-blur-md px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:border-slate-200 dark:hover:border-zinc-600/60"
+              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
               aria-label="LinkedIn"
             >
               <div className="flex items-center gap-3 min-w-0 flex-1">
-                <FaLinkedin className="text-slate-700 dark:text-zinc-200 text-xl flex-shrink-0" />
+                <FaLinkedin className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-sm text-slate-500 dark:text-zinc-400">
+                  <span className="contact-label text-sm">
                     {t.contact.linkedin}
                   </span>
-                  <span className="text-sm font-medium text-slate-900 dark:text-zinc-100 truncate">
+                  <span className="contact-value text-sm font-medium truncate">
                     gabriel-caixeta-romero
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-slate-500 group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+              <span className="contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
@@ -107,42 +101,42 @@ export default function Contato() {
               href="https://github.com/gabrielcaixeta01"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-slate-100 dark:border-zinc-700/40 bg-white/95 dark:bg-zinc-900/60 backdrop-blur-md px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:border-slate-200 dark:hover:border-zinc-600/60"
+              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
               aria-label="GitHub"
             >
               <div className="flex items-center gap-3 min-w-0 flex-1">
-                <FaGithub className="text-slate-700 dark:text-zinc-200 text-xl flex-shrink-0" />
+                <FaGithub className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-sm text-slate-500 dark:text-zinc-400">
+                  <span className="contact-label text-sm">
                     {t.contact.github}
                   </span>
-                  <span className="text-sm font-medium text-slate-900 dark:text-zinc-100 truncate">
+                  <span className="contact-value text-sm font-medium truncate">
                     gabrielcaixeta01
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-slate-500 group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+              <span className="contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
 
             <button
               onClick={copyEmail}
-              className="group flex items-center justify-between gap-3 rounded-xl border border-slate-100 dark:border-zinc-700/40 bg-white/95 dark:bg-zinc-900/60 backdrop-blur-md px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:border-slate-200 dark:hover:border-zinc-600/60"
+              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
               aria-label="Copy email"
             >
               <div className="flex items-center gap-3 min-w-0 flex-1">
-                <FiMail className="text-slate-700 dark:text-zinc-200 text-xl flex-shrink-0" />
+                <FiMail className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-sm text-slate-500 dark:text-zinc-400">
+                  <span className="contact-label text-sm">
                     {t.contact.email}
                   </span>
-                  <span className="text-sm font-medium text-slate-900 dark:text-zinc-100 truncate">
+                  <span className="contact-value text-sm font-medium truncate">
                     {email}
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-slate-500 flex-shrink-0">
+              <span className="contact-label text-xs flex-shrink-0">
                 {copied ? <FiCheck /> : t.contact.copy}
               </span>
             </button>
