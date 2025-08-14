@@ -64,31 +64,31 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.home}
           </button>
           <button
             onClick={() => scrollToSection("sobre")}
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.about}
           </button>
           <button
             onClick={() => scrollToSection("projetos")}
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.projects}
           </button>
           <button
             onClick={() => scrollToSection("conhecimentos")}
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.skills}
           </button>
           <button
             onClick={() => scrollToSection("contato")}
-            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.contact}
           </button>
@@ -101,7 +101,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             <FaGithub size={16} />
           </a>
@@ -110,7 +110,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             <FaLinkedin size={16} />
           </a>
@@ -119,13 +119,13 @@ export default function Navbar() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-              className="flex items-center space-x-1 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
+              className="flex items-center space-x-1 p-1.5 rounded-full transition-colors duration-500 ease-in-out cursor-pointer"
               aria-label="Change language"
             >
               {getCurrentFlag()}
               <FaChevronDown
                 size={8}
-                className={`transition-transform duration-500 ease-in-out text-gray-500 ${
+                className={`transition-all duration-500 ease-in-out text-gray-500 hover:text-blue-500 ${
                   isLanguageDropdownOpen ? "rotate-180" : ""
                 }`}
               />
@@ -156,7 +156,7 @@ export default function Navbar() {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
+              className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
             >
               {theme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
             </button>
