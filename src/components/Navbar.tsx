@@ -58,31 +58,37 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md py-4 px-8">
-      <div className="flex items-center justify-between w-full">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-xs border-b border-gray-200/20 dark:border-gray-700/20 py-2 px-6">
+      <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         {/* Navigation sections - Left side */}
         <div className="flex items-center space-x-4">
           <button
+            onClick={() => scrollToSection("hero")}
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
+          >
+            {t.navbar.home}
+          </button>
+          <button
             onClick={() => scrollToSection("sobre")}
-            className="transition-colors duration-200"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.about}
           </button>
           <button
             onClick={() => scrollToSection("projetos")}
-            className="transition-colors duration-200"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.projects}
           </button>
           <button
             onClick={() => scrollToSection("conhecimentos")}
-            className="transition-colors duration-200"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.skills}
           </button>
           <button
             onClick={() => scrollToSection("contato")}
-            className="transition-colors duration-200"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.contact}
           </button>
@@ -95,31 +101,31 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="transition-colors duration-200"
+            className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
           >
-            <FaGithub size={20} />
+            <FaGithub size={16} />
           </a>
           <a
             href="https://linkedin.com/in/gabriel-caixeta-romero"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="transition-colors duration-200"
+            className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
           >
-            <FaLinkedin size={20} />
+            <FaLinkedin size={16} />
           </a>
 
           {/* Language Switcher Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-              className="flex items-center space-x-1 px-2 py-1 transition-colors duration-200"
+              className="flex items-center space-x-1 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
               aria-label="Change language"
             >
               {getCurrentFlag()}
               <FaChevronDown
-                size={10}
-                className={`transition-transform duration-200 ${
+                size={8}
+                className={`transition-transform duration-500 ease-in-out text-gray-500 ${
                   isLanguageDropdownOpen ? "rotate-180" : ""
                 }`}
               />
@@ -127,20 +133,20 @@ export default function Navbar() {
 
             {/* Dropdown Menu */}
             {isLanguageDropdownOpen && (
-              <div className="language-dropdown absolute right-0 mt-2 backdrop-blur-md rounded-lg shadow-lg py-3 min-w-[140px] z-10">
+              <div className="language-dropdown absolute right-0 mt-1 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 min-w-[120px] z-10">
                 <button
                   onClick={() => handleLanguageChange("pt")}
-                  className={`w-full px-4 py-3 mb-1 text-left flex items-center space-x-3 transition-colors duration-200`}
+                  className="w-full px-3 py-2 text-left flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-500 ease-in-out cursor-pointer"
                 >
-                  <BR style={{ width: "18px", height: "13px" }} />
-                  <span className="text-sm">{t.navbar.portuguese}</span>
+                  <BR style={{ width: "16px", height: "11px" }} />
+                  <span>{t.navbar.portuguese}</span>
                 </button>
                 <button
                   onClick={() => handleLanguageChange("en")}
-                  className={`w-full px-4 py-3 text-left flex items-center space-x-3 transition-colors duration-200`}
+                  className="w-full px-3 py-2 text-left flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-500 ease-in-out cursor-pointer"
                 >
-                  <US style={{ width: "18px", height: "13px" }} />
-                  <span className="text-sm">{t.navbar.english}</span>
+                  <US style={{ width: "16px", height: "11px" }} />
+                  <span>{t.navbar.english}</span>
                 </button>
               </div>
             )}
@@ -150,9 +156,9 @@ export default function Navbar() {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="transition-colors duration-200"
+              className="p-1.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-500 ease-in-out cursor-pointer"
             >
-              {theme === "dark" ? <BsSun size={20} /> : <BsMoon size={20} />}
+              {theme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
             </button>
           )}
         </div>

@@ -51,7 +51,10 @@ export default function Hero() {
   }, [currentJobTitle, isTyping, jobIndex, language]);
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

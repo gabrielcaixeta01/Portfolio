@@ -7,6 +7,7 @@ const translations = {
   pt: {
     // Navbar
     navbar: {
+      home: "Início",
       about: "Sobre Mim",
       projects: "Projetos",
       skills: "Conhecimentos",
@@ -142,6 +143,7 @@ const translations = {
   en: {
     // Navbar
     navbar: {
+      home: "Home",
       about: "About Me",
       projects: "Projects",
       skills: "Skills",
