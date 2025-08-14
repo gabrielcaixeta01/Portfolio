@@ -113,6 +113,34 @@ const translations = {
           experience: 3,
           maxExperience: 3,
         },
+        {
+          name: "C++",
+          description:
+            "Linguagem de programação para algoritmos, estruturas de dados e soluções de alto desempenho.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "Jupyter",
+          description:
+            "Ambiente interativo para prototipagem e análise exploratória de dados com notebooks.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Google Colab",
+          description:
+            "Plataforma de notebooks em nuvem para machine learning com acesso a GPU facilitado.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Figma",
+          description:
+            "Ferramenta de design de interfaces, prototipagem colaborativa e handoff para desenvolvimento.",
+          experience: 3,
+          maxExperience: 3,
+        },
       ],
       frontend: "Front-end:",
       frontendSkills: "React, Next.js, Tailwind CSS, TypeScript",
@@ -247,6 +275,34 @@ const translations = {
           name: "Git",
           description:
             "Distributed version control system essential for collaboration in development projects.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "C++",
+          description:
+            "Programming language for algorithms, data structures and high-performance solutions.",
+          experience: 2,
+          maxExperience: 3,
+        },
+        {
+          name: "Jupyter",
+          description:
+            "Interactive environment for prototyping and exploratory data analysis with notebooks.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Google Colab",
+          description:
+            "Cloud notebook platform for machine learning with easy GPU access.",
+          experience: 3,
+          maxExperience: 3,
+        },
+        {
+          name: "Figma",
+          description:
+            "Interface design tool, collaborative prototyping and development handoff.",
           experience: 3,
           maxExperience: 3,
         },

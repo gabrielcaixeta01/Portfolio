@@ -1,13 +1,17 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
   SiNestjs,
+  SiCplusplus,
+  SiJupyter,
+  SiGooglecolab,
+  SiFigma,
 } from "react-icons/si";
 
 interface SkillData {
@@ -17,42 +21,67 @@ interface SkillData {
   maxExperience: number;
 }
 
+// =======================
 // Skill Icon Component
+// =======================
 const SkillIcon = ({ skillName }: { skillName: string }) => {
-  const iconProps = { className: "w-16 h-16" };
+  const base = "w-16 h-16";
+  const lowerName = skillName.toLowerCase();
 
-  switch (skillName.toLowerCase()) {
+  switch (lowerName) {
     case "react":
-      return <FaReact {...iconProps} className="w-16 h-16 text-blue-400" />;
+      return <FaReact className={`${base} text-[#61DAFB]`} />;
     case "next.js":
+    case "nextjs":
+    case "next":
       return (
-        <SiNextdotjs
-          {...iconProps}
-          className="w-16 h-16 text-white dark:text-black"
-        />
+        <div
+          className={`${base} rounded-lg bg-black dark:bg-white flex items-center justify-center`}
+        >
+          <SiNextdotjs className="w-12 h-12 text-white dark:text-black" />
+        </div>
       );
     case "typescript":
-      return (
-        <SiTypescript {...iconProps} className="w-16 h-16 text-blue-600" />
-      );
+      return <SiTypescript className={`${base} text-[#3178C6]`} />;
     case "tailwind css":
-      return (
-        <SiTailwindcss {...iconProps} className="w-16 h-16 text-cyan-400" />
-      );
+    case "tailwind":
+      return <SiTailwindcss className={`${base} text-[#38BDF8]`} />;
     case "node.js":
-      return <FaNode {...iconProps} className="w-16 h-16 text-green-500" />;
+    case "node":
+      return <FaNode className={`${base} text-[#68A063]`} />;
     case "nestjs":
-      return <SiNestjs {...iconProps} className="w-16 h-16 text-red-500" />;
+      return <SiNestjs className={`${base} text-[#E0234E]`} />;
     case "python":
-      return <FaPython {...iconProps} className="w-16 h-16 text-yellow-400" />;
+      return <FaPython className={`${base} text-[#FFD43B]`} />;
     case "git":
-      return <FaGitAlt {...iconProps} className="w-16 h-16 text-orange-500" />;
+      return <FaGitAlt className={`${base} text-[#F05032]`} />;
+
+    // ======= Novas skills =======
+    case "c++":
+    case "cplusplus":
+      return <SiCplusplus className={`${base} text-[#00599C]`} />;
+    case "jupyter":
+      return <SiJupyter className={`${base} text-[#F37726]`} />;
+    case "google colab":
+    case "colab":
+      return <SiGooglecolab className={`${base} text-[#F9AB00]`} />;
+    case "figma":
+      return <SiFigma className={`${base} text-[#F24E1E]`} />;
+
     default:
-      return <div {...iconProps} className="w-16 h-16 bg-gray-400 rounded" />;
+      return (
+        <div
+          className={`${base} rounded bg-gray-400 flex items-center justify-center text-white font-bold text-xs`}
+        >
+          {skillName.slice(0, 2).toUpperCase()}
+        </div>
+      );
   }
 };
 
-// Custom Arrow Components
+// =======================
+// Ícones de navegação
+// =======================
 const ChevronLeftIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -64,7 +93,7 @@ const ChevronLeftIcon = ({ className }: { className?: string }) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M15.75 19.5L8.25 12l7.5-7.5"
+      d="M15.75 19.5 8.25 12l7.5-7.5"
     />
   </svg>
 );
@@ -80,47 +109,122 @@ const ChevronRightIcon = ({ className }: { className?: string }) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+      d="m8.25 4.5 7.5 7.5-7.5 7.5"
     />
   </svg>
 );
 
+// =======================
+// Extras desejados (fora do component)
+// =======================
+const desiredExtras: SkillData[] = [
+  {
+    name: "C++",
+    description: "Algoritmos, estruturas de dados e alto desempenho.",
+    experience: 2,
+    maxExperience: 5,
+  },
+  {
+    name: "Jupyter",
+    description: "Prototipagem e análise exploratória com notebooks.",
+    experience: 3,
+    maxExperience: 5,
+  },
+  {
+    name: "Google Colab",
+    description: "Notebooks em nuvem para ML com GPU.",
+    experience: 3,
+    maxExperience: 5,
+  },
+  {
+    name: "Figma",
+    description: "UI design, prototipagem e handoff.",
+    experience: 3,
+    maxExperience: 5,
+  },
+];
+
 export default function Conhecimentos() {
   const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const skills: SkillData[] = t.skills.skillsData;
+  // ==== autoplay com pausa temporária após interação ====
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Auto-play functionality
+  const AUTOPLAY_MS = 4000; // intervalo de rolagem
+  const PAUSE_MS = 5500; // tempo que fica pausado após interação
+
+  // Base + extras (sem duplicar)
+  const baseSkills: SkillData[] = t.skills.skillsData;
+  const skills: SkillData[] = useMemo(() => {
+    const existing = new Set(
+      baseSkills.map((s) => s.name.toLowerCase().trim())
+    );
+    const extrasFiltered = desiredExtras.filter(
+      (s) => !existing.has(s.name.toLowerCase().trim())
+    );
+    return [...baseSkills, ...extrasFiltered];
+  }, [baseSkills]);
+
+  // Inicia / reinicia intervalo quando não estiver pausado
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (skills.length === 0) return;
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % skills.length);
-    }, 4000);
+    // limpa anterior
+    if (intervalRef.current) clearInterval(intervalRef.current);
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, skills.length]);
+    if (!isPaused) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % skills.length);
+      }, AUTOPLAY_MS);
+    }
 
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isPaused, skills.length]);
+
+  const temporarilyPause = () => {
+    // limpa possível timer anterior
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    setIsPaused(true);
+    pauseTimerRef.current = setTimeout(() => setIsPaused(false), PAUSE_MS);
+  };
+
+  // limpa timers ao desmontar
+  useEffect(() => {
+    return () => {
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  // Handlers de interação (pausam e navegam)
   const nextSkill = () => {
     setCurrentIndex((prev) => (prev + 1) % skills.length);
-    setIsAutoPlaying(false);
+    temporarilyPause();
   };
-
   const prevSkill = () => {
     setCurrentIndex((prev) => (prev - 1 + skills.length) % skills.length);
-    setIsAutoPlaying(false);
+    temporarilyPause();
   };
-
   const goToSkill = (index: number) => {
     setCurrentIndex(index);
-    setIsAutoPlaying(false);
+    temporarilyPause();
   };
 
-  const currentSkill = skills[currentIndex];
+  const currentSkill = skills[currentIndex] ?? {
+    name: "",
+    description: "",
+    experience: 0,
+    maxExperience: 1,
+  };
   const progressPercentage =
-    (currentSkill.experience / currentSkill.maxExperience) * 100;
+    currentSkill.maxExperience > 0
+      ? (currentSkill.experience / currentSkill.maxExperience) * 100
+      : 0;
 
   return (
     <section
@@ -229,17 +333,13 @@ export default function Conhecimentos() {
             ))}
           </div>
 
-          {/* Auto-play indicator */}
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="text-xs text-gray-400 hover:text-gray-300 transition-colors"
-            >
-              {isAutoPlaying
-                ? `⏸️ ${t.skills.pauseLabel}`
-                : `▶️ ${t.skills.playLabel}`}
-            </button>
-          </div>
+          {/* Removido o botão de autoplay com emojis; pausa é automática nas interações */}
+          {/* Se quiser um feedback sutil, dá pra mostrar um chip discreto quando pausado: */}
+          {/* {isPaused && (
+            <div className="mt-4 text-xs text-gray-400">
+              {t.skills.resumingSoonLabel ?? "Retomando automaticamente..."}
+            </div>
+          )} */}
         </div>
       </motion.div>
     </section>
