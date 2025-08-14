@@ -6,8 +6,8 @@ import ParticlesBackground from "../components/ParticlesBackground";
 import Navbar from "../components/Navbar";
 
 export const metadata = {
-  title: "Meu Portfólio",
-  description: "Descrição aqui",
+  title: "Gabriel Caixeta - Portfólio",
+  description: "Portfólio de Gabriel Caixeta, desenvolvedor web full-stack.",
 };
 
 export default function RootLayout({

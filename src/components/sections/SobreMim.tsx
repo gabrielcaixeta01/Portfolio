@@ -43,7 +43,7 @@ export default function SobreMim() {
   return (
     <section
       id="sobre"
-      className="scroll-mt-32 h-screen flex items-center justify-center px-4"
+      className="scroll-mt-18 h-screen flex items-center justify-center px-4"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}

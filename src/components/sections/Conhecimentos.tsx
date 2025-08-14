@@ -125,7 +125,7 @@ export default function Conhecimentos() {
   return (
     <section
       id="conhecimentos"
-      className="scroll-mt-24 flex items-center justify-center min-h-screen px-4 py-16"
+      className="scroll-mt-18 flex items-center justify-center min-h-screen px-4 py-16"
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}

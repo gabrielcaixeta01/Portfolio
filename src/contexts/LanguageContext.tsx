@@ -138,6 +138,7 @@ const translations = {
       linkedin: "LinkedIn:",
       github: "GitHub:",
       email: "E-mail:",
+      copy: "Copiar",
     },
   },
   en: {
@@ -274,6 +275,7 @@ const translations = {
       linkedin: "LinkedIn:",
       github: "GitHub:",
       email: "Email:",
+      copy: "Copy",
     },
   },
 };
