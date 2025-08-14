@@ -15,8 +15,7 @@
 body {
   background-color: var(--background);
   font-family: var(--font-family, Arial, Helvetica, sans-serif);
-  transition: background-color 0.5s ease, color 0.5s ease;
-  color: var(--foreground);
+  transition: background-color 0.5s ease;
 }
 
 /* CursorRocket - Hide native cursor */
@@ -28,15 +27,13 @@ body {
   cursor: none !important;
 }
 
-/* Ensure background and text color changes work properly */
+/* Ensure background changes work properly */
 html:not(.dark) body {
   background-color: #ffffff;
-  color: #000000;
 }
 
 html.dark body {
   background-color: #0a0a0a;
-  color: #ffffff;
 }
 
 /* Navbar specific styling - darker text for light mode visibility with smooth transitions */
@@ -202,4 +199,38 @@ html.dark .mobile-menu a {
 .mobile-menu a:hover {
   background-color: rgba(156, 163, 175, 0.1) !important;
   cursor: pointer;
+}
+
+/* Fix for project section title colors - ensure Tailwind classes work */
+section#projetos h2 {
+  color: inherit !important;
+}
+
+/* Force project title colors based on theme - with higher specificity */
+html:not(.dark) body section#projetos div h2 {
+  color: #0f172a !important; /* slate-900 equivalent */
+}
+
+html.dark body section#projetos div h2 {
+  color: #ffffff !important; /* white */
+}
+
+/* Alternative approach - using data attributes if classes aren't working */
+[data-theme="light"] section#projetos h2,
+html:not(.dark) section#projetos h2 {
+  color: #0f172a !important; /* slate-900 equivalent */
+}
+
+[data-theme="dark"] section#projetos h2,
+html.dark section#projetos h2 {
+  color: #ffffff !important; /* white */
+}
+
+/* Fix for hero job title colors - make darker in light mode */
+html:not(.dark) section#hero h2 {
+  color: #111827 !important; /* gray-900 equivalent - very dark */
+}
+
+html.dark section#hero h2 {
+  color: #e5e7eb !important; /* gray-200 equivalent */
 }

@@ -94,7 +94,7 @@ export default function Hero() {
           transition={{ delay: 1.5, duration: 0.8 }}
           className="relative h-20 flex items-center justify-center"
         >
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider text-gray-600 dark:text-gray-300">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider text-gray-900 dark:text-gray-200">
             {currentJobTitle}
             <motion.span
               animate={{ opacity: [1, 0] }}

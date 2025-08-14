@@ -1,16 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import ProjectCard, { Project } from "../ProjectCard";
 
 export default function Projetos() {
   const { t } = useLanguage();
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Get the correct text color based on theme
+  const getTitleColor = () => {
+    if (!mounted) return "#0f172a"; // Default to dark color during SSR
+    return theme === "dark" ? "#ffffff" : "#0f172a";
+  };
 
   // Projects data - real projects
   const projects: Project[] = [
     {
-      badge: "CS50 Capstone",
+      badge: "Projeto Final CS50",
       title: "Stock Predictor",
       description:
         "Stock prediction platform built for the CS50 final project, mixing Next.js UI with Python models (Random Forest + news sentiment). Includes charts and ticker search.",
@@ -27,7 +41,7 @@ export default function Projetos() {
       linkLabel: "Link",
     },
     {
-      badge: "Personal",
+      badge: "Projeto Pessoal",
       title: "UnB Academic Agenda",
       description:
         "Visual schedule planner for UnB: create, organize and visualize classes and tasks. Built with a clean Tailwind UI and local storage.",
@@ -37,8 +51,8 @@ export default function Projetos() {
       linkLabel: "Link",
     },
     {
-      badge: "CJTR – Site",
-      title: "TREINI (Teacher Evaluation)",
+      badge: "Processo Trainee CJR",
+      title: "Site de Avaliação de Professores",
       description:
         "Website for evaluating professors, developed for CJTR. Focused on accessibility, fast search and clear submission flow.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma"],
@@ -47,23 +61,13 @@ export default function Projetos() {
       linkLabel: "Link",
     },
     {
-      badge: "CJTR – Consulting",
+      badge: "CJR – Consulting",
       title: "Dental Marketplace (Figma)",
       description:
         "Product design for a fast and secure marketplace of dental products. Information architecture, UI system and flows delivered in Figma.",
       tech: ["Figma", "Design System", "UX Flows"],
       // image: "/images/dental-marketplace-cover.jpg", // Add this when image is available
       link: "https://figma.com/dental-marketplace-design",
-      linkLabel: "Figma",
-    },
-    {
-      badge: "CJTR – Consulting",
-      title: "Ontological Project (Figma)",
-      description:
-        "Consulting project with ontological modeling and UI prototypes to support data consistency and navigation. Delivered as Figma prototypes.",
-      tech: ["Figma", "UX", "Prototyping"],
-      // image: "/images/ontologico-cover.jpg", // Add this when image is available
-      link: "https://figma.com/ontological-project",
       linkLabel: "Figma",
     },
   ];
@@ -79,10 +83,15 @@ export default function Projetos() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{
+              color: getTitleColor(),
+            }}
+          >
             {t.projects.title}
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-zinc-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed">
             {t.projects.description}
           </p>
         </motion.div>
