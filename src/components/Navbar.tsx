@@ -5,6 +5,7 @@ import { FaGithub, FaLinkedin, FaChevronDown } from "react-icons/fa";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { BR, US } from "country-flag-icons/react/3x2";
 import { useLanguage } from "../contexts/LanguageContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -170,24 +171,34 @@ export default function Navbar() {
             </button>
 
             {/* Dropdown Menu */}
-            {isLanguageDropdownOpen && (
-              <div className="language-dropdown absolute right-0 mt-1 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 min-w-[120px] z-10">
-                <button
-                  onClick={() => handleLanguageChange("pt")}
-                  className="w-full px-3 py-2 text-left flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-500 ease-in-out cursor-pointer"
+            <AnimatePresence>
+              {isLanguageDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="language-dropdown absolute right-0 mt-1 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 min-w-[120px] z-10"
                 >
-                  <BR style={{ width: "16px", height: "11px" }} />
-                  <span>{t.navbar.portuguese}</span>
-                </button>
-                <button
-                  onClick={() => handleLanguageChange("en")}
-                  className="w-full px-3 py-2 text-left flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-500 ease-in-out cursor-pointer"
-                >
-                  <US style={{ width: "16px", height: "11px" }} />
-                  <span>{t.navbar.english}</span>
-                </button>
-              </div>
-            )}
+                  {[
+                    { key: "pt", flag: BR, label: t.navbar.portuguese },
+                    { key: "en", flag: US, label: t.navbar.english },
+                  ].map((lang, index) => (
+                    <motion.button
+                      key={lang.key}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
+                      onClick={() => handleLanguageChange(lang.key)}
+                      className="w-full px-3 py-2 text-left flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-500 ease-in-out cursor-pointer"
+                    >
+                      <lang.flag style={{ width: "16px", height: "11px" }} />
+                      <span>{lang.label}</span>
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {mounted && (
@@ -202,67 +213,71 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div
-          ref={mobileMenuRef}
-          className="mobile-menu md:hidden absolute top-full left-0 w-80 max-w-[80vw] bg-white dark:bg-black border-r border-gray-200 dark:border-gray-700 shadow-lg min-h-screen"
-        >
-          <div className="px-6 py-4 space-y-2">
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            ref={mobileMenuRef}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="mobile-menu md:hidden absolute top-full left-4 w-64 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 z-10"
+          >
             {/* Mobile Navigation Links */}
-            <button
-              onClick={() => scrollToSection("hero")}
-              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-            >
-              {t.navbar.home}
-            </button>
-            <button
-              onClick={() => scrollToSection("sobre")}
-              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-            >
-              {t.navbar.about}
-            </button>
-            <button
-              onClick={() => scrollToSection("projetos")}
-              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-            >
-              {t.navbar.projects}
-            </button>
-            <button
-              onClick={() => scrollToSection("conhecimentos")}
-              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-            >
-              {t.navbar.skills}
-            </button>
-            <button
-              onClick={() => scrollToSection("contato")}
-              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-            >
-              {t.navbar.contact}
-            </button>
+            {[
+              { key: "hero", label: t.navbar.home },
+              { key: "sobre", label: t.navbar.about },
+              { key: "projetos", label: t.navbar.projects },
+              { key: "conhecimentos", label: t.navbar.skills },
+              { key: "contato", label: t.navbar.contact },
+            ].map((item, index) => (
+              <motion.button
+                key={item.key}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.2 }}
+                onClick={() => scrollToSection(item.key)}
+                className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+              >
+                {item.label}
+              </motion.button>
+            ))}
 
-            {/* Mobile Social Links as buttons */}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-              <a
-                href="https://github.com/gabrielcaixeta01"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://linkedin.com/in/gabriel-caixeta-romero"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+            {/* Mobile Social Links with separator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25, duration: 0.2 }}
+              className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2"
+            >
+              {[
+                {
+                  href: "https://github.com/gabrielcaixeta01",
+                  label: "GitHub",
+                },
+                {
+                  href: "https://linkedin.com/in/gabriel-caixeta-romero",
+                  label: "LinkedIn",
+                },
+              ].map((link, index) => (
+                <motion.a
+                  key={link.label}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + index * 0.05, duration: 0.2 }}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 block"
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

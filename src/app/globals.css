@@ -131,11 +131,31 @@ html.dark .skills-description {
   color: #d1d5db !important; /* gray-300 equivalent */
 }
 
-/* Mobile menu background theme switching */
+/* Mobile menu dropdown styling */
 html:not(.dark) .mobile-menu {
-  background-color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #d1d5db !important;
 }
 
 html.dark .mobile-menu {
-  background-color: #000000 !important;
+  background-color: rgba(31, 41, 55, 0.95) !important;
+  border-color: #4b5563 !important;
+}
+
+/* Mobile menu text colors */
+html:not(.dark) .mobile-menu button,
+html:not(.dark) .mobile-menu a {
+  color: #1f2937 !important; /* dark gray for light mode */
+}
+
+html.dark .mobile-menu button,
+html.dark .mobile-menu a {
+  color: #e5e7eb !important; /* light gray for dark mode */
+}
+
+/* Mobile menu button hover - subtle background */
+.mobile-menu button:hover,
+.mobile-menu a:hover {
+  background-color: rgba(156, 163, 175, 0.1) !important;
+  cursor: pointer;
 }
