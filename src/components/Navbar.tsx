@@ -11,7 +11,9 @@ export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -24,6 +26,12 @@ export default function Navbar() {
       ) {
         setIsLanguageDropdownOpen(false);
       }
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -35,6 +43,7 @@ export default function Navbar() {
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) section.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
   const handleLanguageChange = (lang: string) => {
@@ -60,8 +69,37 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-xs border-b border-gray-200/20 dark:border-gray-700/20 py-2 px-6">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
-        {/* Navigation sections - Left side */}
-        <div className="flex items-center space-x-4">
+        {/* Mobile hamburger button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden p-2 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-300"
+          aria-label="Toggle mobile menu"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+
+        {/* Desktop Navigation sections - Left side */}
+        <div className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => scrollToSection("hero")}
             className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
@@ -94,14 +132,14 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Icons and theme switcher - Right side */}
+        {/* Desktop Icons and theme switcher - Right side */}
         <div className="flex items-center space-x-2">
           <a
             href="https://github.com/gabrielcaixeta01"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
           >
             <FaGithub size={16} />
           </a>
@@ -110,7 +148,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
           >
             <FaLinkedin size={16} />
           </a>
@@ -163,6 +201,68 @@ export default function Navbar() {
           )}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div
+          ref={mobileMenuRef}
+          className="mobile-menu md:hidden absolute top-full left-0 w-80 max-w-[80vw] bg-white dark:bg-black border-r border-gray-200 dark:border-gray-700 shadow-lg min-h-screen"
+        >
+          <div className="px-6 py-4 space-y-2">
+            {/* Mobile Navigation Links */}
+            <button
+              onClick={() => scrollToSection("hero")}
+              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            >
+              {t.navbar.home}
+            </button>
+            <button
+              onClick={() => scrollToSection("sobre")}
+              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            >
+              {t.navbar.about}
+            </button>
+            <button
+              onClick={() => scrollToSection("projetos")}
+              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            >
+              {t.navbar.projects}
+            </button>
+            <button
+              onClick={() => scrollToSection("conhecimentos")}
+              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            >
+              {t.navbar.skills}
+            </button>
+            <button
+              onClick={() => scrollToSection("contato")}
+              className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            >
+              {t.navbar.contact}
+            </button>
+
+            {/* Mobile Social Links as buttons */}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+              <a
+                href="https://github.com/gabrielcaixeta01"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://linkedin.com/in/gabriel-caixeta-romero"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left py-3 px-4 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
