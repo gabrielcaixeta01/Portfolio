@@ -62,7 +62,7 @@ export default function SobreMim() {
             className="flex-shrink-0"
           >
             <div
-              className="relative w-80 h-96 rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800 cursor-pointer"
+              className="relative w-96 h-[28rem] rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800 cursor-pointer"
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{

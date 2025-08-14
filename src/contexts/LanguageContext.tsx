@@ -8,7 +8,7 @@ const translations = {
     // Navbar
     navbar: {
       home: "Início",
-      about: "Sobre Mim",
+      about: "Sobre",
       projects: "Projetos",
       skills: "Conhecimentos",
       contact: "Contato",
@@ -17,13 +17,13 @@ const translations = {
     },
     // About Section
     about: {
-      title: "Sobre mim",
+      title: "Sobre",
       paragraph1:
-        "Olá! Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB). Tenho grande interesse por tecnologia, com foco em desenvolvimento web full stack e inteligência artificial.",
+        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) com sólida experiência em desenvolvimento full stack. Especializo-me na criação de aplicações web modernas usando Next.js, NestJS, TypeScript, Tailwind CSS, PostgreSQL e Prisma, complementado por ampla experiência em Python e Machine Learning.",
       paragraph2:
-        "Ao longo da minha jornada acadêmica e profissional, busquei combinar habilidades técnicas com criatividade, contribuindo para soluções eficientes, intuitivas e modernas.",
+        "Meu foco está em criar aplicações performáticas, escaláveis e de fácil uso que resolvem problemas do mundo real. Combino precisão técnica com arquitetura limpa para entregar soluções robustas e de fácil manutenção.",
       paragraph3:
-        "Atualmente, estou aprofundando meus conhecimentos em frameworks como Next.js e NestJS, além de explorar áreas como aprendizado de máquina e sistemas embarcados. Acredito no poder da tecnologia para transformar o mundo, e estou sempre em busca de novos desafios e oportunidades de aprendizado.",
+        "Atualmente expandindo meus conhecimentos em IA e sistemas embarcados, estou sempre buscando novos desafios que ampliem os limites da tecnologia. Vamos nos conectar e explorar como podemos colaborar em projetos empolgantes juntos.",
     },
     // Projects Section
     projects: {
@@ -68,14 +68,14 @@ const translations = {
           name: "Next.js",
           description:
             "Framework React para produção que oferece renderização híbrida, roteamento automático e otimizações de performance.",
-          experience: 2.5,
+          experience: 3,
           maxExperience: 3,
         },
         {
           name: "TypeScript",
           description:
             "Superset do JavaScript que adiciona tipagem estática, melhorando a robustez e manutenibilidade do código.",
-          experience: 2,
+          experience: 3,
           maxExperience: 3,
         },
         {
@@ -89,21 +89,21 @@ const translations = {
           name: "Node.js",
           description:
             "Runtime JavaScript que permite executar código JavaScript no servidor, ideal para APIs e aplicações backend.",
-          experience: 2,
+          experience: 3,
           maxExperience: 3,
         },
         {
           name: "NestJS",
           description:
             "Framework Node.js progressivo para construir aplicações server-side eficientes e escaláveis com TypeScript.",
-          experience: 1.5,
+          experience: 2,
           maxExperience: 3,
         },
         {
           name: "Python",
           description:
             "Linguagem versátil usada para desenvolvimento web, análise de dados, machine learning e automação.",
-          experience: 2.5,
+          experience: 3,
           maxExperience: 3,
         },
         {
@@ -117,28 +117,28 @@ const translations = {
           name: "C++",
           description:
             "Linguagem de programação para algoritmos, estruturas de dados e soluções de alto desempenho.",
-          experience: 2,
+          experience: 1.5,
           maxExperience: 3,
         },
         {
           name: "Jupyter",
           description:
             "Ambiente interativo para prototipagem e análise exploratória de dados com notebooks.",
-          experience: 3,
+          experience: 1,
           maxExperience: 3,
         },
         {
           name: "Google Colab",
           description:
             "Plataforma de notebooks em nuvem para machine learning com acesso a GPU facilitado.",
-          experience: 3,
+          experience: 1,
           maxExperience: 3,
         },
         {
           name: "Figma",
           description:
             "Ferramenta de design de interfaces, prototipagem colaborativa e handoff para desenvolvimento.",
-          experience: 3,
+          experience: 2.5,
           maxExperience: 3,
         },
       ],
@@ -173,7 +173,7 @@ const translations = {
     // Navbar
     navbar: {
       home: "Home",
-      about: "About Me",
+      about: "About",
       projects: "Projects",
       skills: "Skills",
       contact: "Contact",
@@ -182,13 +182,13 @@ const translations = {
     },
     // About Section
     about: {
-      title: "About me",
+      title: "About",
       paragraph1:
-        "Hello! I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB). I have great interest in technology, with a focus on full stack web development and artificial intelligence.",
+        "I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB) with strong expertise in full stack development. I specialize in building modern web applications using Next.js, NestJS, TypeScript, Tailwind CSS, PostgreSQL, and Prisma, complemented by extensive experience in Python and Machine Learning.",
       paragraph2:
-        "Throughout my academic and professional journey, I have sought to combine technical skills with creativity, contributing to efficient, intuitive and modern solutions.",
+        "My focus is on creating performant, scalable, and user-friendly applications that solve real-world problems. I combine technical precision with clean architecture to deliver solutions that are both robust and maintainable.",
       paragraph3:
-        "Currently, I am deepening my knowledge in frameworks like Next.js and NestJS, in addition to exploring areas like machine learning and embedded systems. I believe in the power of technology to transform the world, and I am always looking for new challenges and learning opportunities.",
+        "Currently expanding my knowledge in AI and embedded systems, I'm always seeking new challenges that push the boundaries of technology. Let's connect and explore how we can collaborate on exciting projects together.",
     },
     // Projects Section
     projects: {
@@ -233,14 +233,14 @@ const translations = {
           name: "Next.js",
           description:
             "React framework for production that offers hybrid rendering, automatic routing and performance optimizations.",
-          experience: 2.5,
+          experience: 3,
           maxExperience: 3,
         },
         {
           name: "TypeScript",
           description:
             "JavaScript superset that adds static typing, improving code robustness and maintainability.",
-          experience: 2,
+          experience: 3,
           maxExperience: 3,
         },
         {
@@ -254,21 +254,21 @@ const translations = {
           name: "Node.js",
           description:
             "JavaScript runtime that allows executing JavaScript code on the server, ideal for APIs and backend applications.",
-          experience: 2,
+          experience: 3,
           maxExperience: 3,
         },
         {
           name: "NestJS",
           description:
             "Progressive Node.js framework for building efficient and scalable server-side applications with TypeScript.",
-          experience: 1.5,
+          experience: 2,
           maxExperience: 3,
         },
         {
           name: "Python",
           description:
             "Versatile language used for web development, data analysis, machine learning and automation.",
-          experience: 2.5,
+          experience: 3,
           maxExperience: 3,
         },
         {
@@ -282,28 +282,28 @@ const translations = {
           name: "C++",
           description:
             "Programming language for algorithms, data structures and high-performance solutions.",
-          experience: 2,
+          experience: 1.5,
           maxExperience: 3,
         },
         {
           name: "Jupyter",
           description:
             "Interactive environment for prototyping and exploratory data analysis with notebooks.",
-          experience: 3,
+          experience: 1,
           maxExperience: 3,
         },
         {
           name: "Google Colab",
           description:
             "Cloud notebook platform for machine learning with easy GPU access.",
-          experience: 3,
+          experience: 1,
           maxExperience: 3,
         },
         {
           name: "Figma",
           description:
             "Interface design tool, collaborative prototyping and development handoff.",
-          experience: 3,
+          experience: 2.5,
           maxExperience: 3,
         },
       ],
