@@ -31,8 +31,8 @@ html.dark body {
 }
 
 /* Navbar specific styling - darker text for light mode visibility with smooth transitions */
-html:not(.dark) nav button,
-html:not(.dark) nav a {
+html:not(.dark) nav button:not(:hover),
+html:not(.dark) nav a:not(:hover) {
   color: #1f2937 !important; /* gray-800 - much darker for better visibility */
   transition: color 0.2s ease !important; /* Faster theme transition to match right side */
 }
@@ -62,7 +62,7 @@ html.dark .language-dropdown {
 }
 
 /* Language dropdown text colors */
-html:not(.dark) .language-dropdown button {
+html:not(.dark) .language-dropdown button:not(:hover) {
   color: #1f2937 !important; /* dark gray for light mode */
 }
 
@@ -76,12 +76,22 @@ html.dark .language-dropdown button {
   cursor: pointer;
 }
 
+/* Language dropdown trigger button hover effect - simple color for icons */
+nav button[aria-label="Change language"]:hover {
+  color: #8b5cf6 !important; /* Purple color from the gradient for consistency */
+}
+
+/* Language dropdown trigger button chevron hover - simple color for icons */
+nav button[aria-label="Change language"]:hover svg {
+  color: #8b5cf6 !important; /* Purple color from the gradient for consistency */
+}
+
 /* 3D perspective utility for image tilt effect */
 .perspective-1000 {
   perspective: 1000px;
 }
 
-/* Smooth navbar hover effects - blue to purple gradient hover */
+/* Smooth navbar hover effects - blue to purple gradient to match skills section */
 nav button {
   padding: 8px 16px;
   border-radius: 30px;
@@ -89,13 +99,14 @@ nav button {
 }
 
 nav button:hover {
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(to right, #3b82f6, #a855f7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
 }
 
-/* Hover effects for navbar links (icons) */
+/* Hover effects for navbar links (icons) - simple color for icons */
 nav a {
   padding: 8px;
   border-radius: 30px;
@@ -103,18 +114,12 @@ nav a {
 }
 
 nav a:hover {
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #3f2fef !important; /* Purple color from the gradient for consistency */
 }
 
-/* Theme toggle button hover effect */
+/* Theme toggle button hover effect - simple color for icons */
 nav button[aria-label="Toggle theme"]:hover {
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #3330fc !important; /* Purple color from the gradient for consistency */
 }
 
 /* Skills section description text override */

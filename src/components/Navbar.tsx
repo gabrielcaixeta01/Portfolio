@@ -102,31 +102,31 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-4">
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.home}
           </button>
           <button
             onClick={() => scrollToSection("sobre")}
-            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.about}
           </button>
           <button
             onClick={() => scrollToSection("projetos")}
-            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.projects}
           </button>
           <button
             onClick={() => scrollToSection("conhecimentos")}
-            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.skills}
           </button>
           <button
             onClick={() => scrollToSection("contato")}
-            className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+            className="text-sm font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500 ease-in-out cursor-pointer"
           >
             {t.navbar.contact}
           </button>
@@ -139,7 +139,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
           >
             <FaGithub size={16} />
           </a>
@@ -148,7 +148,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block"
           >
             <FaLinkedin size={16} />
           </a>
@@ -163,7 +163,7 @@ export default function Navbar() {
               {getCurrentFlag()}
               <FaChevronDown
                 size={8}
-                className={`transition-all duration-500 ease-in-out text-gray-500 hover:text-blue-500 ${
+                className={`transition-all duration-500 ease-in-out text-gray-500 ${
                   isLanguageDropdownOpen ? "rotate-180" : ""
                 }`}
               />
@@ -194,7 +194,7 @@ export default function Navbar() {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors duration-500 ease-in-out cursor-pointer"
+              className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-500 ease-in-out cursor-pointer"
             >
               {theme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
             </button>
