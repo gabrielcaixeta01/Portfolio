@@ -50,6 +50,36 @@ html.dark nav {
   border-bottom: 1px solid #4b5563 !important; /* darker gray for dark mode */
 }
 
+/* Hamburger menu button - ensure visibility in all themes */
+nav button[aria-label="Toggle mobile menu"] {
+  z-index: 50 !important;
+}
+
+/* Hamburger button visibility - force proper colors */
+html:not(.dark) nav button[aria-label="Toggle mobile menu"] {
+  color: #111827 !important; /* Very dark gray for light mode */
+}
+
+html.dark nav button[aria-label="Toggle mobile menu"] {
+  color: #f9fafb !important; /* Very light gray for dark mode */
+}
+
+/* Hamburger button hover effects */
+html:not(.dark) nav button[aria-label="Toggle mobile menu"]:hover {
+  background-color: rgba(156, 163, 175, 0.2) !important;
+  color: #111827 !important;
+}
+
+html.dark nav button[aria-label="Toggle mobile menu"]:hover {
+  background-color: rgba(156, 163, 175, 0.2) !important;
+  color: #f9fafb !important;
+}
+
+/* Ensure mobile menu doesn't block hamburger button */
+.mobile-menu {
+  z-index: 40 !important;
+}
+
 /* Language dropdown styling */
 html:not(.dark) .language-dropdown {
   background-color: rgba(255, 255, 255, 0.95) !important;

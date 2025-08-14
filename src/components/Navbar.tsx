@@ -68,12 +68,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-xs border-b border-gray-200/20 dark:border-gray-700/20 py-2 px-6">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-xs border-b border-gray-200/20 dark:border-gray-700/20 py-2 px-4">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         {/* Mobile hamburger button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-300"
+          className="md:hidden p-1.5 rounded-lg text-gray-900 dark:text-gray-100 hover:bg-gray-200/70 dark:hover:bg-gray-700/70 transition-all duration-300 relative z-20 ml-0"
           aria-label="Toggle mobile menu"
         >
           <svg
@@ -83,19 +83,11 @@ export default function Navbar() {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            {isMobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
 
@@ -222,7 +214,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mobile-menu md:hidden absolute top-full left-4 w-64 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 z-10"
+            className="mobile-menu md:hidden absolute top-full left-2 w-64 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-lg py-2 z-10 mt-2"
           >
             {/* Mobile Navigation Links */}
             {[
@@ -249,7 +241,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25, duration: 0.2 }}
-              className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2"
+              className="pt-2 pl-2"
             >
               {[
                 {
