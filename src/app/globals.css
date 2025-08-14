@@ -19,6 +19,15 @@ body {
   color: var(--foreground);
 }
 
+/* CursorRocket - Hide native cursor */
+.hide-native-cursor {
+  cursor: none !important;
+}
+
+.hide-native-cursor * {
+  cursor: none !important;
+}
+
 /* Ensure background and text color changes work properly */
 html:not(.dark) body {
   background-color: #ffffff;
@@ -149,6 +158,11 @@ nav a:hover {
 
 /* Theme toggle button hover effect - simple color for icons */
 nav button[aria-label="Toggle theme"]:hover {
+  color: #3330fc !important; /* Purple color from the gradient for consistency */
+}
+
+/* Rocket toggle button hover effect - simple color for icons */
+nav button[aria-label*="rocket cursor"]:hover {
   color: #3330fc !important; /* Purple color from the gradient for consistency */
 }
 

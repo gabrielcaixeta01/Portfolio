@@ -1,15 +1,17 @@
 "use client";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useRef } from "react";
-import { FaGithub, FaLinkedin, FaChevronDown } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaChevronDown, FaRocket } from "react-icons/fa";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { BR, US } from "country-flag-icons/react/3x2";
 import { useLanguage } from "../contexts/LanguageContext";
+import { useRocket } from "../contexts/RocketContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const { isRocketEnabled, toggleRocket } = useRocket();
 
   const [mounted, setMounted] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
@@ -54,9 +56,15 @@ export default function Navbar() {
 
   const getCurrentFlag = () => {
     return language === "pt" ? (
-      <BR title="Português (Brasil)" style={{ width: "20px", height: "14px" }} />
+      <BR
+        title="Português (Brasil)"
+        style={{ width: "20px", height: "14px" }}
+      />
     ) : (
-      <US title="English (United States)" style={{ width: "20px", height: "14px" }} />
+      <US
+        title="English (United States)"
+        style={{ width: "20px", height: "14px" }}
+      />
     );
   };
 
@@ -82,7 +90,11 @@ export default function Navbar() {
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
 
@@ -140,6 +152,21 @@ export default function Navbar() {
           >
             <FaLinkedin size={16} />
           </a>
+
+          {/* Rocket Toggle */}
+          <button
+            onClick={toggleRocket}
+            aria-label={
+              isRocketEnabled ? "Disable rocket cursor" : "Enable rocket cursor"
+            }
+            className={`p-1.5 rounded-full transition-colors duration-500 ease-in-out cursor-pointer hidden sm:block ${
+              isRocketEnabled
+                ? "text-blue-500 dark:text-blue-400 scale-110"
+                : "text-gray-700 dark:text-gray-300"
+            }`}
+          >
+            <FaRocket size={16} />
+          </button>
 
           {/* Seletor de idioma */}
           <div className="relative" ref={dropdownRef}>
@@ -240,8 +267,14 @@ export default function Navbar() {
               className="pt-2 pl-2"
             >
               {[
-                { href: "https://github.com/gabrielcaixeta01", label: "GitHub" },
-                { href: "https://linkedin.com/in/gabriel-caixeta-romero", label: "LinkedIn" },
+                {
+                  href: "https://github.com/gabrielcaixeta01",
+                  label: "GitHub",
+                },
+                {
+                  href: "https://linkedin.com/in/gabriel-caixeta-romero",
+                  label: "LinkedIn",
+                },
               ].map((link, index) => (
                 <motion.a
                   key={link.label}
@@ -256,6 +289,24 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
+
+              {/* Rocket Toggle Mobile */}
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.2 }}
+                onClick={toggleRocket}
+                className={`w-full px-4 py-2 text-left text-sm transition-colors duration-300 flex items-center space-x-2 ${
+                  isRocketEnabled
+                    ? "text-blue-500 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              >
+                <FaRocket size={14} />
+                <span>
+                  {isRocketEnabled ? "Disable Rocket" : "Enable Rocket"}
+                </span>
+              </motion.button>
             </motion.div>
           </motion.div>
         )}
