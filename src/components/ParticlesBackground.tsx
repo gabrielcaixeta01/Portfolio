@@ -110,6 +110,39 @@ export default function ParticlesBackground() {
             },
           },
         },
+        responsive: [
+          {
+            maxWidth: 768,
+            options: {
+              particles: {
+                number: {
+                  value: 40, // Reduced from 80 to 40 (50% fewer)
+                },
+                size: {
+                  value: 1, // Reduced from 2 to 1 (50% smaller)
+                },
+                links: {
+                  distance: 100, // Reduced from 150 to 100
+                  width: 0.8, // Reduced from 1 to 0.8
+                },
+                move: {
+                  speed: 1, // Slightly reduced from 1.5 to 1
+                },
+              },
+              interactivity: {
+                modes: {
+                  repulse: {
+                    distance: 60, // Reduced from 100 to 60
+                  },
+                  bubble: {
+                    distance: 120, // Reduced from 200 to 120
+                    size: 6, // Reduced from 10 to 6
+                  },
+                },
+              },
+            },
+          },
+        ],
       }}
     />
   );
