@@ -289,24 +289,6 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
-
-              {/* Rocket Toggle Mobile */}
-              <motion.button
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4, duration: 0.2 }}
-                onClick={toggleRocket}
-                className={`w-full px-4 py-2 text-left text-sm transition-colors duration-300 flex items-center space-x-2 ${
-                  isRocketEnabled
-                    ? "text-blue-500 dark:text-blue-400"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
-              >
-                <FaRocket size={14} />
-                <span>
-                  {isRocketEnabled ? "Disable Rocket" : "Enable Rocket"}
-                </span>
-              </motion.button>
             </motion.div>
           </motion.div>
         )}
