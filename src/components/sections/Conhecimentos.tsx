@@ -250,7 +250,7 @@ export default function Conhecimentos() {
           {/* Navigation Buttons */}
           <button
             onClick={prevSkill}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
             aria-label="Previous skill"
           >
             <ChevronLeftIcon className="w-6 h-6" />
@@ -258,7 +258,7 @@ export default function Conhecimentos() {
 
           <button
             onClick={nextSkill}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
             aria-label="Next skill"
           >
             <ChevronRightIcon className="w-6 h-6" />
