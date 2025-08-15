@@ -95,6 +95,38 @@
     color: var(--pc-text);
   }
 
+  /* Project Cards Responsive Styling */
+  @media (max-width: 768px) {
+    .project-desc {
+      text-align: justify;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .project-card {
+      padding: 1.25rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .project-desc {
+      font-size: 0.875rem;
+    }
+
+    .project-title {
+      font-size: 1.125rem;
+    }
+
+    .project-card {
+      padding: 1rem;
+    }
+  }
+
   .project-chip {
     background: var(--pc-chip-bg);
     color: var(--pc-chip-text);
@@ -430,6 +462,478 @@ html.dark section#projetos p {
   color: #d1d5db !important; /* gray-300 equivalent */
 }
 
+/* Projects Section Description Responsive Styling */
+@media (max-width: 768px) {
+  section#projetos p {
+    text-align: justify !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    max-width: 100% !important;
+    padding: 0 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  section#projetos p {
+    font-size: 0.9rem !important;
+    padding: 0 0.5rem !important;
+  }
+
+  section#projetos h2 {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+  }
+
+  section#projetos .mb-16 {
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* Projects Grid Responsive Adjustments */
+@media (max-width: 768px) {
+  section#projetos .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  section#projetos .grid {
+    gap: 1rem !important;
+  }
+
+  section#projetos {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Responsive section spacing fixes for mobile */
+@layer components {
+  /* Fix for "Sobre" section height on small screens */
+  section#sobre {
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Extra spacing for "Projetos" section on mobile */
+  section#projetos {
+    margin-top: 2rem;
+    padding-top: 3rem;
+  }
+
+  /* Responsive spacing adjustments */
+  @media (max-width: 480px) {
+    section#sobre {
+      min-height: auto;
+      padding-top: 3rem;
+      padding-bottom: 6rem;
+    }
+
+    section#projetos {
+      margin-top: 4rem;
+      padding-top: 5rem;
+    }
+
+    /* Increase main container gap on mobile */
+    main.container {
+      gap: 8rem !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    section#sobre {
+      padding-bottom: 10rem;
+    }
+
+    section#projetos {
+      margin-top: 8rem;
+      padding-top: 8rem;
+    }
+
+    /* Even more gap for very small screens */
+    main.container {
+      gap: 10rem !important;
+    }
+  }
+
+  /* iPhone SE and similar very small screens */
+  @media (max-width: 375px) and (max-height: 667px) {
+    section#sobre {
+      padding-bottom: 12rem;
+    }
+
+    section#projetos {
+      margin-top: 10rem;
+      padding-top: 10rem;
+    }
+  }
+}
+
+/* Hero Section Responsive Name Styling */
+@layer components {
+  .hero-name {
+    /* Ensure name never overflows on mobile */
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+  }
+
+  /* Mobile-specific adjustments for hero name */
+  @media (max-width: 640px) {
+    .hero-name {
+      white-space: normal;
+      line-height: 0.9;
+    }
+
+    /* Fine-tune spacing between first and last name on mobile */
+    .hero-name span[class*="flex-col"] {
+      gap: 0.25rem;
+    }
+  }
+
+  /* Very small screens (iPhone SE, etc.) */
+  @media (max-width: 375px) {
+    .hero-name {
+      font-size: 3.5rem !important; /* Override Tailwind classes */
+      line-height: 0.85;
+    }
+  }
+
+  /* Extra small screens - final safety net */
+  @media (max-width: 320px) {
+    .hero-name {
+      font-size: 3rem !important;
+      line-height: 0.8;
+    }
+  }
+
+  /* Ensure proper spacing and centering for hero section */
+  section#hero {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    section#hero {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    /* Reduce margin between name and job title on small screens */
+    section#hero .mb-8 {
+      margin-bottom: 1.5rem !important;
+    }
+  }
+}
+
+/* About Section Responsive Styling */
+@layer components {
+  /* About image container responsive behavior */
+  .about-image-container {
+    order: 1; /* Image first on mobile */
+  }
+
+  .about-content {
+    order: 2; /* Content second on mobile */
+  }
+
+  /* Responsive image sizing */
+  .about-image {
+    /* Mobile: smaller, centered image */
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+
+  /* Title responsive sizing */
+  .about-title {
+    line-height: 1.1;
+  }
+
+  /* Text content responsive spacing */
+  .about-text {
+    line-height: 1.6;
+  }
+
+  /* Desktop adjustments */
+  @media (min-width: 1024px) {
+    .about-image-container {
+      order: 0; /* Reset order for desktop side-by-side */
+    }
+
+    .about-content {
+      order: 0;
+    }
+
+    .about-image {
+      width: 320px;
+      height: 384px; /* 24rem */
+      max-width: none;
+    }
+  }
+
+  /* Mobile specific adjustments */
+  @media (max-width: 640px) {
+    .about-image {
+      max-width: 240px;
+    }
+
+    .about-title {
+      font-size: 2.5rem !important;
+      line-height: 1;
+    }
+
+    .about-text {
+      font-size: 1rem !important;
+      text-align: justify; /* Justificar texto apenas no mobile */
+    }
+
+    .about-text p:first-child {
+      font-size: 1.125rem !important;
+    }
+  }
+
+  /* Very small screens */
+  @media (max-width: 480px) {
+    .about-image {
+      max-width: 220px;
+    }
+
+    .about-title {
+      font-size: 2.25rem !important;
+    }
+
+    section#sobre {
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+    }
+  }
+
+  /* iPhone SE and similar */
+  @media (max-width: 375px) {
+    .about-image {
+      max-width: 200px;
+    }
+
+    .about-title {
+      font-size: 2rem !important;
+    }
+  }
+
+  /* About section text colors and visual hierarchy */
+  .about-title {
+    color: var(--cc-title, #0f172a);
+  }
+
+  .about-text {
+    color: var(--cc-text, #475569);
+  }
+
+  /* Dark mode overrides for about section */
+  html.dark .about-title {
+    color: var(--cc-title, #e5e7eb);
+  }
+
+  html.dark .about-text {
+    color: var(--cc-text, #cbd5e1);
+  }
+
+  /* Hover effect for about image */
+  .about-image:hover {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.02);
+  }
+
+  /* Smooth transitions for about section */
+  .about-image {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+/* Skills/Conhecimentos Section Responsive Styling */
+@layer components {
+  /* Skills section responsive layout */
+  .skills-carousel {
+    position: relative;
+  }
+
+  /* Navigation buttons responsive positioning */
+  .skills-nav {
+    z-index: 20;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .skills-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  /* Dark mode navigation buttons */
+  html.dark .skills-nav {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  html.dark .skills-nav:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Skills card responsive styling */
+  .skills-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+  }
+
+  html.dark .skills-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Skills title and description colors */
+  .skills-title {
+    color: var(--cc-title, #0f172a);
+  }
+
+  .skills-description {
+    color: var(--cc-text, #475569);
+  }
+
+  .skills-card-title {
+    color: var(--cc-title, #0f172a);
+  }
+
+  .skills-card-description {
+    color: var(--cc-text, #475569);
+    text-align: justify;
+  }
+
+  /* Dark mode text colors */
+  html.dark .skills-title {
+    color: var(--cc-title, #e5e7eb);
+  }
+
+  html.dark .skills-description {
+    color: var(--cc-text, #cbd5e1);
+  }
+
+  html.dark .skills-card-title {
+    color: var(--cc-title, #e5e7eb);
+  }
+
+  html.dark .skills-card-description {
+    color: var(--cc-text, #cbd5e1);
+  }
+
+  /* Mobile specific adjustments for skills section */
+  @media (max-width: 768px) {
+    .skills-carousel {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .skills-nav-left {
+      left: 0.25rem !important;
+    }
+
+    .skills-nav-right {
+      right: 0.25rem !important;
+    }
+
+    .skills-card {
+      padding: 1rem;
+      max-width: calc(100vw - 5rem);
+    }
+
+    .skills-card-description {
+      font-size: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .skills-title {
+      font-size: 2.5rem !important;
+    }
+
+    .skills-description {
+      text-align: justify;
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .skills-carousel {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .skills-nav {
+      padding: 0.5rem;
+    }
+
+    .skills-card {
+      padding: 0.75rem;
+      max-width: calc(100vw - 4rem);
+    }
+
+    .skills-title {
+      font-size: 2rem !important;
+    }
+
+    .skills-description {
+      font-size: 0.875rem;
+      padding: 0 0.5rem;
+    }
+
+    section#conhecimentos {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .skills-carousel {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .skills-nav-left {
+      left: 0 !important;
+    }
+
+    .skills-nav-right {
+      right: 0 !important;
+    }
+
+    .skills-card {
+      max-width: calc(100vw - 3rem);
+      padding: 0.5rem;
+    }
+
+    .skills-card-title {
+      font-size: 1.25rem !important;
+    }
+
+    .skills-card-description {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .skills-title {
+      font-size: 1.75rem !important;
+    }
+
+    .skills-card {
+      max-width: calc(100vw - 2.5rem);
+    }
+  }
+}
+
 /*
 Contact Card Usage Example (JSX):
 <div className="contact-card p-8 md:p-10">
@@ -448,3 +952,254 @@ Contact Card Usage Example (JSX):
   </div>
 </div>
 */
+
+/* Contact Section Responsive Improvements */
+@layer components {
+  /* Enhanced contact section mobile responsiveness */
+  section#contato {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Contact card responsive improvements */
+  .contact-card {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 48rem;
+  }
+
+  /* Contact links grid improvements */
+  .contact-links-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Enhanced contact link mobile styling */
+  .contact-link {
+    min-height: 4rem;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .contact-link .contact-icon {
+    flex-shrink: 0;
+    min-width: 1.5rem;
+  }
+
+  .contact-link .contact-content {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .contact-link .contact-action {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  /* Responsive typography for contact section */
+  @media (max-width: 768px) {
+    section#contato {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      min-height: auto;
+    }
+
+    .contact-card {
+      padding: 1.5rem !important;
+      margin: 1rem;
+      max-width: calc(100vw - 2rem);
+    }
+
+    .contact-title {
+      font-size: 2.5rem !important;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .contact-desc {
+      font-size: 1rem !important;
+      text-align: justify;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      padding: 0 0.5rem;
+    }
+
+    .contact-links-grid {
+      gap: 0.75rem;
+    }
+
+    .contact-link {
+      padding: 0.875rem;
+      min-height: 3.5rem;
+    }
+
+    .contact-link .contact-label {
+      font-size: 0.75rem !important;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.8rem !important;
+      line-height: 1.3;
+    }
+
+    .contact-icon {
+      font-size: 1.125rem !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    section#contato {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .contact-card {
+      padding: 1.25rem !important;
+      margin: 0.75rem;
+      max-width: calc(100vw - 1.5rem);
+    }
+
+    .contact-title {
+      font-size: 2rem !important;
+    }
+
+    .contact-desc {
+      font-size: 0.9rem !important;
+      padding: 0 0.25rem;
+    }
+
+    .contact-link {
+      padding: 0.75rem;
+      min-height: 3.25rem;
+    }
+
+    .contact-link .contact-label {
+      font-size: 0.7rem !important;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.75rem !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    section#contato {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .contact-card {
+      padding: 1rem !important;
+      margin: 0.5rem;
+      max-width: calc(100vw - 1rem);
+      border-radius: 0.75rem;
+    }
+
+    .contact-title {
+      font-size: 1.75rem !important;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-desc {
+      font-size: 0.85rem !important;
+      margin-bottom: 1.5rem;
+      padding: 0;
+    }
+
+    .contact-links-grid {
+      gap: 0.5rem;
+    }
+
+    .contact-link {
+      padding: 0.625rem;
+      min-height: 3rem;
+      border-radius: 0.5rem;
+    }
+
+    .contact-link .contact-label {
+      font-size: 0.65rem !important;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.7rem !important;
+    }
+
+    .contact-icon {
+      font-size: 1rem !important;
+    }
+
+    /* Ensure email text doesn't overflow on very small screens */
+    .contact-link .contact-value {
+      word-break: break-all;
+      hyphens: auto;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .contact-title {
+      font-size: 1.5rem !important;
+    }
+
+    .contact-desc {
+      font-size: 0.8rem !important;
+    }
+
+    .contact-card {
+      max-width: calc(100vw - 0.75rem);
+      margin: 0.375rem;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.65rem !important;
+    }
+
+    .contact-link .contact-label {
+      font-size: 0.6rem !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .contact-title {
+      font-size: 1.375rem !important;
+    }
+
+    .contact-card {
+      padding: 0.875rem !important;
+      margin: 0.25rem;
+      max-width: calc(100vw - 0.5rem);
+    }
+
+    .contact-link {
+      padding: 0.5rem;
+      min-height: 2.75rem;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.6rem !important;
+    }
+  }
+
+  /* Medium screens (tablets) */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .contact-links-grid {
+      grid-template-columns: 1fr;
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .contact-link {
+      min-height: 4.5rem;
+    }
+  }
+
+  /* Large screens - restore original grid */
+  @media (min-width: 1024px) {
+    .contact-links-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

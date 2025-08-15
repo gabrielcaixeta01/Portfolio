@@ -70,18 +70,15 @@ export default function Contato() {
           </motion.p>
 
           {/* links */}
-          <motion.div
-            variants={item}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
-          >
+          <motion.div variants={item} className="contact-links-grid">
             <a
               href="https://www.linkedin.com/in/gabriel-caixeta-romero"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
+              className="contact-link group flex items-center justify-between gap-3"
               aria-label="LinkedIn"
             >
-              <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FaLinkedin className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
                   <span className="contact-label text-sm">
@@ -92,7 +89,7 @@ export default function Contato() {
                   </span>
                 </div>
               </div>
-              <span className="contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+              <span className="contact-action contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
@@ -101,10 +98,10 @@ export default function Contato() {
               href="https://github.com/gabrielcaixeta01"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
+              className="contact-link group flex items-center justify-between gap-3"
               aria-label="GitHub"
             >
-              <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FaGithub className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
                   <span className="contact-label text-sm">
@@ -115,17 +112,17 @@ export default function Contato() {
                   </span>
                 </div>
               </div>
-              <span className="contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+              <span className="contact-action contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
 
             <button
               onClick={copyEmail}
-              className="contact-link group flex items-center justify-between gap-3 px-4 py-4"
+              className="contact-link group flex items-center justify-between gap-3"
               aria-label="Copy email"
             >
-              <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FiMail className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
                   <span className="contact-label text-sm">
@@ -136,7 +133,7 @@ export default function Contato() {
                   </span>
                 </div>
               </div>
-              <span className="contact-label text-xs flex-shrink-0">
+              <span className="contact-action contact-label text-xs flex-shrink-0">
                 {copied ? <FiCheck /> : t.contact.copy}
               </span>
             </button>

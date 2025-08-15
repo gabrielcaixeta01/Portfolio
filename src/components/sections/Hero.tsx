@@ -53,7 +53,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-4 py-8 relative overflow-hidden"
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -67,23 +67,46 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight"
+            className="hero-name text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight"
           >
-            {name.split("").map((letter, index) => (
+            {/* Desktop: nome completo em uma linha */}
+            <span className="hidden sm:inline">
+              {name.split("").map((letter, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: index * 0.05,
+                    duration: 0.6,
+                    ease: "easeOut",
+                  }}
+                  className="inline-block"
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </motion.span>
+              ))}
+            </span>
+
+            {/* Mobile: nome quebrado em duas linhas */}
+            <span className="sm:hidden flex flex-col items-center gap-1">
               <motion.span
-                key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: index * 0.05,
-                  duration: 0.6,
-                  ease: "easeOut",
-                }}
-                className="inline-block"
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="block"
               >
-                {letter === " " ? "\u00A0" : letter}
+                Gabriel
               </motion.span>
-            ))}
+              <motion.span
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+                className="block"
+              >
+                Caixeta
+              </motion.span>
+            </span>
           </motion.h1>
         </div>
 
@@ -92,9 +115,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="relative h-20 flex items-center justify-center"
+          className="relative h-16 sm:h-20 flex items-center justify-center"
         >
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider text-gray-900 dark:text-gray-200">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-gray-900 dark:text-gray-200">
             {currentJobTitle}
             <motion.span
               animate={{ opacity: [1, 0] }}
@@ -103,7 +126,7 @@ export default function Hero() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="inline-block ml-1 w-0.5 h-8 bg-blue-500"
+              className="inline-block ml-1 w-0.5 h-6 sm:h-8 bg-blue-500"
             />
           </h2>
         </motion.div>

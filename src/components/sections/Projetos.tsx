@@ -73,7 +73,10 @@ export default function Projetos() {
   ];
 
   return (
-    <section id="projetos" className="scroll-mt-18 min-h-screen py-20 px-4">
+    <section
+      id="projetos"
+      className="scroll-mt-18 min-h-screen py-24 sm:py-20 px-4"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -81,23 +84,23 @@ export default function Projetos() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <h2
-            className="text-4xl md:text-5xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"
             style={{
               color: getTitleColor(),
             }}
           >
             {t.projects.title}
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="projects-description text-base sm:text-lg md:text-xl text-slate-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
             {t.projects.description}
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}

@@ -236,36 +236,36 @@ export default function Conhecimentos() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center max-w-4xl w-full"
+        className="text-center max-w-5xl w-full"
       >
-        <h2 className="text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+        <h2 className="skills-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
           {t.skills.title}
         </h2>
-        <p className="text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
+        <p className="skills-description text-base sm:text-lg leading-relaxed mb-8 sm:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
           {t.skills.description}
         </p>
 
         {/* Carousel Container */}
-        <div className="relative">
-          {/* Navigation Buttons */}
+        <div className="skills-carousel relative px-8 sm:px-12 md:px-0">
+          {/* Navigation Buttons - Responsive positioning */}
           <button
             onClick={prevSkill}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="skills-nav skills-nav-left absolute left-0 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
             aria-label="Previous skill"
           >
-            <ChevronLeftIcon className="w-6 h-6" />
+            <ChevronLeftIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </button>
 
           <button
             onClick={nextSkill}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="skills-nav skills-nav-right absolute right-0 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
             aria-label="Next skill"
           >
-            <ChevronRightIcon className="w-6 h-6" />
+            <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </button>
 
           {/* Skill Card */}
-          <div className="relative h-96 overflow-hidden">
+          <div className="relative h-80 sm:h-96 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -275,25 +275,25 @@ export default function Conhecimentos() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <div className="bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-gray-600 rounded-2xl p-8 max-w-md w-full mx-4">
+                <div className="skills-card bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-gray-600 rounded-2xl p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md w-full mx-4 sm:mx-6">
                   {/* Icon */}
-                  <div className="flex justify-center mb-6">
+                  <div className="flex justify-center mb-4 sm:mb-6">
                     <SkillIcon skillName={currentSkill.name} />
                   </div>
 
                   {/* Skill Name */}
-                  <h3 className="text-2xl font-bold mb-4 text-center">
+                  <h3 className="skills-card-title text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center">
                     {currentSkill.name}
                   </h3>
 
                   {/* Description */}
-                  <p className="skills-description text-sm leading-relaxed mb-6 text-center">
+                  <p className="skills-card-description text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 text-center">
                     {currentSkill.description}
                   </p>
 
                   {/* Experience Bar */}
                   <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span>{t.skills.experienceLabel}</span>
                       <span>
                         {currentSkill.experience} {t.skills.yearsLabel}
@@ -318,12 +318,12 @@ export default function Conhecimentos() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 mt-8">
+          <div className="flex justify-center space-x-2 mt-6 sm:mt-8">
             {skills.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSkill(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
                   index === currentIndex
                     ? "bg-blue-500 scale-110"
                     : "bg-gray-600 hover:bg-gray-500"
@@ -332,14 +332,6 @@ export default function Conhecimentos() {
               />
             ))}
           </div>
-
-          {/* Removido o botão de autoplay com emojis; pausa é automática nas interações */}
-          {/* Se quiser um feedback sutil, dá pra mostrar um chip discreto quando pausado: */}
-          {/* {isPaused && (
-            <div className="mt-4 text-xs text-gray-400">
-              {t.skills.resumingSoonLabel ?? "Retomando automaticamente..."}
-            </div>
-          )} */}
         </div>
       </motion.div>
     </section>
