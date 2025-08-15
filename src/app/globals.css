@@ -584,18 +584,240 @@ html.dark section#projetos p {
 
 /* Hero Section Responsive Name Styling */
 @layer components {
+  /* Modern Hero Section Background - Clean without filters */
+  section#hero {
+    position: relative;
+    overflow: hidden;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Modern name styling with gradient */
   .hero-name {
-    /* Ensure name never overflows on mobile */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.15));
     word-break: keep-all;
     overflow-wrap: normal;
     white-space: nowrap;
   }
 
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Modern welcome badge with glassmorphism */
+  .welcome-badge {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15) !important;
+    animation: float 6s ease-in-out infinite;
+    color: rgb(29, 78, 216) !important;
+  }
+
+  html.dark .welcome-badge {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgb(96, 165, 250) !important;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Modern description with clean typography */
+  .hero-description {
+    color: rgb(75, 85, 99) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.025em;
+  }
+
+  html.dark .hero-description {
+    color: rgb(209, 213, 219) !important;
+  }
+
+  /* Modern typewriter container - clean without background */
+  .typewriter-container {
+    margin: 2rem 0 !important;
+  }
+
+  /* Enhanced buttons with modern effects */
+  .hero-button-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background-size: 200% 200%;
+    animation: buttonGradient 3s ease infinite;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25) !important;
+    border: none !important;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .hero-button-primary:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.35) !important;
+    scale: 1.03;
+  }
+
+  @keyframes buttonGradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .hero-button-secondary {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
+    color: rgb(31, 41, 55) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .hero-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2) !important;
+    scale: 1.03;
+  }
+
+  html.dark .hero-button-secondary {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 2px solid rgba(255, 255, 255, 0.15) !important;
+    color: rgb(229, 231, 235) !important;
+  }
+
+  html.dark .hero-button-secondary:hover {
+    background: rgba(0, 0, 0, 0.35) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+  }
+
+  /* Name - keep original colors (black/white) with more specific selectors */
+  section#hero .hero-name,
+  section#hero h1.hero-name,
+  section#hero .hero-name span,
+  section#hero h1.hero-name span {
+    color: rgb(17, 24, 39) !important; /* gray-900 for light mode */
+  }
+
+  html.dark section#hero .hero-name,
+  html.dark section#hero h1.hero-name,
+  html.dark section#hero .hero-name span,
+  html.dark section#hero h1.hero-name span {
+    color: rgb(243, 244, 246) !important; /* gray-100 for dark mode */
+  }
+
+  /* Description text - better contrast in light mode */
+  section#hero p {
+    color: rgb(55, 65, 81) !important; /* gray-700 for light mode */
+  }
+
+  html.dark section#hero p {
+    color: rgb(209, 213, 219) !important; /* gray-300 for dark mode */
+  }
+
+  /* Welcome badge text */
+  section#hero .inline-block {
+    color: rgb(29, 78, 216) !important; /* blue-700 for light mode */
+  }
+
+  html.dark section#hero .inline-block {
+    color: rgb(96, 165, 250) !important; /* blue-400 for dark mode */
+  }
+
+  /* Job title prefix text (I'm a / Eu sou) */
+  section#hero span:has(+ h2) {
+    color: rgb(31, 41, 55) !important; /* gray-800 for light mode */
+  }
+
+  html.dark section#hero span:has(+ h2) {
+    color: rgb(229, 231, 235) !important; /* gray-200 for dark mode */
+  }
+
+  /* Hero buttons styling */
+  section#hero button {
+    padding: 0.75rem 2rem !important; /* Smaller buttons */
+  }
+
+  /* Contact button - darker text for better readability */
+  section#hero button:nth-child(2),
+  section#hero button[class*="border"] {
+    color: rgb(31, 41, 55) !important; /* gray-800 for light mode */
+    border-color: rgb(107, 114, 128) !important; /* gray-500 border */
+  }
+
+  /* Contact button hover - maintain text visibility */
+  section#hero button:nth-child(2):hover,
+  section#hero button[class*="border"]:hover {
+    color: rgb(31, 41, 55) !important; /* Keep dark text on hover */
+    background-color: rgb(243, 244, 246) !important; /* light gray background */
+  }
+
+  html.dark section#hero button:nth-child(2),
+  html.dark section#hero button[class*="border"] {
+    color: rgb(229, 231, 235) !important; /* gray-200 for dark mode */
+    border-color: rgb(107, 114, 128) !important; /* gray-500 border */
+  }
+
+  html.dark section#hero button:nth-child(2):hover,
+  html.dark section#hero button[class*="border"]:hover {
+    color: rgb(229, 231, 235) !important; /* Keep light text on hover */
+    background-color: rgb(55, 65, 81) !important; /* dark gray background */
+  }
+
+  /* Mobile adjustments for hero buttons */
+  @media (max-width: 640px) {
+    section#hero button {
+      padding: 0.625rem 1.5rem !important; /* Even smaller on mobile */
+      font-size: 0.875rem !important; /* Smaller text */
+    }
+  }
+
   /* Mobile-specific adjustments for hero name */
   @media (max-width: 640px) {
     .hero-name {
-      white-space: normal;
+      white-space: nowrap !important; /* Force single line */
       line-height: 0.9;
+      font-size: 2.25rem !important; /* Smaller to fit in one line */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Hide the mobile flex-col layout to force single line */
+    .hero-name .sm\\:hidden {
+      display: none !important;
+    }
+
+    /* Show the desktop layout (single line) on mobile too */
+    .hero-name .hidden.sm\\:inline {
+      display: inline !important;
+    }
+
+    /* Alternative: Show only first name on very small screens */
+    @media (max-width: 480px) {
+      .hero-name {
+        font-size: 2rem !important;
+      }
     }
 
     /* Fine-tune spacing between first and last name on mobile */
@@ -607,7 +829,7 @@ html.dark section#projetos p {
   /* Very small screens (iPhone SE, etc.) */
   @media (max-width: 375px) {
     .hero-name {
-      font-size: 3.5rem !important; /* Override Tailwind classes */
+      font-size: 1.75rem !important; /* Much smaller for very small screens */
       line-height: 0.85;
     }
   }
@@ -615,17 +837,12 @@ html.dark section#projetos p {
   /* Extra small screens - final safety net */
   @media (max-width: 320px) {
     .hero-name {
-      font-size: 3rem !important;
+      font-size: 1.5rem !important; /* Very small for tiny screens */
       line-height: 0.8;
     }
   }
 
-  /* Ensure proper spacing and centering for hero section */
-  section#hero {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
+  /* Ensure proper spacing and centering for hero section - moved up */
   @media (max-width: 480px) {
     section#hero {
       padding-left: 0.75rem;

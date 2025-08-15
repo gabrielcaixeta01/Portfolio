@@ -9,7 +9,7 @@ import { useRocket } from "../contexts/RocketContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const { isRocketEnabled, toggleRocket } = useRocket();
 
@@ -217,11 +217,17 @@ export default function Navbar() {
 
           {mounted && (
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
               aria-label="Toggle theme"
               className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-500 ease-in-out cursor-pointer"
             >
-              {theme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
+              {resolvedTheme === "dark" ? (
+                <BsSun size={16} />
+              ) : (
+                <BsMoon size={16} />
+              )}
             </button>
           )}
         </div>

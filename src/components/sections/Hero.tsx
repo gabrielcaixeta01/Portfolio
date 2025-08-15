@@ -59,83 +59,116 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="text-center z-10"
+        className="text-center z-10 max-w-4xl mx-auto"
       >
+        {/* Welcome Message */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-6 sm:mb-8"
+        >
+          <span className="welcome-badge inline-block px-6 py-3 rounded-full text-sm sm:text-base font-medium">
+            {language === "pt"
+              ? "✨ Bem-vindo ao meu universo digital"
+              : "✨ Welcome to my digital universe"}
+          </span>
+        </motion.div>
         {/* Main Name - appears once and stays fixed */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="hero-name text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight"
+            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            className="hero-name text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight"
           >
-            {/* Desktop: nome completo em uma linha */}
-            <span className="hidden sm:inline">
-              {name.split("").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: index * 0.05,
-                    duration: 0.6,
-                    ease: "easeOut",
-                  }}
-                  className="inline-block"
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
-            </span>
-
-            {/* Mobile: nome quebrado em duas linhas */}
-            <span className="sm:hidden flex flex-col items-center gap-1">
+            {/* Always show single line with modern styling */}
+            {name.split("").map((letter, index) => (
               <motion.span
+                key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="block"
+                transition={{
+                  delay: 0.5 + index * 0.05,
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="inline-block"
               >
-                Gabriel
+                {letter === " " ? "\u00A0" : letter}
               </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-                className="block"
-              >
-                Caixeta
-              </motion.span>
-            </span>
+            ))}
           </motion.h1>
         </div>
-
+        {/* Description Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="mb-8 sm:mb-10"
+        >
+          <p className="hero-description text-lg sm:text-xl md:text-2xl font-light leading-relaxed max-w-3xl mx-auto px-4">
+            {language === "pt"
+              ? "Criando experiências digitais extraordinárias que conectam pessoas e tecnologia"
+              : "Creating extraordinary digital experiences that connect people and technology"}
+          </p>
+        </motion.div>
         {/* Typewriter job title */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="relative h-16 sm:h-20 flex items-center justify-center"
+          transition={{ delay: 1.8, duration: 0.8 }}
+          className="typewriter-container relative flex items-center justify-center mb-8 sm:mb-12"
         >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-gray-900 dark:text-gray-200">
-            {currentJobTitle}
-            <motion.span
-              animate={{ opacity: [1, 0] }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="inline-block ml-1 w-0.5 h-6 sm:h-8 bg-blue-500"
-            />
-          </h2>
+          <div className="flex items-center justify-center">
+            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-gray-800 dark:text-gray-200 mr-3">
+              {language === "pt" ? "Eu sou " : "I'm a "}
+            </span>
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+              {currentJobTitle}
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="inline-block ml-1 w-0.5 h-5 sm:h-6 md:h-7 bg-gradient-to-b from-blue-500 to-purple-600"
+              />
+            </h2>
+          </div>
         </motion.div>
-
+        {/* Call to Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.2, duration: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center mb-12 sm:mb-16"
+        >
+          <button
+            onClick={() => {
+              const section = document.getElementById("projetos");
+              if (section) section.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hero-button-primary w-full sm:w-auto px-8 py-3 text-white font-semibold rounded-full"
+          >
+            {language === "pt" ? "🚀 Explorar Projetos" : "🚀 Explore Projects"}
+          </button>
+          <button
+            onClick={() => {
+              const section = document.getElementById("contato");
+              if (section) section.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hero-button-secondary w-full sm:w-auto px-8 py-3 font-semibold rounded-full"
+          >
+            {language === "pt" ? "💬 Vamos Conversar" : "💬 Let's Talk"}
+          </button>
+        </motion.div>{" "}
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.8 }}
+          transition={{ delay: 2.8, duration: 0.8 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
