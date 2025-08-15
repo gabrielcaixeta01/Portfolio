@@ -181,6 +181,10 @@
     backdrop-filter: blur(8px);
     border-radius: 0.75rem;
     transition: all 200ms ease;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
   }
 
   .contact-link:hover {
@@ -195,10 +199,17 @@
 
   .contact-label {
     color: var(--cc-label);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .contact-value {
     color: var(--cc-value);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
 }
 
@@ -669,8 +680,8 @@ html.dark section#projetos p {
     }
 
     .about-image {
-      width: 320px;
-      height: 384px; /* 24rem */
+      width: 420px; /* Increased from 380px for better text height match */
+      height: 520px; /* Increased from 460px to match text content height */
       max-width: none;
     }
   }
@@ -975,6 +986,28 @@ Contact Card Usage Example (JSX):
     gap: 1rem;
   }
 
+  /* Desktop layout: 2 columns on top, email button below */
+  @media (min-width: 1024px) {
+    .contact-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+    }
+
+    /* First two items (LinkedIn, GitHub) in top row */
+    .contact-link:nth-child(1),
+    .contact-link:nth-child(2) {
+      grid-row: 1;
+    }
+
+    /* Third item (Email) spans full width in second row */
+    .contact-link:nth-child(3) {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+
   /* Enhanced contact link mobile styling */
   .contact-link {
     min-height: 4rem;
@@ -990,11 +1023,44 @@ Contact Card Usage Example (JSX):
   .contact-link .contact-content {
     min-width: 0;
     flex: 1;
+    overflow: hidden;
   }
 
   .contact-link .contact-action {
     flex-shrink: 0;
     margin-left: auto;
+  }
+
+  /* Force truncate behavior for all contact text elements */
+  .contact-link .contact-label,
+  .contact-link .contact-value {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+  }
+
+  /* Ensure the text container has proper flex behavior */
+  .contact-link > div:first-child {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+
+  /* Text column container */
+  .contact-link > div:first-child > div:last-child {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+
+  /* Action button container */
+  .contact-link > span:last-child {
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
   }
 
   /* Responsive typography for contact section */
@@ -1196,10 +1262,58 @@ Contact Card Usage Example (JSX):
     }
   }
 
-  /* Large screens - restore original grid */
+  /* Large screens - 2x2 grid layout with email spanning full width */
   @media (min-width: 1024px) {
     .contact-links-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+    }
+
+    /* First two items in top row */
+    .contact-link:nth-child(1),
+    .contact-link:nth-child(2) {
+      grid-row: 1;
+    }
+
+    /* Email button spans full width in bottom row */
+    .contact-link:nth-child(3) {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .contact-link {
+      min-height: 5rem;
+      padding: 1.25rem;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.875rem !important;
+      line-height: 1.3;
+    }
+
+    .contact-link .contact-label {
+      font-size: 0.75rem !important;
+    }
+
+    .contact-icon {
+      font-size: 1.25rem !important;
+    }
+  }
+
+  /* Extra large screens - more space for better layout */
+  @media (min-width: 1280px) {
+    .contact-links-grid {
+      gap: 2rem;
+    }
+
+    .contact-link {
+      min-height: 5.5rem;
+      padding: 1.5rem;
+    }
+
+    .contact-link .contact-value {
+      font-size: 0.9rem !important;
     }
   }
 }

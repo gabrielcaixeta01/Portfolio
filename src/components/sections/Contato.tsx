@@ -81,7 +81,7 @@ export default function Contato() {
               <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FaLinkedin className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm">
+                  <span className="contact-label text-sm truncate">
                     {t.contact.linkedin}
                   </span>
                   <span className="contact-value text-sm font-medium truncate">
@@ -104,7 +104,7 @@ export default function Contato() {
               <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FaGithub className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm">
+                  <span className="contact-label text-sm truncate">
                     {t.contact.github}
                   </span>
                   <span className="contact-value text-sm font-medium truncate">
@@ -125,7 +125,7 @@ export default function Contato() {
               <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
                 <FiMail className="contact-icon text-xl flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm">
+                  <span className="contact-label text-sm truncate">
                     {t.contact.email}
                   </span>
                   <span className="contact-value text-sm font-medium truncate">

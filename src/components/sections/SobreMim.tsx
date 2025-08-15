@@ -50,19 +50,19 @@ export default function SobreMim() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-7xl w-full"
+        className="max-w-6xl w-full mx-auto"
       >
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-12 lg:gap-16">
-          {/* Profile Image - Responsive sizing */}
+        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-center gap-8 sm:gap-12 lg:gap-16">
+          {/* Profile Image - Desktop only */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="about-image-container flex-shrink-0 w-full max-w-sm lg:max-w-none lg:w-auto"
+            className="about-image-container flex-shrink-0 hidden lg:block"
           >
             <div
-              className="about-image relative w-full aspect-[3/4] max-w-80 mx-auto lg:w-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800 cursor-pointer"
+              className="about-image relative w-full aspect-[3/4] lg:w-[420px] lg:h-[520px] rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800 cursor-pointer"
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{
@@ -83,18 +83,18 @@ export default function SobreMim() {
             </div>
           </motion.div>
 
-          {/* Content - Better responsive text */}
+          {/* Content - Centered on mobile, left-aligned on desktop */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="about-content flex-1 text-center lg:text-left w-full"
+            className="about-content flex-1 text-center lg:text-left max-w-2xl lg:max-w-xl"
           >
             <h2 className="about-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 tracking-tight">
               {t.about.title}
             </h2>
-            <div className="about-text space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <div className="about-text space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed">
               <p className="text-lg sm:text-xl">{t.about.paragraph1}</p>
               <p>{t.about.paragraph2}</p>
               <p>{t.about.paragraph3}</p>
