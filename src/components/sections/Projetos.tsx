@@ -49,12 +49,21 @@ export default function Projetos() {
       linkLabel: "GitHub",
     },
     {
-      badge: "Processo Trainee CJR",
+      badge: "TP1 – Técnicas de Programação",
       title: t.projects.contaPalavras.title,
       description: t.projects.contaPalavras.description,
-      tech: ["C++", "Catch2"],
+      tech: ["C++", "Catch2", "TDD"],
       // image: "",
       link: "https://github.com/gabrielcaixeta01/conta-palavras",
+      linkLabel: "GitHub",
+    },
+    {
+      badge: "Processo Trainee CJR",
+      title: t.projects.avaliaProfessores.title,
+      description: t.projects.avaliaProfessores.description,
+      tech: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Prisma"],
+      // image: "",
+      link: "https://github.com/gabrielcaixeta01/avalia-professores",
       linkLabel: "GitHub",
     },
     {

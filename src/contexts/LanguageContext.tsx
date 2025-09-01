@@ -43,7 +43,12 @@ const translations = {
       contaPalavras: {
         title: "Conta Palavras",
         description:
-          "Aplicação de linha de comando (CLI) em C++ orientada a testes com Catch2, criada para a disciplina de Técnicas de Programação.",
+          "Aplicação de linha de comando (CLI) em C++ desenvolvida para a disciplina Técnicas de Programação 1 (TP1), com foco em TDD e testes automatizados usando Catch2.",
+      },
+      avaliaProfessores: {
+        title: "Avalia Professores",
+        description:
+          "Plataforma web para avaliação de professores desenvolvida para o processo Trainee da CJR, com Next.js no frontend e NestJS no backend.",
       },
       marketplace: {
         title: "Marketplace Odontológico",
@@ -213,7 +218,12 @@ const translations = {
       contaPalavras: {
         title: "Word Counter",
         description:
-          "Command line interface (CLI) application in C++ test-oriented with Catch2, created for the Programming Techniques course.",
+          "Command line interface (CLI) application in C++ developed for the Programming Techniques 1 (TP1) course, focused on TDD and automated testing with Catch2.",
+      },
+      avaliaProfessores: {
+        title: "Professor Review",
+        description:
+          "Web platform for professor evaluation developed for the CJR Trainee process, with Next.js frontend and NestJS backend.",
       },
       marketplace: {
         title: "Dental Marketplace",
