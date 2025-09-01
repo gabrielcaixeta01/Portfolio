@@ -66,6 +66,15 @@ export default function Projetos() {
       link: "https://figma.com/dental-marketplace-design",
       linkLabel: "Figma",
     },
+    {
+      badge: "Projeto Noções de IA",
+      title: t.projects.fipePredictor.title,
+      description: t.projects.fipePredictor.description,
+      tech: ["Python", "Jupyter", "scikit-learn", "MLP", "Regressão Linear"],
+      // image: "",
+      link: "https://github.com/gabrielcaixeta01/fipe-predictor",
+      linkLabel: "GitHub",
+    },
   ];
 
   return (

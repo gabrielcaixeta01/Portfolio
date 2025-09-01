@@ -50,6 +50,11 @@ const translations = {
         description:
           "Projeto em desenvolvimento voltado para venda rápida e segura de produtos odontológicos, com foco na experiência do usuário.",
       },
+      fipePredictor: {
+        title: "Preditor Tabela FIPE",
+        description:
+          "Preditor de preços de carros usando dados da Tabela FIPE, com modelos de regressão linear e MLP treinados em Python (Jupyter).",
+      },
     },
     // Skills Section
     skills: {
@@ -214,6 +219,11 @@ const translations = {
         title: "Dental Marketplace",
         description:
           "Project in development focused on fast and secure sales of dental products, with focus on user experience.",
+      },
+      fipePredictor: {
+        title: "FIPE Table Predictor",
+        description:
+          "Car price predictor using FIPE Table data, with linear regression and MLP models trained in Python (Jupyter).",
       },
     },
     // Skills Section
