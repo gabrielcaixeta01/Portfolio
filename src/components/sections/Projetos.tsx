@@ -21,13 +21,12 @@ export default function Projetos() {
     return theme === "dark" ? "#ffffff" : "#0f172a";
   };
 
-  // Projects data - real projects
+  // Projects data - translated
   const projects: Project[] = [
     {
       badge: "Projeto Final CS50",
-      title: "Stock Predictor",
-      description:
-        "Stock prediction platform built for the CS50 final project, mixing Next.js UI with Python models (Random Forest + news sentiment). Includes charts and ticker search.",
+      title: t.projects.smartTicker.title,
+      description: t.projects.smartTicker.description,
       tech: [
         "Next.js",
         "TypeScript",
@@ -36,37 +35,34 @@ export default function Projetos() {
         "scikit-learn",
         "Vercel",
       ],
-      // image: "/images/stock-predictor-cover.jpg", // Add this when image is available
+      // image: "/images/stock-predictor-cover.jpg",
       link: "https://github.com/gabrielcaixeta01/stock-predictor",
-      linkLabel: "Link",
+      linkLabel: "GitHub",
     },
     {
       badge: "Projeto Pessoal",
-      title: "UnB Academic Agenda",
-      description:
-        "Visual schedule planner for UnB: create, organize and visualize classes and tasks. Built with a clean Tailwind UI and local storage.",
+      title: t.projects.agendaUnb.title,
+      description: t.projects.agendaUnb.description,
       tech: ["React", "Next.js", "Tailwind", "TypeScript"],
-      // image: "/images/unb-agenda-cover.jpg", // Add this when image is available
+      // image: "/images/unb-agenda-cover.jpg",
       link: "https://github.com/gabrielcaixeta01/unb-agenda",
-      linkLabel: "Link",
+      linkLabel: "GitHub",
     },
     {
       badge: "Processo Trainee CJR",
-      title: "Site de Avaliação de Professores",
-      description:
-        "Website for evaluating professors, developed for CJTR. Focused on accessibility, fast search and clear submission flow.",
-      tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma"],
-      // image: "/images/treini-cover.jpg", // Add this when image is available
-      link: "https://github.com/gabrielcaixeta01/treini",
-      linkLabel: "Link",
+      title: t.projects.contaPalavras.title,
+      description: t.projects.contaPalavras.description,
+      tech: ["C++", "Catch2"],
+      // image: "",
+      link: "https://github.com/gabrielcaixeta01/conta-palavras",
+      linkLabel: "GitHub",
     },
     {
-      badge: "CJR – Consulting",
-      title: "Dental Marketplace (Figma)",
-      description:
-        "Product design for a fast and secure marketplace of dental products. Information architecture, UI system and flows delivered in Figma.",
+      badge: "CJR – Consultoria",
+      title: t.projects.marketplace.title,
+      description: t.projects.marketplace.description,
       tech: ["Figma", "Design System", "UX Flows"],
-      // image: "/images/dental-marketplace-cover.jpg", // Add this when image is available
+      // image: "/images/dental-marketplace-cover.jpg",
       link: "https://figma.com/dental-marketplace-design",
       linkLabel: "Figma",
     },

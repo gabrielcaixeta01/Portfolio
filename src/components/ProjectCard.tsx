@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+/*
 import { HiExternalLink } from "react-icons/hi";
+ */
 import {
   SiNextdotjs,
   SiTailwindcss,
