@@ -83,8 +83,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     description,
     tech,
     image,
-    // link,
-    // linkLabel = "Link",
+    link,
+    linkLabel = "Link",
   } = project;
 
   return (
@@ -164,6 +164,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       )}
 
       {/* Link Button removido pois não há deploy disponível */}
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="project-button mt-4 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold bg rounded-lg shadow-lg"
+      >
+        {linkLabel}
+      </a>
     </motion.article>
   );
 }

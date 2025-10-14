@@ -35,15 +35,15 @@ const translations = {
         description:
           "Plataforma de previsão de ações com modelo Random Forest e análise de sentimento de notícias, integrando Next.js e Python.",
       },
-      agendaUnb: {
-        title: "Agenda Acadêmica UnB",
+      giogas: {
+        title: "Site GIOGÁS",
         description:
-          "Organizador visual de grades horárias com Tailwind CSS, upload de imagem e extração automática das matérias.",
+          "Site institucional para a GIOGÁS, empresa do Rio de Janeiro.",
       },
-      contaPalavras: {
-        title: "Conta Palavras",
+      organizadorViagens: {
+        title: "Organizador de Viagens",
         description:
-          "Aplicação de linha de comando (CLI) em C++ desenvolvida para a disciplina Técnicas de Programação 1 (TP1), com foco em TDD e testes automatizados usando Catch2.",
+          "Aplicação web para planejamento e organização de viagens, permitindo aos usuários criar itinerários personalizados e compartilhar com amigos e familiares.",
       },
       avaliaProfessores: {
         title: "Avalia Professores",
@@ -210,15 +210,15 @@ const translations = {
         description:
           "Stock prediction platform with Random Forest model and news sentiment analysis, integrating Next.js and Python.",
       },
-      agendaUnb: {
-        title: "UnB Academic Agenda",
+      giogas: {
+        title: "GIOGÁS Website",
         description:
-          "Visual schedule organizer with Tailwind CSS, image upload and automatic subject extraction.",
+          "Institutional website for GIOGÁS, a company based in Rio de Janeiro.",
       },
-      contaPalavras: {
-        title: "Word Counter",
+      organizadorViagens: {
+        title: "Trip Organizer",
         description:
-          "Command line interface (CLI) application in C++ developed for the Programming Techniques 1 (TP1) course, focused on TDD and automated testing with Catch2.",
+          "Web application for planning and organizing trips, allowing users to create personalized itineraries and share with friends and family.",
       },
       avaliaProfessores: {
         title: "Professor Review",
