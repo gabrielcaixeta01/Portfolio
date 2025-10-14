@@ -23,7 +23,6 @@ const item = {
 export default function Contato() {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
-
   const email = "gabrielcaixetaromero@gmail.com";
 
   const copyEmail = async () => {
@@ -37,15 +36,13 @@ export default function Contato() {
   return (
     <section
       id="contato"
-      className="relative scroll-mt-5 min-h-screen flex items-center justify-center px-4 py-16"
+      // padding responsivo (aproxima as media queries originais)
+      className="
+        relative scroll-mt-5 min-h-screen flex items-center justify-center
+        px-2 sm:px-3 md:px-4
+        py-6 sm:py-8 md:py-16
+      "
     >
-      {/* blobs discretos de fundo (mais suaves no claro) */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-cyan-300/15 blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-fuchsia-300/15 blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#0000000f_1px,transparent_1px)] [background-size:22px_22px] dark:opacity-[0.07] dark:bg-[radial-gradient(#ffffff_1px,transparent_1px)]" />
-      </div>
-
       <motion.div
         variants={container}
         initial="hidden"
@@ -53,87 +50,169 @@ export default function Contato() {
         viewport={{ once: true, amount: 0.3 }}
         className="relative w-full max-w-3xl"
       >
-        {/* card glass mais claro no modo claro */}
-        <motion.div variants={item} className="contact-card p-8 md:p-10">
+        {/* card glass (substitui .contact-card) */}
+        <motion.div
+          variants={item}
+          className="
+            w-full max-w-[48rem]
+            bg-[var(--cc-bg)]
+            border border-[var(--cc-border)]
+            shadow-[var(--cc-shadow)]
+            backdrop-blur-lg
+            rounded-xl
+            transition duration-200 ease-in-out
+            hover:shadow-lg 
+            p-4 sm:p-6 md:p-10
+            mx-auto
+          "
+        >
+          {/* título (substitui .contact-title + responsividade) */}
           <motion.h2
             variants={item}
-            className="contact-title text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="
+              text-[var(--cc-title)]
+              text-3xl sm:text-4xl md:text-5xl
+              font-bold tracking-tight
+              mb-3 sm:mb-4
+              text-center md:text-left
+            "
           >
             {t.contact.title}
           </motion.h2>
 
+          {/* descrição (substitui .contact-desc + responsividade) */}
           <motion.p
             variants={item}
-            className="contact-desc text-base md:text-lg leading-relaxed mb-8"
+            className="
+              text-[var(--cc-text)]
+              text-sm sm:text-base md:text-lg
+              leading-relaxed
+              mb-6 sm:mb-8
+              text-justify md:text-left
+              px-1 sm:px-0
+            "
           >
             {t.contact.description}
           </motion.p>
 
-          {/* links */}
-          <motion.div variants={item} className="contact-links-grid">
+          {/* GRID de links (substitui .contact-links-grid + media queries) */}
+          <motion.div
+            variants={item}
+            className="
+              grid grid-cols-1 gap-3
+              lg:grid-cols-2 lg:grid-rows-[auto_auto] lg:gap-6
+              xl:gap-8
+            "
+          >
+            {/* LINKEDIN (equivale a .contact-link #1) */}
             <a
               href="https://www.linkedin.com/in/gabriel-caixeta-romero"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-link group flex items-center justify-between gap-3"
               aria-label="LinkedIn"
+              className="
+                group
+                flex items-center justify-between gap-3
+                w-full
+                min-h-[3rem] sm:min-h-[3.5rem] md:min-h-[4rem] lg:min-h-[5rem]
+                px-3 py-2 sm:px-3.5 sm:py-3 lg:p-5
+                rounded-md lg:rounded-lg
+                border border-[var(--cc-border)]
+                bg-[var(--cc-bg)]
+                shadow-[var(--cc-shadow)]
+                backdrop-blur-[12px]
+                hover:translate-x-[1px] transition-transform
+                lg:row-start-1
+              "
             >
-              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
-                <FaLinkedin className="contact-icon text-xl flex-shrink-0" />
+              {/* bloco esquerdo (ícone + textos) → substitui .contact-content e estrutura flex */}
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <FaLinkedin className="text-xl sm:text-[1.125rem] lg:text-[1.25rem] flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm truncate">
+                  <span className="text-xs sm:text-sm truncate opacity-80">
                     {t.contact.linkedin}
                   </span>
-                  <span className="contact-value text-sm font-medium truncate">
+                  <span className="text-sm sm:text-base font-medium truncate">
                     gabriel-caixeta-romero
                   </span>
                 </div>
               </div>
-              <span className="contact-action contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+
+              {/* ação (↗) → substitui .contact-action */}
+              <span className="text-xs opacity-80 group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
 
+            {/* GITHUB (equivale a .contact-link #2) */}
             <a
               href="https://github.com/gabrielcaixeta01"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-link group flex items-center justify-between gap-3"
               aria-label="GitHub"
+              className="
+                group
+                flex items-center justify-between gap-3
+                w-full
+                min-h-[3rem] sm:min-h-[3.5rem] md:min-h-[4rem] lg:min-h-[5rem]
+                px-3 py-2 sm:px-3.5 sm:py-3 lg:p-5
+                rounded-md lg:rounded-lg
+                border border-[var(--cc-border)]
+                bg-[var(--cc-bg)]
+                shadow-[var(--cc-shadow)]
+                backdrop-blur-[12px]
+                hover:translate-x-[1px] transition-transform
+                lg:row-start-1
+              "
             >
-              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
-                <FaGithub className="contact-icon text-xl flex-shrink-0" />
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <FaGithub className="text-xl sm:text-[1.125rem] lg:text-[1.25rem] flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm truncate">
+                  <span className="text-xs sm:text-sm truncate opacity-80">
                     {t.contact.github}
                   </span>
-                  <span className="contact-value text-sm font-medium truncate">
+                  <span className="text-sm sm:text-base font-medium truncate">
                     gabrielcaixeta01
                   </span>
                 </div>
               </div>
-              <span className="contact-action contact-label text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+              <span className="text-xs opacity-80 group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                 ↗
               </span>
             </a>
 
+            {/* EMAIL (equivale a .contact-link #3; em lg: ocupar duas colunas) */}
             <button
               onClick={copyEmail}
-              className="contact-link group flex items-center justify-between gap-3"
               aria-label="Copy email"
+              className="
+                group
+                flex items-center justify-between gap-3
+                w-full
+                min-h-[3rem] sm:min-h-[3.5rem] md:min-h-[4rem] lg:min-h-[5rem]
+                px-3 py-2 sm:px-3.5 sm:py-3 lg:p-5
+                rounded-md lg:rounded-lg
+                border border-[var(--cc-border)]
+                bg-[var(--cc-bg)]
+                shadow-[var(--cc-shadow)]
+                backdrop-blur-[12px]
+                transition
+                lg:col-span-2 lg:row-start-2
+              "
             >
-              <div className="contact-content flex items-center gap-3 min-w-0 flex-1">
-                <FiMail className="contact-icon text-xl flex-shrink-0" />
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <FiMail className="text-xl sm:text-[1.125rem] lg:text-[1.25rem] flex-shrink-0" />
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className="contact-label text-sm truncate">
+                  <span className="text-xs sm:text-sm truncate opacity-80">
                     {t.contact.email}
                   </span>
-                  <span className="contact-value text-sm font-medium truncate">
+                  {/* em telas muito pequenas, permitir quebrar o email */}
+                  <span className="text-sm sm:text-base font-medium truncate sm:truncate break-all sm:break-normal">
                     {email}
                   </span>
                 </div>
               </div>
-              <span className="contact-action contact-label text-xs flex-shrink-0">
+              <span className="text-xs opacity-80 flex-shrink-0">
                 {copied ? <FiCheck /> : t.contact.copy}
               </span>
             </button>

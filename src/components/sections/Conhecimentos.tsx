@@ -1,7 +1,7 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -13,6 +13,7 @@ import {
   SiGooglecolab,
   SiFigma,
 } from "react-icons/si";
+import { Carousel } from "@/components/Carousel"; // <- ajuste o caminho
 
 interface SkillData {
   name: string;
@@ -21,9 +22,9 @@ interface SkillData {
   maxExperience: number;
 }
 
-// =======================
-// Skill Icon Component
-// =======================
+/* =======================
+   Skill Icon
+======================= */
 const SkillIcon = ({ skillName }: { skillName: string }) => {
   const base = "w-16 h-16";
   const lowerName = skillName.toLowerCase();
@@ -35,9 +36,7 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
     case "nextjs":
     case "next":
       return (
-        <div
-          className={`${base} rounded-lg bg-black dark:bg-white flex items-center justify-center`}
-        >
+        <div className={`${base} rounded-lg bg-black dark:bg-white flex items-center justify-center`}>
           <SiNextdotjs className="w-12 h-12 text-white dark:text-black" />
         </div>
       );
@@ -55,8 +54,6 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
       return <FaPython className={`${base} text-[#FFD43B]`} />;
     case "git":
       return <FaGitAlt className={`${base} text-[#F05032]`} />;
-
-    // ======= Novas skills =======
     case "c++":
     case "cplusplus":
       return <SiCplusplus className={`${base} text-[#00599C]`} />;
@@ -67,271 +64,131 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
       return <SiGooglecolab className={`${base} text-[#F9AB00]`} />;
     case "figma":
       return <SiFigma className={`${base} text-[#F24E1E]`} />;
-
     default:
       return (
-        <div
-          className={`${base} rounded bg-gray-400 flex items-center justify-center text-white font-bold text-xs`}
-        >
+        <div className={`${base} rounded bg-gray-400 flex items-center justify-center text-white font-bold text-xs`}>
           {skillName.slice(0, 2).toUpperCase()}
         </div>
       );
   }
 };
 
-// =======================
-// Ícones de navegação
-// =======================
-const ChevronLeftIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15.75 19.5 8.25 12l7.5-7.5"
-    />
-  </svg>
-);
-
-const ChevronRightIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="m8.25 4.5 7.5 7.5-7.5 7.5"
-    />
-  </svg>
-);
-
-// =======================
-// Extras desejados (fora do component)
-// =======================
+/* =======================
+   Extras (não duplicar)
+======================= */
 const desiredExtras: SkillData[] = [
-  {
-    name: "C++",
-    description: "Algoritmos, estruturas de dados e alto desempenho.",
-    experience: 2,
-    maxExperience: 5,
-  },
-  {
-    name: "Jupyter",
-    description: "Prototipagem e análise exploratória com notebooks.",
-    experience: 3,
-    maxExperience: 5,
-  },
-  {
-    name: "Google Colab",
-    description: "Notebooks em nuvem para ML com GPU.",
-    experience: 3,
-    maxExperience: 5,
-  },
-  {
-    name: "Figma",
-    description: "UI design, prototipagem e handoff.",
-    experience: 3,
-    maxExperience: 5,
-  },
+  { name: "C++", description: "Algoritmos, estruturas de dados e alto desempenho.", experience: 2, maxExperience: 5 },
+  { name: "Jupyter", description: "Prototipagem e análise exploratória com notebooks.", experience: 3, maxExperience: 5 },
+  { name: "Google Colab", description: "Notebooks em nuvem para ML com GPU.", experience: 3, maxExperience: 5 },
+  { name: "Figma", description: "UI design, prototipagem e handoff.", experience: 3, maxExperience: 5 },
 ];
 
 export default function Conhecimentos() {
   const { t } = useLanguage();
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ==== autoplay com pausa temporária após interação ====
-  const [isPaused, setIsPaused] = useState(false);
-  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const AUTOPLAY_MS = 4000; // intervalo de rolagem
-  const PAUSE_MS = 5500; // tempo que fica pausado após interação
-
-  // Base + extras (sem duplicar)
   const baseSkills: SkillData[] = t.skills.skillsData;
   const skills: SkillData[] = useMemo(() => {
-    const existing = new Set(
-      baseSkills.map((s) => s.name.toLowerCase().trim())
-    );
-    const extrasFiltered = desiredExtras.filter(
-      (s) => !existing.has(s.name.toLowerCase().trim())
-    );
+    const existing = new Set(baseSkills.map((s) => s.name.toLowerCase().trim()));
+    const extrasFiltered = desiredExtras.filter((s) => !existing.has(s.name.toLowerCase().trim()));
     return [...baseSkills, ...extrasFiltered];
   }, [baseSkills]);
-
-  // Inicia / reinicia intervalo quando não estiver pausado
-  useEffect(() => {
-    if (skills.length === 0) return;
-
-    // limpa anterior
-    if (intervalRef.current) clearInterval(intervalRef.current);
-
-    if (!isPaused) {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % skills.length);
-      }, AUTOPLAY_MS);
-    }
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isPaused, skills.length]);
-
-  const temporarilyPause = () => {
-    // limpa possível timer anterior
-    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
-    setIsPaused(true);
-    pauseTimerRef.current = setTimeout(() => setIsPaused(false), PAUSE_MS);
-  };
-
-  // limpa timers ao desmontar
-  useEffect(() => {
-    return () => {
-      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
-
-  // Handlers de interação (pausam e navegam)
-  const nextSkill = () => {
-    setCurrentIndex((prev) => (prev + 1) % skills.length);
-    temporarilyPause();
-  };
-  const prevSkill = () => {
-    setCurrentIndex((prev) => (prev - 1 + skills.length) % skills.length);
-    temporarilyPause();
-  };
-  const goToSkill = (index: number) => {
-    setCurrentIndex(index);
-    temporarilyPause();
-  };
-
-  const currentSkill = skills[currentIndex] ?? {
-    name: "",
-    description: "",
-    experience: 0,
-    maxExperience: 1,
-  };
-  const progressPercentage =
-    currentSkill.maxExperience > 0
-      ? (currentSkill.experience / currentSkill.maxExperience) * 100
-      : 0;
 
   return (
     <section
       id="conhecimentos"
-      className="scroll-mt-18 flex items-center justify-center min-h-screen px-4 py-16"
+      className="
+        scroll-mt-18 flex items-center justify-center min-h-screen
+        px-4 md:px-4
+        py-8 md:py-16
+      "
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center max-w-5xl w-full"
+        className="text-center max-w-6xl w-full"
       >
-        <h2 className="skills-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
+        <h2
+          className="
+            text-[var(--cc-title)] dark:text-[var(--cc-title)]
+            text-3xl sm:text-4xl lg:text-6xl
+            font-bold tracking-tight
+            mb-4 sm:mb-6
+          "
+        >
           {t.skills.title}
         </h2>
-        <p className="skills-description text-base sm:text-lg leading-relaxed mb-8 sm:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
+
+        <p
+          className="
+            text-[var(--cc-text)] dark:text-[var(--cc-text)]
+            text-sm sm:text-base
+            leading-relaxed
+            mb-8 sm:mb-12
+            max-w-2xl mx-auto
+            px-2 sm:px-0
+            text-justify
+          "
+        >
           {t.skills.description}
         </p>
 
-        {/* Carousel Container */}
-        <div className="skills-carousel relative px-8 sm:px-12 md:px-0">
-          {/* Navigation Buttons - Responsive positioning */}
-          <button
-            onClick={prevSkill}
-            className="skills-nav skills-nav-left absolute left-0 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
-            aria-label="Previous skill"
-          >
-            <ChevronLeftIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-          </button>
+        {/* === Usa o Carousel fornecido === */}
+        <div className="relative">
+          <Carousel visible={3}>
+            {skills.map((s, i) => {
+              const progress =
+                s.maxExperience > 0 ? (s.experience / s.maxExperience) * 100 : 0;
 
-          <button
-            onClick={nextSkill}
-            className="skills-nav skills-nav-right absolute right-0 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
-            aria-label="Next skill"
-          >
-            <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-          </button>
-
-          {/* Skill Card */}
-          <div className="relative h-80 sm:h-96 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 300 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -300 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="skills-card bg-white/5 backdrop-blur-sm border border-gray-300 dark:border-gray-600 rounded-2xl p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md w-full mx-4 sm:mx-6">
-                  {/* Icon */}
-                  <div className="flex justify-center mb-4 sm:mb-6">
-                    <SkillIcon skillName={currentSkill.name} />
-                  </div>
-
-                  {/* Skill Name */}
-                  <h3 className="skills-card-title text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center">
-                    {currentSkill.name}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="skills-card-description text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 text-center">
-                    {currentSkill.description}
-                  </p>
-
-                  {/* Experience Bar */}
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-xs sm:text-sm">
-                      <span>{t.skills.experienceLabel}</span>
-                      <span>
-                        {currentSkill.experience} {t.skills.yearsLabel}
-                      </span>
+              return (
+                <article
+                  key={i}
+                  className="
+                    h-[360px] md:h-[340px]
+                    bg-white/90 border border-gray-200
+                    dark:bg-white/10 dark:border-white/20
+                    rounded-2xl
+                    p-4 sm:p-6 md:p-8
+                    w-full
+                    transition duration-200 ease-in-out
+                    hover:-translate-y-1 hover:shadow-lg
+                  "
+                >
+                  <div className="flex flex-col items-center text-center justify-between h-full">
+                    {/* Ícone + título + descrição */}
+                    <div className="flex flex-col items-center gap-2 mb-3">
+                      <div className="w-16 h-16 rounded-xl bg-white/80 dark:bg-white/10 flex items-center justify-center shadow-md mb-1">
+                        <SkillIcon skillName={s.name} />
+                      </div>
+                      <div className="text-[var(--cc-title)] dark:text-[var(--cc-title)] font-semibold text-base leading-tight">
+                        {s.name}
+                      </div>
+                      <div className="text-[var(--cc-text)] dark:text-[var(--cc-text)] text-xs sm:text-sm font-light max-w-xs text-justify">
+                        {s.description}
+                      </div>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progressPercentage}%` }}
-                        transition={{
-                          duration: 0.8,
-                          delay: 0.2,
-                          ease: "easeOut",
-                        }}
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                      />
+
+                    {/* Barra de experiência */}
+                    <div className="w-full max-w-sm mt-auto">
+                      <div className="flex justify-between text-xs sm:text-sm mb-1 text-[var(--cc-title)]/80 dark:text-[var(--cc-title)]/80">
+                        <span>{t.skills.experienceLabel}</span>
+                        <span>
+                          {s.experience} {t.skills.yearsLabel}
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                        <div
+                          style={{ width: `${progress}%` }}
+                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-[width] duration-700 ease-out"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 mt-6 sm:mt-8">
-            {skills.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSkill(index)}
-                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
-                  index === currentIndex
-                    ? "bg-blue-500 scale-110"
-                    : "bg-gray-600 hover:bg-gray-500"
-                }`}
-                aria-label={`Go to skill ${index + 1}`}
-              />
-            ))}
-          </div>
+                </article>
+              );
+            })}
+          </Carousel>
         </div>
       </motion.div>
     </section>
