@@ -129,3 +129,45 @@ nav button[aria-label="Change language"] [title*="English"] {
   fill: unset !important;
   filter: none !important;
 }
+
+/* Conhecimentos Section */
+@layer components {
+  section#conhecimentos .skills-card {
+    position: relative;
+    z-index: 1;                          
+    background: #ffffff !important;      
+    border: 1px solid rgb(203 213 225) !important;  
+    border-radius: 1rem;                 
+    backdrop-filter: none;               
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+
+  html.dark section#conhecimentos .skills-card {
+    background: rgba(24, 24, 27, 0.50) !important;   
+    border-color: rgba(255, 255, 255, 0.10) !important;
+    backdrop-filter: blur(8px);
+  }
+
+  section#conhecimentos .skills-icon-box {
+    background: #ffffff !important;
+    border: 1px solid rgb(226 232 240) !important;   
+    box-shadow: 0 2px 8px rgba(2,6,23,0.05);
+  }
+  html.dark section#conhecimentos .skills-icon-box {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.10) !important;
+  }
+
+  section#conhecimentos .skills-card .skills-title {
+    color: #0f172a !important;           
+  }
+  section#conhecimentos .skills-card .skills-text {
+    color: #475569 !important;           
+  }
+  html.dark section#conhecimentos .skills-card .skills-title {
+    color: #e5e7eb !important;           
+  }
+  html.dark section#conhecimentos .skills-card .skills-text {
+    color: #cbd5e1 !important;          
+  }
+}
