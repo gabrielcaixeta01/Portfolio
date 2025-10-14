@@ -103,19 +103,19 @@ export default function Navbar() {
             { id: "conhecimentos", label: t.navbar.skills },
             { id: "contato", label: t.navbar.contact },
           ].map((item) => (
+            // dentro do map(...)
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={[
-                "text-sm font-medium px-4 py-2 rounded-full",
-                // cor base mais escura no claro, clara no dark (equiv. gray-800 / gray-200)
-                "text-gray-800 dark:text-gray-200",
-                "transition-all duration-200",
-                // efeito gradiente no texto ao hover (sem fundo)
-                "hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 hover:bg-clip-text hover:text-transparent",
-              ].join(" ")}
+              className="nav-link text-sm font-medium px-4 py-2 rounded-full
+                        transition-colors duration-200 text-gray-900 dark:text-gray-200"
             >
-              {item.label}
+              <span className="nav-label inline-block
+                              group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-600
+                              group-hover:bg-clip-text group-hover:text-transparent
+                              transition-[color,background] duration-200">
+                {item.label}
+              </span>
             </button>
           ))}
         </div>
@@ -127,7 +127,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="hidden sm:block p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-200 hover:text-indigo-600"
+            className="hidden sm:block p-1.5 rounded-full text-gray-900 dark:text-gray-200 transition-colors duration-200 hover:text-indigo-600"
           >
             <FaGithub size={16} />
           </a>
@@ -136,12 +136,10 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hidden sm:block p-1.5 rounded-full text-gray-700 dark:text-gray-300 transition-colors duration-200 hover:text-indigo-600"
+            className="hidden sm:block p-1.5 rounded-full text-gray-900 dark:text-gray-200 transition-colors duration-200 hover:text-indigo-600"
           >
             <FaLinkedin size={16} />
           </a>
-
-          
 
           {/* Idioma */}
           <div className="relative" ref={dropdownRef}>
