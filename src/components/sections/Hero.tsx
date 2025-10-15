@@ -117,7 +117,7 @@ export default function Hero() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className={`mb-8 sm:mb-10`}
         >
-          <p className={`text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto px-4 text-gray-700 dark:text-gray-300`}>
+          <p className={`text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto px-4`}>
             {language === "pt"
               ? "Criando experiências digitais extraordinárias que conectam pessoas e tecnologia"
               : "Creating extraordinary digital experiences that connect people and technology"}
@@ -132,7 +132,7 @@ export default function Hero() {
           className={`my-8 sm:my-12 relative flex items-center justify-center`}
         >
           <div className={`flex items-center justify-center`}>
-            <span className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-gray-800 dark:text-gray-200 mr-3`}>
+            <span className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium mr-3`}>
               {language === "pt" ? "Eu sou " : "I'm a "}
             </span>
             <h2 className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent`}>
@@ -160,20 +160,16 @@ export default function Hero() {
             className={`w-full sm:w-auto rounded-full text-white font-semibold px-6 sm:px-8 py-2.5 sm:py-3 shadow-[0_10px_30px_rgba(99,102,241,0.25)]`}
             style={{ backgroundImage: "linear-gradient(135deg,#667eea 0%,#764ba2 100%)", backgroundSize: "200% 200%" }}
           >
-            <motion.span
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{ display: "inline-block", backgroundImage: "inherit", backgroundSize: "inherit" }}
-            >
+            
               {language === "pt" ? "🚀 Explorar Projetos" : "🚀 Explore Projects"}
-            </motion.span>
+            
           </motion.button>
 
           <motion.button
             whileHover={{ y: -3, scale: 1.03 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
             onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-            className={`w-full sm:w-auto rounded-full font-semibold px-6 sm:px-8 py-2.5 sm:py-3 bg-white/12 backdrop-blur-2xl border-2 border-white/25 text-gray-800 dark:text-gray-200 shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:bg-white/20 dark:hover:bg-black/35 hover:border-indigo-300/40 transition-colors`}
+            className={`w-full sm:w-auto rounded-full font-semibold px-6 sm:px-8 py-2.5 sm:py-3 bg-white/12 backdrop-blur-2xl border-2 border-white/50 shadow-lg hover:bg-white/20 dark:hover:bg-black/35 hover:border-indigo-300/40 transition-colors`}
           >
             {language === "pt" ? "💬 Vamos Conversar" : "💬 Let's Talk"}
           </motion.button>
