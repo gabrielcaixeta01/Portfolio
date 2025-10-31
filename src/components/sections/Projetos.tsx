@@ -22,7 +22,7 @@ export default function Projetos() {
       title: t.projects.giogas.title,
       description: t.projects.giogas.description,
       tech: ["React", "Next.js", "Tailwind", "TypeScript"],
-      link: "https://www.giogas.com.br/",
+      link: "https://site-giogas.vercel.app/",
       linkLabel: "Visitar Site",
     },
     {
