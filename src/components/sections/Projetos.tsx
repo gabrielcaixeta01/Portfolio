@@ -10,12 +10,12 @@ export default function Projetos() {
   // Projects data - translated
   const projects: Project[] = [
     {
-      badge: "Projeto Final CS50",
-      title: t.projects.smartTicker.title,
-      description: t.projects.smartTicker.description,
-      tech: ["Next.js", "TypeScript", "Tailwind", "Python", "scikit-learn", "Vercel"],
-      link: "https://github.com/gabrielcaixeta01/StockPredictor",
-      linkLabel: "Repositório GitHub",
+      badge: "Electrum Observatory",
+      title: t.projects.electrumSite.title,
+      description: t.projects.electrumSite.description,
+      tech: ["Python", "Jupyter", "Network Analysis", "scikit-learn"],
+      link: "https://gabrielcaixeta01.github.io/electrum-observatory/",
+      linkLabel: "Visitar Site",
     },
     {
       badge: "Projeto Freelancer",
@@ -26,14 +26,6 @@ export default function Projetos() {
       linkLabel: "Visitar Site",
     },
     {
-      badge: "Processo Trainee CJR",
-      title: t.projects.avaliaProfessores.title,
-      description: t.projects.avaliaProfessores.description,
-      tech: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Prisma"],
-      link: "https://github.com/gabrielcaixeta01/avalia-professores",
-      linkLabel: "Deploy Indisponível",
-    },
-    {
       badge: "Projeto Noções de IA",
       title: t.projects.fipePredictor.title,
       description: t.projects.fipePredictor.description,
@@ -42,12 +34,20 @@ export default function Projetos() {
       linkLabel: "Repositório GitHub",
     },
     {
-      badge: "Electrum Observatory",
-      title: t.projects.electrumSite.title,
-      description: t.projects.electrumSite.description,
-      tech: ["Python", "Jupyter", "Network Analysis", "scikit-learn"],
-      link: "https://gabrielcaixeta01.github.io/electrum-observatory/",
-      linkLabel: "Visitar Site",
+      badge: "Processo Trainee CJR",
+      title: t.projects.avaliaProfessores.title,
+      description: t.projects.avaliaProfessores.description,
+      tech: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Prisma"],
+      link: "https://github.com/gabrielcaixeta01/avalia-professores",
+      linkLabel: "Deploy Indisponível",
+    },
+    {
+      badge: "Projeto Final CS50",
+      title: t.projects.smartTicker.title,
+      description: t.projects.smartTicker.description,
+      tech: ["Next.js", "TypeScript", "Tailwind", "Python", "scikit-learn", "Vercel"],
+      link: "https://github.com/gabrielcaixeta01/StockPredictor",
+      linkLabel: "Repositório GitHub",
     },
   ];
 

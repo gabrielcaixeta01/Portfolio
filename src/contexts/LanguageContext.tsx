@@ -44,10 +44,11 @@ const translations = {
       title: "Projetos",
       description:
         "Aqui estão alguns dos projetos que desenvolvi, aplicando tecnologias modernas e boas práticas de engenharia de software:",
-      smartTicker: {
-        title: "Smart Ticker",
+      
+      electrumSite: {
+        title: "Observatório Electrum",
         description:
-          "Plataforma de previsão de ações com modelo Random Forest e análise de sentimento de notícias, integrando Next.js e Python.",
+          "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
       },
       giogas: {
         title: "Site GIOGÁS",
@@ -64,11 +65,12 @@ const translations = {
         description:
           "Preditor de preços de carros usando dados da Tabela FIPE, com modelos de regressão linear e MLP treinados em Python (Jupyter).",
       },
-      electrumSite: {
-        title: "Observatório Electrum",
+      smartTicker: {
+        title: "Smart Ticker",
         description:
-          "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
+          "Plataforma de previsão de ações com modelo Random Forest e análise de sentimento de notícias, integrando Next.js e Python.",
       },
+      
     },
     // Skills Section
     skills: {
@@ -290,10 +292,11 @@ const translations = {
       title: "Projects",
       description:
         "Here are some of the projects I've developed, applying modern technologies and software engineering best practices:",
-      smartTicker: {
-        title: "Smart Ticker",
+      
+      electrumSite: {
+        title: "Electrum Observatory",
         description:
-          "Stock prediction platform with Random Forest model and news sentiment analysis, integrating Next.js and Python.",
+          "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
       },
       giogas: {
         title: "GIOGÁS Website",
@@ -310,11 +313,12 @@ const translations = {
         description:
           "Car price predictor using FIPE Table data, with linear regression and MLP models trained in Python (Jupyter).",
       },
-      electrumSite: {
-        title: "Electrum Observatory",
+      smartTicker: {
+        title: "Smart Ticker",
         description:
-          "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
+          "Stock prediction platform with Random Forest model and news sentiment analysis, integrating Next.js and Python.",
       },
+      
     },
     // Skills Section
     skills: {
