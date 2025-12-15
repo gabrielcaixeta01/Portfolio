@@ -63,8 +63,8 @@ export default function Hero() {
             className={`inline-block rounded-full text-sm sm:text-base font-medium px-6 py-3 bg-white/12 backdrop-blur-2xl border border-white/25 shadow-[0_8px_32px_rgba(99,102,241,0.15)] text-blue-700 animate-[float_6s_ease-in-out_infinite] dark:bg-black/25 dark:border-white/10 dark:text-blue-400`}
           >
             {language === "pt"
-              ? "✨ Bem-vindo ao meu universo digital"
-              : "✨ Welcome to my digital universe"}
+              ? "✨ Bem-vindo ao meu portfólio"
+              : "✨ Welcome to my portfolio"}
           </span>
         </motion.div>
 
@@ -119,8 +119,8 @@ export default function Hero() {
         >
           <p className={`text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto px-4`}>
             {language === "pt"
-              ? "Criando experiências digitais extraordinárias que conectam pessoas e tecnologia"
-              : "Creating extraordinary digital experiences that connect people and technology"}
+              ? "Desenvolvendo aplicações para conectar pessoas ao redor do mundo"
+              : "Building applications to connect people around the world"}
           </p>
         </motion.div>
 
