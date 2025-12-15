@@ -26,14 +26,6 @@ export default function Projetos() {
       linkLabel: "Visitar Site",
     },
     {
-      badge: "TP1 – Técnicas de Programação",
-      title: t.projects.organizadorViagens.title,
-      description: t.projects.organizadorViagens.description,
-      tech: ["C++", "Catch2", "TDD"],
-      link: "https://github.com/gabrielcaixeta01/TecnicasDeProgramacao",
-      linkLabel: "Repositório GitHub",
-    },
-    {
       badge: "Processo Trainee CJR",
       title: t.projects.avaliaProfessores.title,
       description: t.projects.avaliaProfessores.description,
@@ -42,20 +34,20 @@ export default function Projetos() {
       linkLabel: "Deploy Indisponível",
     },
     {
-      badge: "CJR – Consultoria",
-      title: t.projects.marketplace.title,
-      description: t.projects.marketplace.description,
-      tech: ["Figma", "Design System", "UX Flows"],
-      link: "https://figma.com/dental-marketplace-design",
-      linkLabel: "Visualização Indisponível",
-    },
-    {
       badge: "Projeto Noções de IA",
       title: t.projects.fipePredictor.title,
       description: t.projects.fipePredictor.description,
       tech: ["Python", "Jupyter", "Google Colab", "scikit-learn", "MLP", "Regressão Linear"],
       link: "https://github.com/gabrielcaixeta01/NocoesDeIA",
       linkLabel: "Repositório GitHub",
+    },
+    {
+      badge: "Electrum Observatory",
+      title: t.projects.electrumSite.title,
+      description: t.projects.electrumSite.description,
+      tech: ["Python", "Jupyter", "Network Analysis", "scikit-learn"],
+      link: "https://gabrielcaixeta01.github.io/electrum-observatory/",
+      linkLabel: "Visitar Site",
     },
   ];
 

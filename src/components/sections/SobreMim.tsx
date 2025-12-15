@@ -64,7 +64,7 @@ export default function SobreMim() {
             <div
               className="
                 relative w-full aspect-[3/4]
-                lg:w-[420px] lg:h-[520px]
+                lg:w-[420px] lg:h-[600px]
                 rounded-2xl overflow-hidden shadow-2xl
                 bg-gray-100 dark:bg-gray-800
                 cursor-pointer

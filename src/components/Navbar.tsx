@@ -99,6 +99,7 @@ export default function Navbar() {
           {[
             { id: "hero", label: t.navbar.home },
             { id: "sobre", label: t.navbar.about },
+            { id: "timeline", label: t.navbar.timeline },
             { id: "projetos", label: t.navbar.projects },
             { id: "conhecimentos", label: t.navbar.skills },
             { id: "contato", label: t.navbar.contact },
@@ -233,6 +234,7 @@ export default function Navbar() {
             {[
               { key: "hero", label: t.navbar.home },
               { key: "sobre", label: t.navbar.about },
+              { key: "timeline", label: t.navbar.timeline },
               { key: "projetos", label: t.navbar.projects },
               { key: "conhecimentos", label: t.navbar.skills },
               { key: "contato", label: t.navbar.contact },

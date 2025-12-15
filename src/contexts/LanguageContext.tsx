@@ -2,6 +2,19 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
+// Timeline Event Interface
+interface TimelineItem {
+  title: string;
+  subtitle?: string;
+  description: string;
+  type?: "education" | "work" | "achievement" | "other";
+}
+
+interface TimelineYear {
+  year: string;
+  events: TimelineItem[];
+}
+
 // Define all translations for the entire portfolio
 const translations = {
   pt: {
@@ -9,6 +22,7 @@ const translations = {
     navbar: {
       home: "Início",
       about: "Sobre",
+      timeline: "Linha do Tempo",
       projects: "Projetos",
       skills: "Conhecimentos",
       contact: "Contato",
@@ -19,11 +33,11 @@ const translations = {
     about: {
       title: "Sobre",
       paragraph1:
-        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) com sólida experiência em desenvolvimento full stack. Especializo-me na criação de aplicações web modernas usando Next.js, NestJS, TypeScript, Tailwind CSS, PostgreSQL e Prisma, complementado por ampla experiência em Python e Machine Learning.",
+        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) e especialista em desenvolvimento front-end. Atuo na criação de interfaces modernas, performáticas e centradas no usuário, utilizando principalmente Next.js, TypeScript e Tailwind CSS, com forte atenção à usabilidade, arquitetura de componentes e experiência do usuário.",
       paragraph2:
-        "Meu foco está em criar aplicações performáticas, escaláveis e de fácil uso que resolvem problemas do mundo real. Combino precisão técnica com arquitetura limpa para entregar soluções robustas e de fácil manutenção.",
+        "Possuo também sólida base em desenvolvimento full stack, com experiência em NestJS, PostgreSQL e Prisma, o que me permite desenvolver aplicações completas, escaláveis e bem integradas. Meu foco é entregar soluções robustas, de fácil manutenção e que resolvam problemas reais com eficiência técnica e design bem estruturado.",
       paragraph3:
-        "Atualmente expandindo meus conhecimentos em IA e sistemas embarcados, estou sempre buscando novos desafios que ampliem os limites da tecnologia. Vamos nos conectar e explorar como podemos colaborar em projetos empolgantes juntos.",
+        "Tenho grande interesse no ecossistema Bitcoin e em tecnologias descentralizadas. Atualmente, venho aprofundando meus estudos em Machine Learning, especialmente em aplicações ligadas à análise de dados e sistemas inteligentes no contexto financeiro e de blockchain. Estou sempre em busca de novos desafios que unam front-end de alto nível, engenharia sólida e inovação tecnológica.",
     },
     // Projects Section
     projects: {
@@ -40,25 +54,20 @@ const translations = {
         description:
           "Site institucional para a GIOGÁS, empresa do Rio de Janeiro.",
       },
-      organizadorViagens: {
-        title: "Organizador de Viagens",
-        description:
-          "Aplicação web para planejamento e organização de viagens, permitindo aos usuários criar itinerários personalizados e compartilhar com amigos e familiares.",
-      },
       avaliaProfessores: {
         title: "Avalia Professores",
         description:
           "Plataforma web para avaliação de professores desenvolvida para o processo Trainee da CJR, com Next.js no frontend e NestJS no backend.",
       },
-      marketplace: {
-        title: "Marketplace Odontológico",
-        description:
-          "Projeto em desenvolvimento voltado para venda rápida e segura de produtos odontológicos, com foco na experiência do usuário.",
-      },
       fipePredictor: {
         title: "Preditor Tabela FIPE",
         description:
           "Preditor de preços de carros usando dados da Tabela FIPE, com modelos de regressão linear e MLP treinados em Python (Jupyter).",
+      },
+      electrumSite: {
+        title: "Observatório Electrum",
+        description:
+          "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
       },
     },
     // Skills Section
@@ -178,12 +187,88 @@ const translations = {
       email: "E-mail:",
       copy: "Copiar",
     },
+    // Timeline Section
+    timeline: {
+      title: "Minha Jornada",
+      description: "Uma linha do tempo com os principais marcos da minha trajetória acadêmica e profissional.",
+      years: [
+        {
+          year: "2025",
+          events: [
+            {
+              title: "TJDFT",
+              subtitle: "Estágio em TI",
+              description: "Capacitação nas ferramentas do PowerApps e desenvolvimento de painéis PowerBI.",
+              type: "work" as const,
+            },
+            {
+              title: "Site para GIOGÁS",
+              subtitle: "Projeto Freelancer",
+              description: "Desenvolvimento do site institucional da GIOGÁS, empresa sediada no Rio de Janeiro.",
+              type: "work" as const,
+            },
+            {
+              title: "Bitcoin Dev Launchpad — Vinteum",
+              subtitle: "Capacitação em Desenvolvimento Bitcoin",
+              description: "Coleção de desafios práticos criados para desenvolvedores brasileiros que querem aprender na prática sobre Bitcoin.",
+              type: "achievement" as const,
+            },
+            {
+              title: "Cryptocurrency Design and Engeneering",
+              subtitle: "Parceria MIT & UnB",
+              description: "Matéria desenvolvida em uma parceria entre o MIT e a UnB, focada em design e engenharia do sistemas Bitcoin.",
+              type: "education" as const,
+            },
+            {
+              title: "CS50 – Introdução à Ciência da Computação de Harvard",
+              subtitle: "Certificação Online",
+              description: "Conclusão do curso introdutório de ciência da computação de Harvard, abrangendo algoritmos, estruturas de dados, segurança e desenvolvimento web.",
+              type: "achievement" as const,
+            },
+          ],
+        },
+        {
+          year: "2024",
+          events: [
+            {
+              title: "Desenvolvedor Full Stack",
+              subtitle: "Empresa Júnior de Computação (CJR)",
+              description: "Capacitação em aplicações web, desde de a prototipação com Figma até o desenvolvimento utilizando Next.js, NestJS e Tailwind CSS.",
+              type: "work" as const,
+            },
+          ],
+        },
+        {
+          year: "2023",
+          events: [
+            {
+              title: "Ingresso em Engenharia de Computação",
+              subtitle: "Universidade de Brasília (UnB)",
+              description: "Início da graduação em Engenharia de Computação, com foco em desenvolvimento de software e sistemas digitais.",
+              type: "education" as const,
+            },
+          ],
+        },
+        {
+          year: "2022",
+          events: [
+            {
+              title: "Conclusão do Ensino Médio",
+              subtitle: "Colégio Galois (Brasília)",
+              description: "Finalização do ensino médio com foco em ciências exatas e preparação para vestibular.",
+              type: "education" as const,
+            },
+          ],
+        },
+      ] as TimelineYear[],
+    },
   },
   en: {
     // Navbar
     navbar: {
       home: "Home",
       about: "About",
+      timeline: "Timeline",
       projects: "Projects",
       skills: "Skills",
       contact: "Contact",
@@ -194,11 +279,11 @@ const translations = {
     about: {
       title: "About",
       paragraph1:
-        "I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB) with strong expertise in full stack development. I specialize in building modern web applications using Next.js, NestJS, TypeScript, Tailwind CSS, PostgreSQL, and Prisma, complemented by extensive experience in Python and Machine Learning.",
+        "I’m Gabriel, a Computer Engineering student at the University of Brasília (UnB) and a front-end specialist. I focus on building modern, high-performance, user-centered interfaces, primarily using Next.js, TypeScript, and Tailwind CSS, with strong attention to usability, component architecture, and user experience.",
       paragraph2:
-        "My focus is on creating performant, scalable, and user-friendly applications that solve real-world problems. I combine technical precision with clean architecture to deliver solutions that are both robust and maintainable.",
+        "I also have a solid full stack background, with experience in NestJS, PostgreSQL, and Prisma, which allows me to develop complete, scalable, and well-integrated applications. My goal is to deliver robust, maintainable solutions that solve real-world problems through clean architecture and technical precision.",
       paragraph3:
-        "Currently expanding my knowledge in AI and embedded systems, I'm always seeking new challenges that push the boundaries of technology. Let's connect and explore how we can collaborate on exciting projects together.",
+        "I have a strong interest in the Bitcoin ecosystem and decentralized technologies. Currently, I am deepening my studies in Machine Learning, especially in applications related to data analysis and intelligent systems within the financial and blockchain context. I’m always looking for new challenges that combine high-level front-end engineering, solid software design, and technological innovation.",
     },
     // Projects Section
     projects: {
@@ -215,25 +300,20 @@ const translations = {
         description:
           "Institutional website for GIOGÁS, a company based in Rio de Janeiro.",
       },
-      organizadorViagens: {
-        title: "Trip Organizer",
-        description:
-          "Web application for planning and organizing trips, allowing users to create personalized itineraries and share with friends and family.",
-      },
       avaliaProfessores: {
         title: "Professor Review",
         description:
           "Web platform for professor evaluation developed for the CJR Trainee process, with Next.js frontend and NestJS backend.",
       },
-      marketplace: {
-        title: "Dental Marketplace",
-        description:
-          "Project in development focused on fast and secure sales of dental products, with focus on user experience.",
-      },
       fipePredictor: {
         title: "FIPE Table Predictor",
         description:
           "Car price predictor using FIPE Table data, with linear regression and MLP models trained in Python (Jupyter).",
+      },
+      electrumSite: {
+        title: "Electrum Observatory",
+        description:
+          "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
       },
     },
     // Skills Section
@@ -352,6 +432,81 @@ const translations = {
       github: "GitHub:",
       email: "Email:",
       copy: "Copy",
+    },
+    // Timeline Section
+    timeline: {
+      title: "My Journey",
+      description: "A timeline with the main milestones of my academic and professional journey.",
+      years: [
+        {
+          year: "2025",
+          events: [
+            {
+              title: "TJDFT",
+              subtitle: "IT Internship",
+              description: "Training in PowerApps tools and PowerBI dashboard development.",
+              type: "work" as const,
+            },
+            {
+              title: "Website for GIOGÁS",
+              subtitle: "Freelance Project",
+              description: "Development of the institutional website for GIOGÁS, a company based in Rio de Janeiro.",
+              type: "work" as const,
+            },
+            {
+              title: "Bitcoin Dev Launchpad — Vinteum",
+              subtitle: "Bitcoin Development Training",
+              description: "A collection of practical challenges created for Brazilian developers who want to learn about Bitcoin in practice.",
+              type: "achievement" as const,
+            },
+            {
+              title: "Cryptocurrency Design and Engineering",
+              subtitle: "MIT & UnB Partnership",
+              description: "Course developed in partnership between MIT and UnB, focused on design and engineering of Bitcoin systems.",
+              type: "education" as const,
+            },
+            {
+              title: "CS50 – Introduction to Computer Science from Harvard",
+              subtitle: "Online Certification",
+              description: "Completion of Harvard's introductory computer science course, covering algorithms, data structures, security and web development.",
+              type: "achievement" as const,
+            },
+          ],
+        },
+        {
+          year: "2024",
+          events: [
+            {
+              title: "Full Stack Developer",
+              subtitle: "Junior Computing Company (CJR)",
+              description: "Training in web applications, from prototyping with Figma to development using Next.js, NestJS and Tailwind CSS.",
+              type: "work" as const,
+            },
+          ],
+        },
+        {
+          year: "2023",
+          events: [
+            {
+              title: "Computer Engineering Enrollment",
+              subtitle: "University of Brasília (UnB)",
+              description: "Started undergraduate studies in Computer Engineering, focusing on software development and digital systems.",
+              type: "education" as const,
+            },
+          ],
+        },
+        {
+          year: "2022",
+          events: [
+            {
+              title: "High School Graduation",
+              subtitle: "Galois College (Brasília)",
+              description: "Completed high school with a focus on exact sciences and preparation for university entrance exams.",
+              type: "education" as const,
+            },
+          ],
+        },
+      ] as TimelineYear[],
     },
   },
 };
