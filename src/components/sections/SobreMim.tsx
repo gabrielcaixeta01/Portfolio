@@ -80,7 +80,7 @@ export default function SobreMim() {
               }}
             >
               <Image
-                src="/gabriel.jpg"
+                src={`${process.env.NODE_ENV === 'production' ? '/Portfolio' : ''}/gabriel.jpg`}
                 alt="Gabriel Caixeta"
                 fill
                 className="object-cover"
