@@ -167,7 +167,6 @@ export default function Conhecimentos() {
                   <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(45%_45%_at_50%_0%,rgba(99,102,241,0.14),transparent_60%)]" />
 
                   <div className="relative flex h-full flex-col">
-                    {/* Top */}
                     {/* Header: ícone + título */}
                     <div className="flex items-center gap-4">
                       <div
