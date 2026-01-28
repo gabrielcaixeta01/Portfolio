@@ -7,7 +7,6 @@ import ProjectCard, { Project } from "../ProjectCard";
 export default function Projetos() {
   const { t } = useLanguage();
 
-  // Projects data - translated
   const projects: Project[] = [
     {
       badge: "Electrum Observatory",
@@ -39,26 +38,63 @@ export default function Projetos() {
   ];
 
   return (
-    <section id="projetos" className="scroll-mt-18 min-h-screen py-24 sm:py-20 px-4">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="projetos"
+      className="
+        scroll-mt-20
+        relative overflow-hidden
+        py-20 sm:py-24 md:py-28
+        px-4
+      "
+    >
+      
+      <div className="relative max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-14 md:mb-16"
         >
-          <h2 className="text-[var(--pc-title)] text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+          <h2
+            className="
+              font-[var(--font-display)]
+              text-[var(--pc-title)]
+              text-3xl sm:text-4xl md:text-5xl
+              tracking-[-0.04em]
+              leading-[1.05]
+              mb-4 sm:mb-5
+            "
+          >
             {t.projects.title}
           </h2>
-          <p className="text-[var(--pc-text)] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
+
+          <p
+            className="
+              text-[var(--pc-text)]
+              text-sm sm:text-base md:text-lg
+              max-w-3xl mx-auto
+              leading-[1.8]
+              tracking-[0.01em]
+              opacity-90
+              px-1 sm:px-0
+            "
+          >
             {t.projects.description}
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div
+          className="
+            grid grid-cols-1
+            md:grid-cols-2
+            xl:grid-cols-3
+            gap-4 sm:gap-6 md:gap-7
+            items-stretch
+          "
+        >
           {projects.map((project, index) => (
             <ProjectCard key={`${project.title}-${index}`} project={project} index={index} />
           ))}
