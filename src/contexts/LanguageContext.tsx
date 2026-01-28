@@ -33,11 +33,9 @@ const translations = {
     about: {
       title: "Sobre",
       paragraph1:
-        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) e especialista em desenvolvimento front-end. Atuo na criação de interfaces modernas, performáticas e centradas no usuário, utilizando principalmente Next.js, TypeScript e Tailwind CSS, com forte atenção à usabilidade, arquitetura de componentes e experiência do usuário.",
+        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) e desenvolvedor com foco na construção de aplicações modernas, performáticas e centradas no usuário. Atuo principalmente no desenvolvimento front-end com Next.js, TypeScript e Tailwind CSS, priorizando usabilidade, arquitetura de componentes e experiência do usuário.",
       paragraph2:
-        "Possuo também sólida base em desenvolvimento full stack, com experiência em NestJS, PostgreSQL e Prisma, o que me permite desenvolver aplicações completas, escaláveis e bem integradas. Meu foco é entregar soluções robustas, de fácil manutenção e que resolvam problemas reais com eficiência técnica e design bem estruturado.",
-      paragraph3:
-        "Tenho grande interesse no ecossistema Bitcoin e em tecnologias descentralizadas. Atualmente, venho aprofundando meus estudos em Machine Learning, especialmente em aplicações ligadas à análise de dados e sistemas inteligentes no contexto financeiro e de blockchain. Estou sempre em busca de novos desafios que unam front-end de alto nível, engenharia sólida e inovação tecnológica.",
+        "Possuo também experiência em desenvolvimento full stack, utilizando NestJS, PostgreSQL e Prisma, o que me permite desenvolver aplicações completas, escaláveis e bem integradas. Busco entregar soluções bem estruturadas, de fácil manutenção e alinhadas às necessidades reais dos usuários.",
     },
     // Projects Section
     projects: {
@@ -251,17 +249,6 @@ const translations = {
             },
           ],
         },
-        {
-          year: "2022",
-          events: [
-            {
-              title: "Conclusão do Ensino Médio",
-              subtitle: "Colégio Galois (Brasília)",
-              description: "Finalização do ensino médio com foco em ciências exatas e preparação para vestibular.",
-              type: "education" as const,
-            },
-          ],
-        },
       ] as TimelineYear[],
     },
   },
@@ -281,11 +268,9 @@ const translations = {
     about: {
       title: "About",
       paragraph1:
-        "I’m Gabriel, a Computer Engineering student at the University of Brasília (UnB) and a front-end specialist. I focus on building modern, high-performance, user-centered interfaces, primarily using Next.js, TypeScript, and Tailwind CSS, with strong attention to usability, component architecture, and user experience.",
+        "I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB) and a developer focused on building modern, high-performance, user-centered applications. I primarily work in front-end development with Next.js, TypeScript, and Tailwind CSS, prioritizing usability, component architecture, and user experience.",
       paragraph2:
-        "I also have a solid full stack background, with experience in NestJS, PostgreSQL, and Prisma, which allows me to develop complete, scalable, and well-integrated applications. My goal is to deliver robust, maintainable solutions that solve real-world problems through clean architecture and technical precision.",
-      paragraph3:
-        "I have a strong interest in the Bitcoin ecosystem and decentralized technologies. Currently, I am deepening my studies in Machine Learning, especially in applications related to data analysis and intelligent systems within the financial and blockchain context. I’m always looking for new challenges that combine high-level front-end engineering, solid software design, and technological innovation.",
+        "I also have experience in full stack development, using NestJS, PostgreSQL, and Prisma, which allows me to develop complete, scalable, and well-integrated applications. I aim to deliver well-structured solutions, easy to maintain and aligned with real user needs.",
     },
     // Projects Section
     projects: {
@@ -495,17 +480,6 @@ const translations = {
               title: "Computer Engineering Enrollment",
               subtitle: "University of Brasília (UnB)",
               description: "Started undergraduate studies in Computer Engineering, focusing on software development and digital systems.",
-              type: "education" as const,
-            },
-          ],
-        },
-        {
-          year: "2022",
-          events: [
-            {
-              title: "High School Graduation",
-              subtitle: "Galois College (Brasília)",
-              description: "Completed high school with a focus on exact sciences and preparation for university entrance exams.",
               type: "education" as const,
             },
           ],

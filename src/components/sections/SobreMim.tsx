@@ -52,8 +52,15 @@ export default function SobreMim() {
         viewport={{ once: true }}
         className="max-w-6xl w-full mx-auto"
       >
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 sm:gap-12 lg:gap-16">
-          {/* Imagem — desktop only (mantém seu comportamento atual) */}
+        <div
+          className="
+            flex flex-col lg:flex-row
+            items-center lg:items-stretch
+            justify-center
+            gap-8 sm:gap-12 lg:gap-16
+          "
+        >
+          {/* Imagem — desktop only */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -63,8 +70,8 @@ export default function SobreMim() {
           >
             <div
               className="
-                relative w-full aspect-[3/4]
-                lg:w-[420px] lg:h-[600px]
+                relative
+                lg:w-[420px] lg:h-full
                 rounded-2xl overflow-hidden shadow-2xl
                 bg-gray-100 dark:bg-gray-800
                 cursor-pointer
@@ -80,7 +87,7 @@ export default function SobreMim() {
               }}
             >
               <Image
-                src={`${process.env.NODE_ENV === 'production' ? '/Portfolio' : ''}/gabriel.jpg`}
+                src={`${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}/gabriel.jpg`}
                 alt="Gabriel Caixeta"
                 fill
                 className="object-cover"
@@ -99,6 +106,7 @@ export default function SobreMim() {
               flex-1
               text-center lg:text-left
               max-w-2xl lg:max-w-xl
+              lg:h-full
             "
           >
             <h2
@@ -124,7 +132,6 @@ export default function SobreMim() {
             >
               <p className="text-lg sm:text-xl">{t.about.paragraph1}</p>
               <p>{t.about.paragraph2}</p>
-              <p>{t.about.paragraph3}</p>
             </div>
           </motion.div>
         </div>
