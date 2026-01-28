@@ -92,13 +92,14 @@ export default function Hero() {
             className="
               inline-flex items-center gap-2
               rounded-full px-5 py-2.5
-              text-xs sm:text-sm font-medium
+              text-xs sm:text-sm font-light
               bg-[var(--pc-bg)] border border-[var(--pc-border)]
               text-[var(--pc-title)]
               backdrop-blur-xl
+              uppercase tracking-widest
             "
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-indigo-400" />
+            <span className="inline-block h-1.5  w-1.5 rounded-full bg-indigo-400" />
             {language === "pt" ? "Bem-vindo ao meu portfólio" : "Welcome to my portfolio"}
           </span>
         </motion.div>
@@ -162,7 +163,7 @@ export default function Hero() {
             {language === "pt" ? "Eu sou" : "I'm a"}
           </span>
 
-          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
             {currentJobTitle}
             <motion.span
               animate={{ opacity: [1, 0] }}

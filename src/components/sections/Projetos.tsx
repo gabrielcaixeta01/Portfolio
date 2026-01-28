@@ -59,11 +59,10 @@ export default function Projetos() {
         >
           <h2
             className="
-              font-[var(--font-display)]
-              text-[var(--pc-title)]
-              text-3xl sm:text-4xl md:text-5xl
-              tracking-[-0.04em]
+              text-3xl sm:text-4xl lg:text-6xl
+              font-semibold tracking-[-0.045em]
               leading-[1.05]
+              text-[var(--pc-title)]
               mb-4 sm:mb-5
             "
           >
