@@ -89,7 +89,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             "
           >
             <Image
-              src={image}
+              src={`${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}${image}`}
               alt={`${title} - screenshot`}
               fill
               className="
