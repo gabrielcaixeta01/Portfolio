@@ -111,27 +111,64 @@ export default function SobreMim() {
           >
             <h2
               className="
-                text-[var(--cc-title)] dark:text-[var(--cc-title)]
-                font-bold tracking-tight
+                font-semibold
+                tracking-[-0.045em]
+                leading-[1.05]
                 text-4xl sm:text-5xl lg:text-6xl
-                leading-[1.1]
+                text-[var(--cc-title)]
+                dark:text-[var(--cc-title)]
                 mb-6 sm:mb-8
+                relative
               "
             >
               {t.about.title}
+
+              {/* detalhe premium */}
+              <span
+                className="
+                  absolute -bottom-3 left-0
+                  h-[1.5px] w-14
+                  bg-gradient-to-r from-indigo-500 to-purple-500
+                  opacity-80
+                "
+              />
             </h2>
 
             <div
               className="
-                text-[var(--cc-text)] dark:text-[var(--cc-text)]
-                space-y-4 sm:space-y-6
-                text-base sm:text-lg
-                leading-[1.6]
+                space-y-6
+                text-[15.5px] sm:text-lg
+                leading-[1.9]
+                tracking-[0.015em]
+                text-[var(--cc-text)]
+                dark:text-[var(--cc-text)]
+                text-pretty
                 text-justify sm:text-left
               "
             >
-              <p className="text-lg sm:text-xl">{t.about.paragraph1}</p>
-              <p>{t.about.paragraph2}</p>
+              {/* Lead paragraph */}
+              <p
+                className="
+                  font-light
+                  text-[var(--cc-title)]/90
+                  dark:text-[var(--cc-title)]/90
+                  text-[16.5px] sm:text-lg
+                "
+              >
+                {t.about.paragraph1}
+              </p>
+
+              {/* Body */}
+              <p 
+                className="
+                  font-light
+                  text-[var(--cc-title)]/90
+                  dark:text-[var(--cc-title)]/90
+                  text-[16.5px] sm:text-lg
+                "
+              >
+                {t.about.paragraph2}
+              </p>
             </div>
           </motion.div>
         </div>

@@ -96,14 +96,13 @@ export default function TimeLine() {
                     className="
                       absolute left-[4px] sm:left-8 top-0
                       w-6 h-6 rounded-full
-                      bg-white/80 dark:bg-gray-900/70
-                      border border-gray-200 dark:border-gray-800
+                      bg-[var(--pc-bg)] border border-[var(--pc-border)]
                       backdrop-blur
-                      shadow-sm
+                      shadow-[var(--pc-shadow,_0_1px_0_rgba(0,0,0,0.04))]
                       flex items-center justify-center
                     "
                   >
-                    <div className="w-2 h-2 rounded-full bg-gray-900/80 dark:bg-white/80" />
+                    <div className="w-2 h-2 rounded-full bg-[var(--pc-title)]" />
                   </div>
 
                   <h3
@@ -128,13 +127,12 @@ export default function TimeLine() {
                         className="
                           absolute left-[0px] sm:left-6 top-4
                           w-9 h-9 rounded-xl
-                          bg-white/80 dark:bg-gray-900/70
-                          border border-gray-200 dark:border-gray-800
+                          bg-[var(--pc-bg)] border border-[var(--pc-border)]
                           backdrop-blur
-                          shadow-sm
+                          shadow-[var(--pc-shadow,_0_1px_0_rgba(0,0,0,0.04))]
                           flex items-center justify-center
-                         
-                          transition-transform duration-300
+                          text-[var(--pc-title)]
+                          transition-transform duration-200
                         "
                       >
                         {getTypeIcon(event.type)}
@@ -145,15 +143,13 @@ export default function TimeLine() {
                         className="
                           group relative
                           rounded-2xl
-                          border border-gray-200/80 dark:border-gray-800/80
-                          bg-white/70 dark:bg-gray-900/55
+                          bg-[var(--pc-bg)] border border-[var(--pc-border)]
                           backdrop-blur
-                          p-5 sm:p-6
-                          shadow-[0_1px_0_rgba(0,0,0,0.04)]
-                          transition-all duration-300
+                          p-4 sm:p-5
+                          shadow-[var(--pc-shadow,_inset_0_0_0_1px_var(--pc-outline))]
+                          transition-all duration-200
                           hover:-translate-y-0.5
-                          hover:shadow-[0_14px_40px_-20px_rgba(0,0,0,0.35)]
-                          dark:hover:shadow-[0_14px_40px_-20px_rgba(0,0,0,0.75)]
+                          hover:shadow-[0_12px_32px_rgba(2,6,23,0.10)]
                         "
                       >
                         {/* brilho sutil no hover */}
@@ -161,24 +157,23 @@ export default function TimeLine() {
                           className="
                             pointer-events-none absolute inset-0 rounded-2xl
                             opacity-0 group-hover:opacity-100
-                            transition-opacity duration-300
-                            bg-[radial-gradient(55%_70%_at_30%_0%,rgba(99,102,241,0.14),transparent_55%)]
-                            dark:bg-[radial-gradient(55%_70%_at_30%_0%,rgba(99,102,241,0.18),transparent_55%)]
+                            transition-opacity duration-200
+                            bg-[radial-gradient(55%_70%_at_30%_0%,rgba(99,102,241,0.08),transparent_55%)]
                           "
                         />
 
                         <div className="relative">
-                          <h4 className="text-base sm:text-lg font-semibold ">
+                          <h4 className="text-sm sm:text-base font-semibold text-[var(--pc-title)]">
                             {event.title}
                           </h4>
 
                           {event.subtitle && (
-                            <p className="mt-1 text-xs sm:text-sm ">
+                            <p className="mt-0.5 text-xs sm:text-sm text-[var(--pc-text)]">
                               {event.subtitle}
                             </p>
                           )}
 
-                          <p className="mt-3 text-sm sm:text-base leading-relaxed ">
+                          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[var(--pc-text)]">
                             {event.description}
                           </p>
                         </div>
@@ -188,9 +183,8 @@ export default function TimeLine() {
                           className="
                             pointer-events-none absolute inset-0 rounded-2xl
                             ring-1 ring-transparent
-                            group-hover:ring-indigo-500/20
-                            dark:group-hover:ring-indigo-400/20
-                            transition
+                            group-hover:ring-indigo-500/15
+                            transition duration-200
                           "
                         />
                       </div>

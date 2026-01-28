@@ -37,6 +37,41 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  if (!mounted) {
+    return (
+      <nav
+        className={[
+          "fixed top-0 left-0 w-full z-50",
+          "bg-transparent",
+          "px-4 py-2",
+          "backdrop-blur-xs",
+          "border-b",
+          "border-gray-300 dark:border-gray-600",
+          "transition-colors duration-200 ease-linear",
+        ].join(" ")}
+      >
+        <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
+          <button
+            className={[
+              "md:hidden relative z-50 ml-0",
+              "p-1.5 rounded-lg",
+              "text-gray-900 dark:text-gray-50",
+              "hover:bg-gray-300/20 dark:hover:bg-gray-500/20",
+              "transition-all duration-200",
+            ].join(" ")}
+            disabled
+          >
+            <svg className="w-6 h-6" fill="none" strokeWidth={2} stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="hidden md:flex items-center space-x-2" />
+          <div className="hidden md:flex items-center space-x-4" />
+        </div>
+      </nav>
+    );
+  }
+
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) section.scrollIntoView({ behavior: "smooth" });
