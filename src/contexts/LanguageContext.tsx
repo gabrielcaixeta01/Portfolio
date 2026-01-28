@@ -47,26 +47,19 @@ const translations = {
         title: "Observatório Electrum",
         description:
           "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
+        image: "/electrum.png",
       },
       giogas: {
         title: "Site GIOGÁS",
         description:
           "Site institucional para a GIOGÁS, empresa do Rio de Janeiro.",
+        image: "/giogas.png",
       },
-      avaliaProfessores: {
-        title: "Avalia Professores",
+      kodo: {
+        title: "Kodo",
         description:
-          "Plataforma web para avaliação de professores desenvolvida para o processo Trainee da CJR, com Next.js no frontend e NestJS no backend.",
-      },
-      fipePredictor: {
-        title: "Preditor Tabela FIPE",
-        description:
-          "Preditor de preços de carros usando dados da Tabela FIPE, com modelos de regressão linear e MLP treinados em Python (Jupyter).",
-      },
-      smartTicker: {
-        title: "Smart Ticker",
-        description:
-          "Plataforma de previsão de ações com modelo Random Forest e análise de sentimento de notícias, integrando Next.js e Python.",
+          "App PWA de gerenciamento de tarefas com foco em produtividade, utilizando Next.js, Tailwind CSS e Supabase para armazenamento dos dados.",
+        image: "/kodo.png",
       },
       
     },
@@ -282,28 +275,20 @@ const translations = {
         title: "Electrum Observatory",
         description:
           "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
+        image: "/electrum.png",
       },
       giogas: {
         title: "GIOGÁS Website",
         description:
           "Institutional website for GIOGÁS, a company based in Rio de Janeiro.",
+        image: "/giogas.png",
       },
-      avaliaProfessores: {
-        title: "Professor Review",
+      kodo: {
+        title: "Kodo",
         description:
-          "Web platform for professor evaluation developed for the CJR Trainee process, with Next.js frontend and NestJS backend.",
+          "PWA task management app focused on productivity, using Next.js, Tailwind CSS, and Supabase for data storage.",
+        image: "/kodo.png",
       },
-      fipePredictor: {
-        title: "FIPE Table Predictor",
-        description:
-          "Car price predictor using FIPE Table data, with linear regression and MLP models trained in Python (Jupyter).",
-      },
-      smartTicker: {
-        title: "Smart Ticker",
-        description:
-          "Stock prediction platform with Random Forest model and news sentiment analysis, integrating Next.js and Python.",
-      },
-      
     },
     // Skills Section
     skills: {

@@ -61,131 +61,167 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
       viewport={{ once: true }}
-      className={`
+      className="
         group relative flex h-full flex-col
         rounded-2xl
-        backdrop-blur-[8px]
-        transition-[box-shadow,transform,background,border-color] duration-200 ease-out
-        // .project-card (via CSS vars)
-        bg-[var(--pc-bg)] border border-[var(--pc-border)]
+        bg-[var(--pc-bg)]
+        border border-[var(--pc-border)]
         shadow-[var(--pc-shadow),_inset_0_0_0_1px_var(--pc-outline)]
-        hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(2,6,23,0.10)]
-        p-6 md:p-7 sm:p-5 max-sm:p-4
-      `}
+        backdrop-blur-[10px]
+        transition-[box-shadow,transform,border-color] duration-200 ease-out
+        hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-28px_rgba(2,6,23,0.45)]
+        overflow-hidden
+      "
     >
-      {/* Badge */}
-      {badge && (
-        <div className="mb-4">
-          <span
+      {/* HEADER (imagem + badge) */}
+      {image && (
+        <div className="p-4 sm:p-5">
+          <div
             className="
-              inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold
-              // .project-badge
-              rounded-full bg-[var(--pc-badge-bg)] text-[var(--pc-badge-text)]
+              relative overflow-hidden rounded-xl
+              border border-[var(--pc-border)]
+              bg-black/[0.03] dark:bg-white/[0.03]
+              aspect-[16/9]
             "
           >
-            {badge}
-          </span>
+            <Image
+              src={image}
+              alt={`${title} - screenshot`}
+              fill
+              className="
+                object-cover
+                transition-transform duration-500 ease-out
+                group-hover:scale-[1.04]
+              "
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
+              priority={false}
+            />
+
+            {/* overlay sutil */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+            {/* badge por cima da imagem (fica premium e economiza espaço) */}
+            {badge && (
+              <div className="absolute left-3 top-3">
+                <span
+                  className="
+                    inline-flex items-center gap-2 px-3 py-1
+                    text-[12px] font-semibold tracking-wide
+                    rounded-full
+                    bg-[var(--pc-badge-bg)] text-[var(--pc-badge-text)]
+                    shadow-sm
+                  "
+                >
+                  {badge}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
-      {/* Title */}
-      <h3
-        className={`
-          text-xl md:text-2xl font-bold mb-3
-          // .project-title
-          text-[var(--pc-title)]
-          max-sm:text-[1.125rem] sm:max-md:text-[1.25rem] leading-tight
-        `}
-      >
-        {title}
-      </h3>
+      {/* BODY */}
+      <div className="flex flex-1 flex-col px-4 sm:px-5 pb-4 sm:pb-5">
+        {/* Se não tiver imagem, badge volta pro topo */}
+        {!image && badge && (
+          <div className="mb-3">
+            <span
+              className="
+                inline-flex items-center gap-2 px-3 py-1
+                text-[12px] font-semibold tracking-wide
+                rounded-full
+                bg-[var(--pc-badge-bg)] text-[var(--pc-badge-text)]
+              "
+            >
+              {badge}
+            </span>
+          </div>
+        )}
 
-      {/* Description */}
-      <p
-        className={`
-          mb-4 flex-grow leading-relaxed
-          // .project-desc
-          text-[var(--pc-text)]
-          max-md:text-justify max-md:text-[0.9rem] max-md:leading-[1.5]
-          max-sm:text-[0.875rem]
-        `}
-      >
-        {description}
-      </p>
-
-      {/* Tech chips */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tech.map((techName, techIndex) => (
-          <motion.span
-            key={`${techName}-${techIndex}`}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.25, delay: techIndex * 0.03, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="
-              inline-flex items-center gap-2 px-3 py-1 text-sm font-medium
-              // .project-chip
-              rounded-full bg-[var(--pc-chip-bg)] text-[var(--pc-chip-text)]
-              border
-              [border-color:color-mix(in_oklab,_var(--pc-chip-text)_20%,_transparent)]
-            "
-            title={techName}
-          >
-            {techIcons[techName] ?? <span className="w-4 h-4 rounded-full bg-current/40" />}
-            {techName}
-          </motion.span>
-        ))}
-      </div>
-
-      {/* Preview Image */}
-      {image && (
-        <motion.div
-          className="mb-6"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          viewport={{ once: true }}
+        {/* Title */}
+        <h3
+          className="
+            text-[var(--pc-title)]
+            font-[var(--font-display)]
+            tracking-[-0.02em]
+            text-xl sm:text-2xl
+            leading-tight
+          "
         >
-          <Image
-            src={image}
-            alt={`${title} - screenshot`}
-            width={400}
-            height={200}
-            className="
-              w-full h-48 object-cover rounded-xl
-              border border-slate-200/60 dark:border-zinc-700/50
-              hover:border-slate-300 dark:hover:border-zinc-600
-              transition-colors duration-200
-            "
-            loading="lazy"
-          />
-        </motion.div>
-      )}
+          {title}
+        </h3>
 
-      {/* Link Button — usa <a>, não <button href> */}
-      <a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          mt-2 inline-flex items-center justify-center gap-2 px-4 py-2
-          text-sm font-semibold
-          // .project-button
-          rounded-[1rem]
-          bg-[var(--pc-btn-bg)] text-[var(--pc-btn-text)]
-          transition-[background-color,color,box-shadow,transform] duration-180 ease-out
-          hover:-translate-y-0.5
-          focus-visible:outline-none
-          focus-visible:[box-shadow:0_0_0_3px_color-mix(in_oklab,_var(--pc-btn-bg)_35%,_transparent)]
-        "
-        aria-label={linkLabel}
-      >
-        {linkLabel} ↗
-      </a>
+        {/* Description */}
+        <p
+          className="
+            mt-2
+            text-[var(--pc-text)]
+            text-sm sm:text-[15px]
+            leading-[1.7]
+            opacity-90
+            flex-grow
+            max-md:text-justify
+          "
+        >
+          {description}
+        </p>
+
+        {/* Tech chips */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tech.map((techName, techIndex) => (
+            <motion.span
+              key={`${techName}-${techIndex}`}
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.22, delay: techIndex * 0.02, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="
+                inline-flex items-center gap-2
+                px-3 py-1
+                text-[12.5px] font-medium
+                rounded-full
+                bg-[var(--pc-chip-bg)] text-[var(--pc-chip-text)]
+                border
+                [border-color:color-mix(in_oklab,_var(--pc-chip-text)_18%,_transparent)]
+              "
+              title={techName}
+            >
+              {techIcons[techName] ?? <span className="w-4 h-4 rounded-full bg-current/40" />}
+              {techName}
+            </motion.span>
+          ))}
+        </div>
+
+        {/* Footer link (separado dá hierarquia) */}
+        <div className="mt-5 pt-4 border-t border-[var(--pc-border)]">
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              inline-flex items-center justify-center gap-2
+              w-full
+              px-4 py-2.5
+              text-sm font-semibold
+              rounded-xl
+              bg-[var(--pc-btn-bg)] text-[var(--pc-btn-text)]
+              transition-[transform,box-shadow] duration-200 ease-out
+              hover:-translate-y-0.5
+              hover:shadow-[0_12px_30px_-18px_rgba(99,102,241,0.6)]
+              focus-visible:outline-none
+              focus-visible:[box-shadow:0_0_0_3px_color-mix(in_oklab,_var(--pc-btn-bg)_35%,_transparent)]
+            "
+            aria-label={linkLabel}
+          >
+            {linkLabel} <span aria-hidden>↗</span>
+          </a>
+        </div>
+      </div>
     </motion.article>
   );
 }
