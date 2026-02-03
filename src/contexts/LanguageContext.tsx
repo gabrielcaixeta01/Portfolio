@@ -61,6 +61,12 @@ const translations = {
           "App PWA de gerenciamento de tarefas com foco em produtividade, utilizando Next.js, Tailwind CSS e Supabase para armazenamento dos dados.",
         image: "/kodo.png",
       },
+      baberAgenda: {
+        title: "Agenda de Barbearia",
+        description:
+          "Aplicação web para agendamento de serviços em barbearias, com painel administrativo para gerenciamento de horários e clientes.",
+        image: "/barber-agenda.png",
+      },
       
     },
     // Skills Section
@@ -288,6 +294,12 @@ const translations = {
         description:
           "PWA task management app focused on productivity, using Next.js, Tailwind CSS, and Supabase for data storage.",
         image: "/kodo.png",
+      },
+      baberAgenda: {
+        title: "Baber Agenda",
+        description:
+          "Web application for scheduling services in barbershops, with an admin panel for managing appointments and clients.",
+        image: "/barber-agenda.png",
       },
     },
     // Skills Section

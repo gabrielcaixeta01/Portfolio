@@ -35,6 +35,15 @@ export default function Projetos() {
       link: "https://site-giogas.vercel.app/",
       linkLabel: "Visitar Site",
     },
+    {
+      badge: "Projeto Pessoal",
+      title: t.projects.baberAgenda.title,
+      description: t.projects.baberAgenda.description,
+      tech: ["React", "TypeScript", "Tailwind","Supabase"],
+      image: t.projects.baberAgenda.image,
+      link: "https://barber-agenda-one.vercel.app/",
+      linkLabel: "Visitar Site",
+    },
   ];
 
   return (
