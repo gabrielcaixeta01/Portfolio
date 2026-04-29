@@ -16,6 +16,7 @@ export type Project = {
   image?: string;
   link: string;
   linkLabel?: string;
+  githubLink?: string;
 };
 
 interface ProjectCardProps {
@@ -57,7 +58,7 @@ const techIcons: Record<string, React.ReactElement> = {
 };
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const { badge, title, description, tech, image, link, linkLabel = "Link" } = project;
+  const { badge, title, description, tech, image, link, linkLabel = "Link", githubLink } = project;
 
   return (
     <motion.article
@@ -197,15 +198,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           ))}
         </div>
 
-        {/* Footer link (separado dá hierarquia) */}
-        <div className="mt-5 pt-4 border-t border-[var(--pc-border)]">
+        {/* Footer links */}
+        <div className="mt-5 pt-4 border-t border-[var(--pc-border)] flex gap-2">
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="
+            className={`
               inline-flex items-center justify-center gap-2
-              w-full
               px-4 py-2.5
               text-sm font-semibold
               rounded-xl
@@ -215,11 +215,34 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               hover:shadow-[0_12px_30px_-18px_rgba(99,102,241,0.6)]
               focus-visible:outline-none
               focus-visible:[box-shadow:0_0_0_3px_color-mix(in_oklab,_var(--pc-btn-bg)_35%,_transparent)]
-            "
+              ${githubLink ? "flex-1" : "w-full"}
+            `}
             aria-label={linkLabel}
           >
             {linkLabel} <span aria-hidden>↗</span>
           </a>
+
+          {githubLink && (
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver código no GitHub"
+              className="
+                inline-flex items-center justify-center gap-2
+                px-4 py-2.5
+                text-sm font-semibold
+                rounded-xl
+                bg-[var(--pc-bg)] border border-[var(--pc-border)] text-[var(--pc-title)]
+                transition-[transform,box-shadow,border-color] duration-200 ease-out
+                hover:-translate-y-0.5 hover:border-indigo-400/50
+                focus-visible:outline-none
+              "
+            >
+              <SiGithub className="w-4 h-4" />
+              Código
+            </a>
+          )}
         </div>
       </div>
     </motion.article>

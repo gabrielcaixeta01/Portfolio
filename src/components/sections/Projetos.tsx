@@ -16,6 +16,7 @@ export default function Projetos() {
       image: t.projects.electrumSite.image,
       link: "https://gabrielcaixeta01.github.io/electrum-observatory/",
       linkLabel: "Visitar Site",
+      githubLink: "https://github.com/gabrielcaixeta01/electrum-observatory",
     },
     {
       badge: "Projeto Pessoal",

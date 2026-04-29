@@ -163,7 +163,7 @@ export default function Hero() {
             {language === "pt" ? "Eu sou" : "I'm a"}
           </span>
 
-          <h2 className="text-lg sm:text-xl md:text-2xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+          <h2 className="min-w-[14ch] text-left text-lg sm:text-xl md:text-2xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
             {currentJobTitle}
             <motion.span
               animate={{ opacity: [1, 0] }}
@@ -215,8 +215,29 @@ export default function Hero() {
           </motion.button>
         </motion.div>
 
-        
       </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Rolar para baixo"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+      >
+        <span className="text-[10px] uppercase tracking-widest font-light">scroll</span>
+        <motion.svg
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </motion.svg>
+      </motion.button>
     </section>
   );
 }

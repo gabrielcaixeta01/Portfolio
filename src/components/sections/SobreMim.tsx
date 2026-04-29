@@ -40,7 +40,7 @@ export default function SobreMim() {
     <section
       id="sobre"
       className="
-        scroll-mt-18 min-h-screen flex items-center justify-center
+        scroll-mt-18 flex items-center justify-center
         px-4
         py-12 sm:py-16
       "

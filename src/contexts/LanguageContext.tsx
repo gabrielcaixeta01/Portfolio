@@ -8,6 +8,7 @@ interface TimelineItem {
   subtitle?: string;
   description: string;
   type?: "education" | "work" | "achievement" | "other";
+  link?: string;
 }
 
 interface TimelineYear {
@@ -211,11 +212,12 @@ const translations = {
               subtitle: "Capacitação em Desenvolvimento Bitcoin",
               description: "Coleção de desafios práticos criados para desenvolvedores brasileiros que querem aprender na prática sobre Bitcoin.",
               type: "achievement" as const,
+              link: "https://launchpad.vinteum.org/",
             },
             {
-              title: "Cryptocurrency Design and Engeneering",
+              title: "Cryptocurrency Design and Engineering",
               subtitle: "Parceria MIT & UnB",
-              description: "Matéria desenvolvida em uma parceria entre o MIT e a UnB, focada em design e engenharia do sistemas Bitcoin.",
+              description: "Matéria desenvolvida em uma parceria entre o MIT e a UnB, focada em design e engenharia de sistemas Bitcoin.",
               type: "education" as const,
             },
             {
@@ -223,6 +225,7 @@ const translations = {
               subtitle: "Certificação Online",
               description: "Conclusão do curso introdutório de ciência da computação de Harvard, abrangendo algoritmos, estruturas de dados, segurança e desenvolvimento web.",
               type: "achievement" as const,
+              link: "https://cs50.harvard.edu/x/",
             },
           ],
         },
@@ -444,6 +447,7 @@ const translations = {
               subtitle: "Bitcoin Development Training",
               description: "A collection of practical challenges created for Brazilian developers who want to learn about Bitcoin in practice.",
               type: "achievement" as const,
+              link: "https://launchpad.vinteum.org/",
             },
             {
               title: "Cryptocurrency Design and Engineering",
@@ -456,6 +460,7 @@ const translations = {
               subtitle: "Online Certification",
               description: "Completion of Harvard's introductory computer science course, covering algorithms, data structures, security and web development.",
               type: "achievement" as const,
+              link: "https://cs50.harvard.edu/x/",
             },
           ],
         },

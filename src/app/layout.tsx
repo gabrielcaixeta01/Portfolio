@@ -7,8 +7,34 @@ import Navbar from "../components/Navbar";
 import { Inter, Space_Grotesk } from "next/font/google";
 
 export const metadata = {
-  title: "Gabriel Caixeta - Portfólio",
-  description: "Portfólio de Gabriel Caixeta, desenvolvedor web full-stack.",
+  title: "Gabriel Caixeta — Desenvolvedor Full-Stack",
+  description:
+    "Portfólio de Gabriel Caixeta, desenvolvedor full-stack com foco em Next.js, TypeScript e Tailwind CSS. Estudante de Engenharia de Computação na UnB.",
+  openGraph: {
+    title: "Gabriel Caixeta — Desenvolvedor Full-Stack",
+    description:
+      "Interfaces rápidas, design consistente e código bem estruturado. Conheça os projetos e a trajetória de Gabriel Caixeta.",
+    url: "https://gabrielcaixeta01.github.io/Portfolio/",
+    siteName: "Gabriel Caixeta",
+    images: [
+      {
+        url: "https://gabrielcaixeta01.github.io/Portfolio/gabriel.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Gabriel Caixeta — Desenvolvedor Full-Stack",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gabriel Caixeta — Desenvolvedor Full-Stack",
+    description:
+      "Interfaces rápidas, design consistente e código bem estruturado.",
+    images: ["https://gabrielcaixeta01.github.io/Portfolio/gabriel.jpg"],
+  },
+  metadataBase: new URL("https://gabrielcaixeta01.github.io/Portfolio/"),
 };
 
 const inter = Inter({
