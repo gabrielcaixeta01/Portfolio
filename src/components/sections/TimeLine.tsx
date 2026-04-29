@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface TimelineItem {
@@ -15,203 +16,184 @@ interface TimelineYear {
   events: TimelineItem[];
 }
 
-export default function TimeLine() {
-  const { t } = useLanguage();
-  const timelineYears: TimelineYear[] = t.timeline.years;
+// ─── Type badge config ────────────────────────────────────────────────────────
+const badge: Record<string, { ring: string; dot: string; label: Record<string, string> }> = {
+  work:        { ring: "ring-blue-500/25",   dot: "bg-blue-400",   label: { pt: "Trabalho",  en: "Work"        } },
+  education:   { ring: "ring-violet-500/25", dot: "bg-violet-400", label: { pt: "Educação",  en: "Education"   } },
+  achievement: { ring: "ring-amber-500/25",  dot: "bg-amber-400",  label: { pt: "Conquista", en: "Achievement" } },
+  other:       { ring: "ring-slate-500/25",  dot: "bg-slate-400",  label: { pt: "Outro",     en: "Other"       } },
+};
 
-  const getTypeIcon = (type?: string) => {
-    switch (type) {
-      case "education":
-        return (
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-        );
-      case "work":
-        return (
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-        );
-      case "achievement":
-        return (
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-          </svg>
-        );
-      default:
-        return (
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        );
-    }
-  };
+const isCurrentJob = (t: TimelineItem) => t.title === "ApexBrasil";
+
+// ─── Component ────────────────────────────────────────────────────────────────
+export default function TimeLine() {
+  const { t, language } = useLanguage();
+  const years: TimelineYear[] = t.timeline.years;
 
   return (
-    <section
-      id="timeline"
-      className="
-        scroll-mt-20
-        relative overflow-hidden
-        min-h-screen
-        px-4 sm:px-6
-        py-14 sm:py-18 md:py-22
-      "
-    >
-      {/* background suave */}
-      <div
-        className="
-          pointer-events-none absolute inset-0
-          
-        "
-      />
-      <div className="max-w-5xl w-full mx-auto relative">
-        <div className="text-center mb-10 sm:mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
+    <section id="timeline" className="scroll-mt-20 px-4 py-16 sm:py-20">
+      <div className="max-w-2xl mx-auto">
+
+        {/* ── Header ──────────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-14 sm:mb-16"
+        >
+          <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-indigo-500 dark:text-indigo-400">
+            {language === "pt" ? "trajetória" : "journey"}
+          </span>
+          <h2 className="mt-1.5 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
             {t.timeline.title}
           </h2>
-          <p className="mt-3 text-sm sm:text-base max-w-2xl mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-[var(--cc-text)] opacity-60 max-w-md">
             {t.timeline.description}
           </p>
-        </div>
+        </motion.div>
 
+        {/* ── Timeline body ────────────────────────────────────────────────── */}
         <div className="relative">
-          {/* Linha vertical mais sutil */}
-          <div
-            className="
-              absolute left-[12px] sm:left-10 top-0 bottom-0
-              w-px
-              bg-gradient-to-b
-              from-transparent via-gray-200 to-transparent
-              dark:via-gray-800
-            "
+
+          {/* Animated vertical line */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            transition={{ duration: 1.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            style={{ transformOrigin: "top" }}
+            className="absolute left-[5px] top-1 bottom-8 w-px bg-gradient-to-b from-indigo-500/70 via-purple-500/40 to-transparent pointer-events-none"
           />
 
-          <div className="space-y-10 sm:space-y-14">
-            {timelineYears.map((yearData, yearIndex) => (
-              <div key={yearIndex} className="relative">
-                {/* Ano */}
-                <div className="relative pl-14 sm:pl-24 mb-5 sm:mb-7">
-                  <div
-                    className="
-                      absolute left-[4px] sm:left-8 top-0
-                      w-6 h-6 rounded-full
-                      bg-[var(--pc-bg)] border border-[var(--pc-border)]
-                      backdrop-blur
-                      shadow-[var(--pc-shadow,_0_1px_0_rgba(0,0,0,0.04))]
-                      flex items-center justify-center
-                    "
-                  >
-                    <div className="w-2 h-2 rounded-full bg-[var(--pc-title)]" />
-                  </div>
+          <div className="space-y-10">
+            {years.map((yearData, yi) => (
+              <motion.div
+                key={yearData.year}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: yi * 0.1 }}
+                viewport={{ once: true, amount: 0.15 }}
+              >
+                {/* ── Year anchor ─────────────────────────────────────────── */}
+                <div className="relative flex items-center gap-3 mb-5">
+                  {/* Dot on line */}
+                  <div className="relative z-10 flex-shrink-0 w-[11px] h-[11px] rounded-full border-2 border-indigo-500 bg-[var(--background)]" />
 
-                  <h3
-                    className="
-                      inline-flex items-center
-                      text-xl sm:text-2xl font-semibold
-                    
-                      tracking-tight
-                    "
-                  >
+                  {/* Year text */}
+                  <span className="text-xs font-bold tracking-[0.25em] uppercase text-indigo-500 dark:text-indigo-400">
                     {yearData.year}
-                    <span className="ml-3 h-px w-10 sm:w-16 bg-gray-200 dark:bg-gray-800" />
-                  </h3>
+                  </span>
+
+                  {/* Rule */}
+                  <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/25 to-transparent" />
                 </div>
 
-                {/* Eventos */}
-                <div className="space-y-4 sm:space-y-6">
-                  {yearData.events.map((event, eventIndex) => (
-                    <div key={eventIndex} className="relative pl-14 sm:pl-24">
-                      {/* Ícone */}
-                      <div
-                        className="
-                          absolute left-[0px] sm:left-6 top-4
-                          w-9 h-9 rounded-xl
-                          bg-[var(--pc-bg)] border border-[var(--pc-border)]
-                          backdrop-blur
-                          shadow-[var(--pc-shadow,_0_1px_0_rgba(0,0,0,0.04))]
-                          flex items-center justify-center
-                          text-[var(--pc-title)]
-                          transition-transform duration-200
-                        "
-                      >
-                        {getTypeIcon(event.type)}
-                      </div>
+                {/* ── Events ──────────────────────────────────────────────── */}
+                <div className="ml-6 space-y-1">
+                  {yearData.events.map((event, ei) => {
+                    const cfg = badge[event.type ?? "other"];
+                    const current = isCurrentJob(event);
 
-                      {/* Card */}
-                      <div
+                    return (
+                      <motion.div
+                        key={ei}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.38, delay: yi * 0.08 + ei * 0.07 }}
+                        viewport={{ once: true }}
                         className="
                           group relative
-                          rounded-2xl
-                          bg-[var(--pc-bg)] border border-[var(--pc-border)]
-                          backdrop-blur
-                          p-4 sm:p-5
-                          shadow-[var(--pc-shadow,_inset_0_0_0_1px_var(--pc-outline))]
-                          transition-all duration-200
-                          hover:-translate-y-0.5
-                          hover:shadow-[0_12px_32px_rgba(2,6,23,0.10)]
+                          rounded-xl px-4 py-3.5 -mx-4
+                          border border-transparent
+                          hover:bg-[var(--pc-bg)]
+                          hover:border-[var(--pc-border)]
+                          hover:shadow-[var(--pc-shadow)]
+                          transition-all duration-200 ease-out
+                          cursor-default
                         "
                       >
-                        {/* brilho sutil no hover */}
-                        <div
-                          className="
-                            pointer-events-none absolute inset-0 rounded-2xl
-                            opacity-0 group-hover:opacity-100
-                            transition-opacity duration-200
-                            bg-[radial-gradient(55%_70%_at_30%_0%,rgba(99,102,241,0.08),transparent_55%)]
-                          "
-                        />
+                        {/* Hover left accent */}
+                        <div className="
+                          absolute left-0 top-[14px] bottom-[14px]
+                          w-[2.5px] rounded-full
+                          bg-indigo-500/0 group-hover:bg-indigo-500/50
+                          transition-all duration-200
+                        " />
 
-                        <div className="relative">
-                          <div className="flex items-start justify-between gap-2">
-                            <h4 className="text-sm sm:text-base font-semibold text-[var(--pc-title)]">
+                        {/* Title row */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-2 flex-wrap min-w-0">
+
+                            {/* Type dot */}
+                            <span className={`
+                              flex-shrink-0 inline-flex w-[7px] h-[7px] rounded-full mt-[5px]
+                              ${current ? "bg-emerald-400" : cfg.dot}
+                              ${current ? "shadow-[0_0_6px_2px_rgba(52,211,153,0.4)]" : ""}
+                            `} />
+
+                            <h4 className="text-sm sm:text-[15px] font-semibold text-[var(--cc-title)] leading-snug">
                               {event.title}
                             </h4>
-                            {event.link && (
-                              <a
-                                href={event.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`Ver ${event.title}`}
-                                className="flex-shrink-0 mt-0.5 text-indigo-400 hover:text-indigo-300 transition-colors"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                </svg>
-                              </a>
+
+                            {current && (
+                              <span className="inline-flex items-center gap-1.5 text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 leading-none">
+                                <span className="relative flex h-1.5 w-1.5">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                                </span>
+                                {language === "pt" ? "presente" : "current"}
+                              </span>
+                            )}
+
+                            {!current && (
+                              <span className={`
+                                text-[10px] font-medium px-1.5 py-0.5 rounded-full
+                                bg-transparent ring-1 ${cfg.ring}
+                                text-[var(--cc-text)] opacity-60
+                              `}>
+                                {cfg.label[language] ?? cfg.label["pt"]}
+                              </span>
                             )}
                           </div>
 
-                          {event.subtitle && (
-                            <p className="mt-0.5 text-xs sm:text-sm text-[var(--pc-text)]">
-                              {event.subtitle}
-                            </p>
+                          {event.link && (
+                            <a
+                              href={event.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Ver ${event.title}`}
+                              className="flex-shrink-0 text-[var(--cc-text)] opacity-30 hover:opacity-80 hover:text-indigo-400 transition-all mt-0.5"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              </svg>
+                            </a>
                           )}
-
-                          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[var(--pc-text)]">
-                            {event.description}
-                          </p>
                         </div>
 
-                        {/* borda “viva” no hover */}
-                        <div
-                          className="
-                            pointer-events-none absolute inset-0 rounded-2xl
-                            ring-1 ring-transparent
-                            group-hover:ring-indigo-500/15
-                            transition duration-200
-                          "
-                        />
-                      </div>
-                    </div>
-                  ))}
+                        {/* Subtitle */}
+                        {event.subtitle && (
+                          <p className="ml-[15px] mt-0.5 text-xs sm:text-[13px] text-[var(--cc-text)] opacity-65 font-medium">
+                            {event.subtitle}
+                          </p>
+                        )}
+
+                        {/* Description */}
+                        <p className="ml-[15px] mt-1 text-xs sm:text-[13px] text-[var(--cc-text)] opacity-50 leading-relaxed">
+                          {event.description}
+                        </p>
+                      </motion.div>
+                    );
+                  })}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );
