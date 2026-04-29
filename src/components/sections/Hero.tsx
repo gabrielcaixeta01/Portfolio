@@ -1,230 +1,256 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
+import { SiNextdotjs, SiTypescript, SiTailwindcss, SiNestjs } from "react-icons/si";
 
-export default function Hero() {
-  const { language } = useLanguage();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [currentJobTitle, setCurrentJobTitle] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-  const [jobIndex, setJobIndex] = useState(0);
+// ─── Syntax token helpers ───────────────────────────────────────────────────
+const Kw = ({ c }: { c: React.ReactNode }) => <span className="text-[#c678dd]">{c}</span>;
+const Vr = ({ c }: { c: React.ReactNode }) => <span className="text-[#61afef]">{c}</span>;
+const Pr = ({ c }: { c: React.ReactNode }) => <span className="text-[#e06c75]">{c}</span>;
+const St = ({ c }: { c: React.ReactNode }) => <span className="text-[#98c379]">{c}</span>;
+const Pl = ({ c }: { c: React.ReactNode }) => <span className="text-[#abb2bf]">{c}</span>;
+const Ln = ({ n }: { n: number }) => (
+  <span className="inline-block w-5 text-right mr-5 text-[#3d4350] select-none text-[11px]">{n}</span>
+);
 
-  const name = "Gabriel Caixeta";
-
+// ─── Code card ───────────────────────────────────────────────────────────────
+function CodeCard({ language }: { language: string }) {
+  const [blink, setBlink] = useState(true);
   useEffect(() => {
-    setMounted(true);
+    const id = setInterval(() => setBlink((v) => !v), 530);
+    return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    const jobTitles =
-      language === "pt"
-        ? ["desenvolvedor", "desenvolvedor front-end", "desenvolvedor back-end"]
-        : ["developer", "front-end developer", "back-end developer"];
+  const status = language === "pt" ? "aberto a oportunidades" : "open to opportunities";
+  const loc = "Brasília, BR";
 
-    const currentTitle = jobTitles[jobIndex];
-    let timeout: NodeJS.Timeout;
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 36, y: 8 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      transition={{ duration: 0.85, delay: 0.55, ease: "easeOut" }}
+      className="
+        w-[330px] xl:w-[390px]
+        rounded-2xl overflow-hidden
+        bg-[#0d1117]
+        border border-white/[0.09]
+        shadow-[0_48px_100px_-24px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.04)]
+      "
+    >
+      {/* Window chrome */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.07] bg-white/[0.025]">
+        <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+        <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+        <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+        <span className="ml-3 text-[11px] text-white/25 font-mono tracking-wide">gabriel.ts</span>
+      </div>
 
-    if (isTyping) {
-      if (currentJobTitle.length < currentTitle.length) {
-        timeout = setTimeout(() => {
-          setCurrentJobTitle(currentTitle.slice(0, currentJobTitle.length + 1));
-        }, 90);
-      } else {
-        timeout = setTimeout(() => setIsTyping(false), 1600);
-      }
-    } else {
-      if (currentJobTitle.length > 0) {
-        timeout = setTimeout(() => setCurrentJobTitle(currentJobTitle.slice(0, -1)), 45);
-      } else {
-        setJobIndex((prev) => (prev + 1) % jobTitles.length);
-        setIsTyping(true);
-      }
-    }
+      {/* Code body */}
+      <div className="px-4 py-5 font-mono text-[12.5px] leading-[1.9] select-none">
+        <div><Ln n={1} /><Kw c="const" /> <Vr c="gabriel" /> <Pl c="= {" /></div>
+        <div><Ln n={2} /><Pr c="  name" /><Pl c=": " /><St c={`"Gabriel Caixeta"`} /><Pl c="," /></div>
+        <div><Ln n={3} /><Pr c="  role" /><Pl c=": " /><St c={`"Full-Stack Dev"`} /><Pl c="," /></div>
+        <div><Ln n={4} /><Pr c="  location" /><Pl c=": " /><St c={`"${loc}"`} /><Pl c="," /></div>
+        <div><Ln n={5} /><Pr c="  stack" /><Pl c=": [" /></div>
+        <div><Ln n={6} /><Pl c="    " /><St c='"Next.js"' /><Pl c=", " /><St c='"TypeScript"' /><Pl c="," /></div>
+        <div><Ln n={7} /><Pl c="    " /><St c='"NestJS"' /><Pl c=", " /><St c='"Tailwind"' /><Pl c="," /></div>
+        <div><Ln n={8} /><Pl c="  ]," /></div>
+        <div><Ln n={9} /><Pr c="  status" /><Pl c=": " /><St c={`"${status}"`} /><Pl c="," /></div>
+        <div><Ln n={10} /><Pl c="}" /></div>
+        <div><Ln n={11} /><Pl c=" " /></div>
+        <div>
+          <Ln n={12} />
+          <Kw c="export default" /> <Vr c="gabriel" />
+          <span
+            className="inline-block w-[2px] h-[13px] ml-0.5 bg-indigo-400 align-middle"
+            style={{ opacity: blink ? 1 : 0, transition: "opacity 60ms" }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
-    return () => clearTimeout(timeout);
-  }, [currentJobTitle, isTyping, jobIndex, language]);
+// ─── Tech stack strip ────────────────────────────────────────────────────────
+const stack = [
+  { name: "Next.js",    Icon: SiNextdotjs,  color: "#ffffff" },
+  { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+  { name: "React",      Icon: FaReact,      color: "#61DAFB" },
+  { name: "Tailwind",   Icon: SiTailwindcss,color: "#38BDF8" },
+  { name: "NestJS",     Icon: SiNestjs,     color: "#E0234E" },
+  { name: "Python",     Icon: FaPython,     color: "#FFD43B" },
+  { name: "Git",        Icon: FaGitAlt,     color: "#F05032" },
+  { name: "Node.js",    Icon: FaNode,       color: "#68A063" },
+];
+
+// ─── Framer variants ─────────────────────────────────────────────────────────
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.1 } },
+};
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+};
+
+// ─── Component ───────────────────────────────────────────────────────────────
+export default function Hero() {
+  const { language } = useLanguage();
 
   return (
     <section
       id="hero"
-      className="
-        relative overflow-hidden min-h-[100svh]
-        flex items-center justify-center px-4 py-10
-      "
+      className="relative overflow-hidden min-h-[100svh] flex items-center px-6 sm:px-10"
     >
-      {/* Overlay pra "domar" os particles e dar firmeza (apenas em dark mode) */}
-      {mounted && resolvedTheme === "dark" && (
-        <>
-          <div
-            className="
-              pointer-events-none absolute inset-0 z-[1]
-              bg-[radial-gradient(60%_60%_at_50%_30%,rgba(99,102,241,0.18),transparent_60%)]
-              [mask-image:radial-gradient(70%_70%_at_50%_35%,black,transparent_78%)]
-            "
-          />
-          <div
-            className="
-              pointer-events-none absolute inset-0 z-[1]
-              bg-gradient-to-b from-black/40 via-black/40 to-black/65
-            "
-          />
-        </>
-      )}
+      {/* Always-on dark overlay — ensures text legibility in both themes */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9 }}
-        className="relative z-10 w-full max-w-5xl mx-auto text-center"
-      >
-        {/* Badge (menos “inflado”) */}
+      {/* Aurora blobs */}
+      <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-7 sm:mb-9"
-        >
-          <span
-            className="
-              inline-flex items-center gap-2
-              rounded-full px-5 py-2.5
-              text-xs sm:text-sm font-light
-              bg-[var(--pc-bg)] border border-[var(--pc-border)]
-              text-[var(--pc-title)]
-              backdrop-blur-xl
-              uppercase tracking-widest
-            "
-          >
-            <span className="inline-block h-1.5  w-1.5 rounded-full bg-indigo-400" />
-            {language === "pt" ? "Bem-vindo ao meu portfólio" : "Welcome to my portfolio"}
-          </span>
-        </motion.div>
+          animate={{ scale: [1, 1.1, 1], opacity: [0.22, 0.34, 0.22] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-40 -left-40 w-[750px] h-[750px] rounded-full bg-indigo-700/25 blur-[130px]"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.06, 1], opacity: [0.14, 0.22, 0.14] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+          className="absolute -bottom-56 right-0 w-[650px] h-[650px] rounded-full bg-purple-700/20 blur-[120px]"
+        />
+      </div>
 
-        {/* Nome (mais moderno e firme) */}
-        <div className="mb-6 sm:mb-7">
+      {/* Main grid */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-14 lg:gap-10 py-28 lg:py-0 min-h-[100svh]">
+
+        {/* ── LEFT: text ─────────────────────────────────────────────────── */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+          className="flex-1 text-center lg:text-left"
+        >
+
+          {/* Name — huge */}
           <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
+            variants={fadeUp}
             className="
-              font-thin tracking-[-0.04em] leading-[0.92]
-              text-5xl sm:text-7xl md:text-8xl lg:text-[96px]
-              text-transparent bg-clip-text
-              drop-shadow-[0_10px_40px_rgba(99,102,241,0.14)]
+              font-light tracking-[-0.05em] leading-[0.88]
+              text-[clamp(3.5rem,10vw,8.5rem)]
+              mb-7
             "
-            style={{
-              backgroundImage: "linear-gradient(135deg,#3b82f6 0%,#a855f7 55%,#22d3ee 110%)",
-              backgroundSize: "180% 180%",
-            }}
           >
-            <motion.span
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%"] }}
-              transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            <span className="text-white/90">Gabriel</span>
+            <br />
+            <span
+              className="text-transparent bg-clip-text"
               style={{
-                display: "inline-block",
-                backgroundImage: "inherit",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                backgroundSize: "inherit",
+                backgroundImage: "linear-gradient(135deg, #818cf8 0%, #a78bfa 45%, #67e8f9 100%)",
               }}
             >
-              {name}
-            </motion.span>
+              Caixeta
+            </span>
           </motion.h1>
-        </div>
 
-        {/* Descrição (mais “produto”, menos frase genérica) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.7 }}
-          className="mb-7 sm:mb-9"
-        >
-          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl font-light tracking-wide leading-relaxed">
+          {/* Role */}
+          <motion.p
+            variants={fadeUp}
+            className="text-base sm:text-lg text-white/50 font-light tracking-wide mb-4"
+          >
+            {language === "pt"
+              ? "Desenvolvedor Full-Stack · Engenharia de Computação – UnB"
+              : "Full-Stack Developer · Computer Engineering – UnB"}
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            variants={fadeUp}
+            className="max-w-md text-sm sm:text-base text-white/35 font-light leading-relaxed mb-10 mx-auto lg:mx-0"
+          >
             {language === "pt"
               ? "Interfaces rápidas, design consistente e código bem estruturado."
               : "Fast interfaces, consistent design, and well-structured code."}
-          </p>
-        </motion.div>
+          </motion.p>
 
-        {/* Typewriter (menos peso, mais elegante) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.7 }}
-          className="my-8 sm:my-10 flex items-center justify-center"
-        >
-          <span className="text-lg sm:text-xl md:text-2xl font-light mr-3">
-            {language === "pt" ? "Eu sou" : "I'm a"}
-          </span>
-
-          <h2 className="min-w-[14ch] text-left text-lg sm:text-xl md:text-2xl font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-            {currentJobTitle}
-            <motion.span
-              animate={{ opacity: [1, 0] }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-block ml-1 w-px h-5 sm:h-6 md:h-7 bg-gradient-to-b from-blue-400 to-purple-400"
-            />
-          </h2>
-        </motion.div>
-
-        {/* Botões (sem emoji = + firmeza) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.7 }}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center mb-12 sm:mb-16"
-        >
-          <motion.button
-            whileHover={{ y: -2, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 450, damping: 32 }}
-            onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
-            className="
-              w-full sm:w-auto rounded-full
-              px-7 py-3
-              text-sm sm:text-base font-medium
-              bg-gradient-to-r from-indigo-500 to-purple-600
-              shadow-[0_14px_40px_-18px_rgba(99,102,241,0.65)]
-              border border-white/10
-            "
+          {/* CTA buttons */}
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-12"
           >
-            {language === "pt" ? "Explorar projetos" : "Explore projects"}
-          </motion.button>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 450, damping: 32 }}
+              onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
+              className="
+                rounded-full px-7 py-3 text-sm font-medium
+                bg-gradient-to-r from-indigo-500 to-purple-600
+                text-white
+                shadow-[0_8px_30px_-10px_rgba(99,102,241,0.7)]
+                border border-white/10
+                transition-shadow duration-200
+              "
+            >
+              {language === "pt" ? "Ver projetos" : "View projects"}
+            </motion.button>
 
-          <motion.button
-            whileHover={{ y: -2, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 450, damping: 32 }}
-            onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-            className="
-              w-full sm:w-auto rounded-full
-              px-7 py-3
-              text-sm sm:text-base font-medium
-              bg-[var(--pc-bg)] border border-[var(--pc-border)]
-              text-[var(--pc-title)]
-              backdrop-blur-xl
-              hover:shadow-[0_8px_20px_rgba(2,6,23,0.08)]
-              transition-all duration-200
-            "
+            <motion.button
+              whileHover={{ y: -2, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 450, damping: 32 }}
+              onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
+              className="
+                rounded-full px-7 py-3 text-sm font-medium
+                border border-white/20 text-white/75
+                hover:bg-white/8 hover:border-white/35 hover:text-white/90
+                transition-all duration-150
+              "
+            >
+              {language === "pt" ? "Vamos conversar" : "Let's talk"}
+            </motion.button>
+          </motion.div>
+
+          {/* Tech strip */}
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
           >
-            {language === "pt" ? "Vamos conversar" : "Let's talk"}
-          </motion.button>
+            <span className="text-[10px] uppercase tracking-[0.18em] text-white/20 font-medium mr-1">
+              Stack
+            </span>
+            <div className="h-px w-6 bg-white/15" />
+            {stack.map(({ name, Icon, color }) => (
+              <span
+                key={name}
+                title={name}
+                className="
+                  flex items-center gap-1.5 px-2.5 py-1 rounded-lg
+                  bg-white/[0.05] border border-white/[0.08]
+                  text-white/45 hover:text-white/75
+                  transition-colors duration-150 cursor-default
+                "
+              >
+                <Icon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
+                <span className="text-[11px] font-medium">{name}</span>
+              </span>
+            ))}
+          </motion.div>
         </motion.div>
 
-      </motion.div>
+        {/* ── RIGHT: code card (desktop only) ────────────────────────────── */}
+        <div className="hidden lg:flex flex-shrink-0 items-center">
+          <CodeCard language={language} />
+        </div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.8 }}
+        transition={{ delay: 2.2, duration: 0.8 }}
         onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
         aria-label="Rolar para baixo"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/25 hover:text-white/60 transition-colors cursor-pointer"
       >
         <span className="text-[10px] uppercase tracking-widest font-light">scroll</span>
         <motion.svg

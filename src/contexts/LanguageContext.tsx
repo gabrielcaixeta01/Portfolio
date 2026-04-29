@@ -193,6 +193,17 @@ const translations = {
       description: "Uma linha do tempo com os principais marcos da minha trajetória acadêmica e profissional.",
       years: [
         {
+          year: "2026",
+          events: [
+            {
+              title: "ApexBrasil",
+              subtitle: "Estagiário — Coordenação de Sistemas e Aplicações",
+              description: "Estágio presencial em Brasília, atuando na Coordenação de Sistemas e Aplicações da Agência Brasileira de Promoção de Exportações e Investimentos.",
+              type: "work" as const,
+            },
+          ],
+        },
+        {
           year: "2025",
           events: [
             {
@@ -206,19 +217,6 @@ const translations = {
               subtitle: "Projeto Freelancer",
               description: "Desenvolvimento do site institucional da GIOGÁS, empresa sediada no Rio de Janeiro.",
               type: "work" as const,
-            },
-            {
-              title: "Bitcoin Dev Launchpad — Vinteum",
-              subtitle: "Capacitação em Desenvolvimento Bitcoin",
-              description: "Coleção de desafios práticos criados para desenvolvedores brasileiros que querem aprender na prática sobre Bitcoin.",
-              type: "achievement" as const,
-              link: "https://launchpad.vinteum.org/",
-            },
-            {
-              title: "Cryptocurrency Design and Engineering",
-              subtitle: "Parceria MIT & UnB",
-              description: "Matéria desenvolvida em uma parceria entre o MIT e a UnB, focada em design e engenharia de sistemas Bitcoin.",
-              type: "education" as const,
             },
             {
               title: "CS50 – Introdução à Ciência da Computação de Harvard",
@@ -428,6 +426,17 @@ const translations = {
       description: "A timeline with the main milestones of my academic and professional journey.",
       years: [
         {
+          year: "2026",
+          events: [
+            {
+              title: "ApexBrasil",
+              subtitle: "Intern — Systems and Applications Division",
+              description: "On-site internship in Brasília, working at the Systems and Applications Division of the Brazilian Trade and Investment Promotion Agency.",
+              type: "work" as const,
+            },
+          ],
+        },
+        {
           year: "2025",
           events: [
             {
@@ -441,19 +450,6 @@ const translations = {
               subtitle: "Freelance Project",
               description: "Development of the institutional website for GIOGÁS, a company based in Rio de Janeiro.",
               type: "work" as const,
-            },
-            {
-              title: "Bitcoin Dev Launchpad — Vinteum",
-              subtitle: "Bitcoin Development Training",
-              description: "A collection of practical challenges created for Brazilian developers who want to learn about Bitcoin in practice.",
-              type: "achievement" as const,
-              link: "https://launchpad.vinteum.org/",
-            },
-            {
-              title: "Cryptocurrency Design and Engineering",
-              subtitle: "MIT & UnB Partnership",
-              description: "Course developed in partnership between MIT and UnB, focused on design and engineering of Bitcoin systems.",
-              type: "education" as const,
             },
             {
               title: "CS50 – Introduction to Computer Science from Harvard",
