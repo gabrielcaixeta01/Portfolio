@@ -5,7 +5,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import ProjectCard, { Project } from "../ProjectCard";
 
 export default function Projetos() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const projects: Project[] = [
     {
@@ -15,17 +15,9 @@ export default function Projetos() {
       tech: ["Python", "Jupyter", "Network Analysis", "scikit-learn"],
       image: t.projects.electrumSite.image,
       link: "https://gabrielcaixeta01.github.io/electrum-observatory/",
-      linkLabel: "Visitar Site",
+      linkLabel: language === "pt" ? "Visitar Site" : "Visit Site",
       githubLink: "https://github.com/gabrielcaixeta01/electrum-observatory",
-    },
-    {
-      badge: "Projeto Pessoal",
-      title: t.projects.kodo.title,
-      description: t.projects.kodo.description,
-      tech: ["Next.js", "TypeScript", "Tailwind", "Supabase", "PWA"],
-      image: t.projects.kodo.image,
-      link: "https://kodo-app-delta.vercel.app/",
-      linkLabel: "Visitar Site",
+      featured: true,
     },
     {
       badge: "Projeto Freelancer",
@@ -34,80 +26,56 @@ export default function Projetos() {
       tech: ["React", "Next.js", "Tailwind", "TypeScript"],
       image: t.projects.giogas.image,
       link: "https://site-giogas.vercel.app/",
-      linkLabel: "Visitar Site",
+      linkLabel: language === "pt" ? "Visitar Site" : "Visit Site",
     },
     {
       badge: "Projeto Pessoal",
       title: t.projects.baberAgenda.title,
       description: t.projects.baberAgenda.description,
-      tech: ["React", "TypeScript", "Tailwind","Supabase"],
+      tech: ["React", "TypeScript", "Tailwind", "Supabase"],
       image: t.projects.baberAgenda.image,
       link: "https://barber-agenda-one.vercel.app/",
-      linkLabel: "Visitar Site",
+      linkLabel: language === "pt" ? "Visitar Site" : "Visit Site",
     },
   ];
 
+  const [featured, ...rest] = projects;
+
   return (
-    <section
-      id="projetos"
-      className="
-        scroll-mt-20
-        relative overflow-hidden
-        py-20 sm:py-24 md:py-28
-        px-4
-      "
-    >
-      
-      <div className="relative max-w-7xl mx-auto">
-        {/* Header */}
+    <section id="projetos" className="scroll-mt-20 px-4 py-16 sm:py-20">
+      <div className="max-w-6xl mx-auto">
+
+        {/* ── Header ──────────────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-10 sm:mb-14 md:mb-16"
+          className="mb-10 sm:mb-12"
         >
-          <h2
-            className="
-              text-3xl sm:text-4xl lg:text-6xl
-              font-semibold tracking-[-0.045em]
-              leading-[1.05]
-              text-[var(--pc-title)]
-              mb-4 sm:mb-5
-            "
-          >
+          <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-indigo-500 dark:text-indigo-400">
+            {language === "pt" ? "projetos" : "projects"}
+          </span>
+          <h2 className="mt-1.5 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
             {t.projects.title}
           </h2>
-
-          <p
-            className="
-              text-[var(--pc-text)]
-              text-sm sm:text-base md:text-lg
-              max-w-3xl mx-auto
-              leading-[1.8]
-              tracking-[0.01em]
-              opacity-90
-              px-1 sm:px-0
-            "
-          >
+          <p className="mt-3 text-sm sm:text-base text-[var(--cc-text)] opacity-60 max-w-xl">
             {t.projects.description}
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div
-          className="
-            grid grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-4 sm:gap-6 md:gap-7
-            items-stretch
-          "
-        >
-          {projects.map((project, index) => (
-            <ProjectCard key={`${project.title}-${index}`} project={project} index={index} />
+        {/* ── Featured ────────────────────────────────────────────────────── */}
+        <div className="mb-5 sm:mb-6">
+          <ProjectCard project={featured} index={0} />
+        </div>
+
+        {/* ── Grid ────────────────────────────────────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {rest.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i + 1} />
           ))}
         </div>
+
       </div>
     </section>
   );

@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   SiNextdotjs, SiTailwindcss, SiNestjs, SiPrisma, SiRedis, SiPostgresql,
-  SiTypescript, SiReact, SiNodedotjs, SiPython, SiCplusplus, SiFigma,
-  SiJupyter, SiGooglecolab, SiGit, SiGithub, SiNumpy, SiPandas, SiFramer, SiVercel
+  SiTypescript, SiNodedotjs, SiPython, SiCplusplus, SiFigma,
+  SiJupyter, SiGooglecolab, SiGit, SiGithub, SiNumpy, SiPandas, SiFramer,
+  SiVercel, SiSupabase,
 } from "react-icons/si";
+import { FaReact } from "react-icons/fa";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
 export type Project = {
   badge?: string;
   title: string;
@@ -17,6 +20,7 @@ export type Project = {
   link: string;
   linkLabel?: string;
   githubLink?: string;
+  featured?: boolean;
 };
 
 interface ProjectCardProps {
@@ -24,204 +28,261 @@ interface ProjectCardProps {
   index: number;
 }
 
+// ─── Tech icon map ────────────────────────────────────────────────────────────
 const techIcons: Record<string, React.ReactElement> = {
-  "Next.js": <SiNextdotjs className="w-4 h-4" />,
-  Tailwind: <SiTailwindcss className="w-4 h-4" />,
-  "Tailwind CSS": <SiTailwindcss className="w-4 h-4" />,
-  "Nest.js": <SiNestjs className="w-4 h-4" />,
-  NestJS: <SiNestjs className="w-4 h-4" />,
-  Prisma: <SiPrisma className="w-4 h-4" />,
-  Redis: <SiRedis className="w-4 h-4" />,
-  PostgreSQL: <SiPostgresql className="w-4 h-4" />,
-  TypeScript: <SiTypescript className="w-4 h-4" />,
-  React: <SiReact className="w-4 h-4" />,
-  "Node.js": <SiNodedotjs className="w-4 h-4" />,
-  Python: <SiPython className="w-4 h-4" />,
-  "C++": <SiCplusplus className="w-4 h-4" />,
-  Figma: <SiFigma className="w-4 h-4" />,
-  Jupyter: <SiJupyter className="w-4 h-4" />,
-  "Google Colab": <SiGooglecolab className="w-4 h-4" />,
-  Git: <SiGit className="w-4 h-4" />,
-  GitHub: <SiGithub className="w-4 h-4" />,
-  NumPy: <SiNumpy className="w-4 h-4" />,
-  Pandas: <SiPandas className="w-4 h-4" />,
-  "Framer Motion": <SiFramer className="w-4 h-4" />,
-  Matplotlib: <SiPython className="w-4 h-4" />,
-  "Machine Learning": <SiPython className="w-4 h-4" />,
-  Catch2: <SiCplusplus className="w-4 h-4" />,
-  Vercel: <SiVercel className="w-4 h-4" />,
-  "scikit-learn": <SiPython className="w-4 h-4" />,
-  "Design System": <SiFigma className="w-4 h-4" />,
-  "UX Flows": <SiFigma className="w-4 h-4" />,
-  UX: <SiFigma className="w-4 h-4" />,
-  Prototyping: <SiFigma className="w-4 h-4" />,
+  "Next.js":        <SiNextdotjs className="w-3.5 h-3.5" />,
+  Tailwind:         <SiTailwindcss className="w-3.5 h-3.5 text-[#38BDF8]" />,
+  "Tailwind CSS":   <SiTailwindcss className="w-3.5 h-3.5 text-[#38BDF8]" />,
+  NestJS:           <SiNestjs className="w-3.5 h-3.5 text-[#E0234E]" />,
+  "Nest.js":        <SiNestjs className="w-3.5 h-3.5 text-[#E0234E]" />,
+  Prisma:           <SiPrisma className="w-3.5 h-3.5" />,
+  Redis:            <SiRedis className="w-3.5 h-3.5 text-[#FF4438]" />,
+  PostgreSQL:       <SiPostgresql className="w-3.5 h-3.5 text-[#336791]" />,
+  TypeScript:       <SiTypescript className="w-3.5 h-3.5 text-[#3178C6]" />,
+  React:            <FaReact className="w-3.5 h-3.5 text-[#61DAFB]" />,
+  "Node.js":        <SiNodedotjs className="w-3.5 h-3.5 text-[#68A063]" />,
+  Python:           <SiPython className="w-3.5 h-3.5 text-[#FFD43B]" />,
+  "C++":            <SiCplusplus className="w-3.5 h-3.5 text-[#00599C]" />,
+  Figma:            <SiFigma className="w-3.5 h-3.5 text-[#F24E1E]" />,
+  Jupyter:          <SiJupyter className="w-3.5 h-3.5 text-[#F37726]" />,
+  "Google Colab":   <SiGooglecolab className="w-3.5 h-3.5 text-[#F9AB00]" />,
+  Git:              <SiGit className="w-3.5 h-3.5 text-[#F05032]" />,
+  GitHub:           <SiGithub className="w-3.5 h-3.5" />,
+  NumPy:            <SiNumpy className="w-3.5 h-3.5 text-[#013243]" />,
+  Pandas:           <SiPandas className="w-3.5 h-3.5 text-[#150458]" />,
+  "Framer Motion":  <SiFramer className="w-3.5 h-3.5" />,
+  Vercel:           <SiVercel className="w-3.5 h-3.5" />,
+  Supabase:         <SiSupabase className="w-3.5 h-3.5 text-[#3ECF8E]" />,
+  "scikit-learn":   <SiPython className="w-3.5 h-3.5 text-[#F7931E]" />,
+  "Network Analysis": (
+    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <circle cx="6" cy="12" r="2" strokeWidth={1.8} />
+      <circle cx="18" cy="6" r="2" strokeWidth={1.8} />
+      <circle cx="18" cy="18" r="2" strokeWidth={1.8} />
+      <path d="M8 12h8M8 11l8-4M8 13l8 4" strokeWidth={1.5} />
+    </svg>
+  ),
+  PWA: (
+    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 5.5V3M12 21v-2.5M5.5 12H3M21 12h-2.5" />
+    </svg>
+  ),
 };
 
+// ─── Badge pill ───────────────────────────────────────────────────────────────
+const badgeColorMap: Record<string, string> = {
+  "Electrum Observatory": "bg-indigo-500/10 text-indigo-400 ring-1 ring-inset ring-indigo-500/20",
+  "Projeto Pessoal":      "bg-blue-500/10   text-blue-400   ring-1 ring-inset ring-blue-500/20",
+  "Projeto Freelancer":   "bg-amber-500/10  text-amber-400  ring-1 ring-inset ring-amber-500/20",
+  "Personal Project":     "bg-blue-500/10   text-blue-400   ring-1 ring-inset ring-blue-500/20",
+  "Freelance Project":    "bg-amber-500/10  text-amber-400  ring-1 ring-inset ring-amber-500/20",
+};
+
+function BadgePill({ text }: { text?: string }) {
+  if (!text) return null;
+  const cls = badgeColorMap[text] ?? "bg-slate-500/10 text-slate-400 ring-1 ring-inset ring-slate-500/20";
+  return (
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium ${cls}`}>
+      {text}
+    </span>
+  );
+}
+
+// ─── Tech chip ────────────────────────────────────────────────────────────────
+function TechChip({ name }: { name: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11.5px] font-medium bg-[var(--pc-chip-bg)] text-[var(--pc-chip-text)]">
+      {techIcons[name] ?? <span className="w-3 h-3 rounded-full bg-current/30 inline-block" />}
+      {name}
+    </span>
+  );
+}
+
+// ─── Featured card ────────────────────────────────────────────────────────────
+function FeaturedCard({ project }: { project: Project }) {
+  const { badge, title, description, tech, image, link, linkLabel = "Visitar Site", githubLink } = project;
+  const imgSrc = `${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}${image}`;
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="
+        group relative overflow-hidden rounded-2xl
+        bg-[var(--pc-bg)] border border-[var(--pc-border)]
+        shadow-[var(--pc-shadow)]
+        hover:shadow-[0_24px_64px_-20px_rgba(99,102,241,0.22)]
+        transition-all duration-300
+      "
+    >
+      <div className="flex flex-col lg:flex-row">
+
+        {/* Image — fills left 55% */}
+        <div className="relative w-full lg:w-[55%] aspect-video lg:aspect-auto lg:min-h-[360px] overflow-hidden flex-shrink-0">
+          {image && (
+            <>
+              <Image
+                src={imgSrc}
+                alt={title}
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                priority
+                sizes="(max-width: 1024px) 100vw, 55vw"
+              />
+              {/* Right fade into card bg (desktop) */}
+              <div className="hidden lg:block absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--pc-bg)] via-[var(--pc-bg)]/60 to-transparent" />
+              {/* Bottom fade (mobile) */}
+              <div className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--pc-bg)] to-transparent" />
+            </>
+          )}
+          {/* Featured watermark */}
+          <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.18em] font-medium text-white/50 bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-full">
+            ★ featured
+          </span>
+        </div>
+
+        {/* Content — right 45% */}
+        <div className="flex flex-col justify-center p-6 lg:p-8 lg:pl-6 gap-4 lg:w-[45%]">
+          <BadgePill text={badge} />
+
+          <div>
+            <h3 className="text-2xl sm:text-[1.65rem] font-semibold tracking-[-0.03em] leading-tight text-[var(--pc-title)]">
+              {title}
+            </h3>
+            <p className="mt-3 text-sm sm:text-[14.5px] text-[var(--pc-text)] leading-relaxed opacity-75">
+              {description}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {tech.map((t) => <TechChip key={t} name={t} />)}
+          </div>
+
+          <div className="flex gap-2 pt-1">
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={linkLabel}
+              className="
+                inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl
+                text-sm font-semibold
+                bg-[var(--pc-btn-bg)] text-[var(--pc-btn-text)]
+                hover:opacity-90 transition-opacity
+              "
+            >
+              {linkLabel}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            {githubLink && (
+              <a
+                href={githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ver código no GitHub"
+                className="
+                  inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl
+                  text-sm font-semibold
+                  border border-[var(--pc-border)] text-[var(--pc-title)]
+                  hover:border-indigo-400/40 transition-colors
+                "
+              >
+                <SiGithub className="w-4 h-4" />
+                Código
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+// ─── Standard card ────────────────────────────────────────────────────────────
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const { badge, title, description, tech, image, link, linkLabel = "Link", githubLink } = project;
+  if (project.featured) return <FeaturedCard project={project} />;
+
+  const { badge, title, description, tech, image, link, linkLabel = "Visitar Site", githubLink } = project;
+  const imgSrc = `${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}${image}`;
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay: Math.max(0, (index - 1) * 0.09) }}
       viewport={{ once: true }}
       className="
-        group relative flex h-full flex-col
-        rounded-2xl
-        bg-[var(--pc-bg)]
-        border border-[var(--pc-border)]
-        shadow-[var(--pc-shadow),_inset_0_0_0_1px_var(--pc-outline)]
-        backdrop-blur-[10px]
-        transition-[box-shadow,transform,border-color] duration-200 ease-out
-        hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-28px_rgba(2,6,23,0.45)]
-        overflow-hidden
+        group flex flex-col h-full
+        rounded-2xl overflow-hidden
+        bg-[var(--pc-bg)] border border-[var(--pc-border)]
+        shadow-[var(--pc-shadow)]
+        hover:-translate-y-1
+        hover:shadow-[0_20px_50px_-20px_rgba(2,6,23,0.18)]
+        dark:hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)]
+        transition-all duration-200 ease-out
       "
     >
-      {/* HEADER (imagem + badge) */}
+      {/* Image — full bleed */}
       {image && (
-        <div className="p-4 sm:p-5">
-          <div
-            className="
-              relative overflow-hidden rounded-xl
-              border border-[var(--pc-border)]
-              bg-black/[0.03] dark:bg-white/[0.03]
-              aspect-[16/9]
-            "
-          >
-            <Image
-              src={`${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}${image}`}
-              alt={`${title} - screenshot`}
-              fill
-              className="
-                object-cover
-                transition-transform duration-500 ease-out
-                group-hover:scale-[1.04]
-              "
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              loading="lazy"
-              priority={false}
-            />
-
-            {/* overlay sutil */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            {/* badge por cima da imagem (fica premium e economiza espaço) */}
-            {badge && (
-              <div className="absolute left-3 top-3">
-                <span
-                  className="
-                    inline-flex items-center gap-2 px-3 py-1
-                    text-[12px] font-semibold tracking-wide
-                    rounded-full
-                    bg-[var(--pc-badge-bg)] text-[var(--pc-badge-text)]
-                    shadow-sm
-                  "
-                >
-                  {badge}
-                </span>
-              </div>
-            )}
-          </div>
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <Image
+            src={imgSrc}
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          {/* Hover gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
       )}
 
-      {/* BODY */}
-      <div className="flex flex-1 flex-col px-4 sm:px-5 pb-4 sm:pb-5">
-        {/* Se não tiver imagem, badge volta pro topo */}
-        {!image && badge && (
-          <div className="mb-3">
-            <span
-              className="
-                inline-flex items-center gap-2 px-3 py-1
-                text-[12px] font-semibold tracking-wide
-                rounded-full
-                bg-[var(--pc-badge-bg)] text-[var(--pc-badge-text)]
-              "
-            >
-              {badge}
-            </span>
-          </div>
-        )}
-
-        {/* Title */}
-        <h3
-          className="
-            text-[var(--pc-title)]
-            font-[var(--font-display)]
-            tracking-[-0.02em]
-            text-xl sm:text-2xl
-            leading-tight
-          "
-        >
-          {title}
-        </h3>
-
-        {/* Description */}
-        <p
-          className="
-            mt-2
-            text-[var(--pc-text)]
-            text-sm sm:text-[15px]
-            leading-[1.7]
-            opacity-90
-            flex-grow
-            max-md:text-justify
-          "
-        >
-          {description}
-        </p>
-
-        {/* Tech chips */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tech.map((techName, techIndex) => (
-            <motion.span
-              key={`${techName}-${techIndex}`}
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.22, delay: techIndex * 0.02, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="
-                inline-flex items-center gap-2
-                px-3 py-1
-                text-[12.5px] font-medium
-                rounded-full
-                bg-[var(--pc-chip-bg)] text-[var(--pc-chip-text)]
-                border
-                [border-color:color-mix(in_oklab,_var(--pc-chip-text)_18%,_transparent)]
-              "
-              title={techName}
-            >
-              {techIcons[techName] ?? <span className="w-4 h-4 rounded-full bg-current/40" />}
-              {techName}
-            </motion.span>
-          ))}
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5 gap-3">
+        <div className="flex items-start justify-between gap-2">
+          <BadgePill text={badge} />
         </div>
 
-        {/* Footer links */}
-        <div className="mt-5 pt-4 border-t border-[var(--pc-border)] flex gap-2">
+        <div className="flex-1">
+          <h3 className="text-[17px] font-semibold tracking-[-0.02em] leading-snug text-[var(--pc-title)]">
+            {title}
+          </h3>
+          <p className="mt-1.5 text-[13.5px] text-[var(--pc-text)] leading-relaxed opacity-70 line-clamp-3">
+            {description}
+          </p>
+        </div>
+
+        {/* Tech chips */}
+        <div className="flex flex-wrap gap-1.5">
+          {tech.map((t) => <TechChip key={t} name={t} />)}
+        </div>
+
+        {/* Footer */}
+        <div className="pt-3 mt-auto border-t border-[var(--pc-border)] flex gap-2">
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={linkLabel}
             className={`
-              inline-flex items-center justify-center gap-2
-              px-4 py-2.5
-              text-sm font-semibold
-              rounded-xl
+              inline-flex items-center justify-center gap-1.5
+              px-4 py-2 rounded-lg text-[13px] font-semibold
               bg-[var(--pc-btn-bg)] text-[var(--pc-btn-text)]
-              transition-[transform,box-shadow] duration-200 ease-out
-              hover:-translate-y-0.5
-              hover:shadow-[0_12px_30px_-18px_rgba(99,102,241,0.6)]
-              focus-visible:outline-none
-              focus-visible:[box-shadow:0_0_0_3px_color-mix(in_oklab,_var(--pc-btn-bg)_35%,_transparent)]
+              hover:opacity-90 transition-opacity
               ${githubLink ? "flex-1" : "w-full"}
             `}
-            aria-label={linkLabel}
           >
-            {linkLabel} <span aria-hidden>↗</span>
+            {linkLabel}
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
           </a>
-
           {githubLink && (
             <a
               href={githubLink}
@@ -229,18 +290,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               rel="noopener noreferrer"
               aria-label="Ver código no GitHub"
               className="
-                inline-flex items-center justify-center gap-2
-                px-4 py-2.5
-                text-sm font-semibold
-                rounded-xl
-                bg-[var(--pc-bg)] border border-[var(--pc-border)] text-[var(--pc-title)]
-                transition-[transform,box-shadow,border-color] duration-200 ease-out
-                hover:-translate-y-0.5 hover:border-indigo-400/50
-                focus-visible:outline-none
+                inline-flex items-center justify-center
+                px-3 py-2 rounded-lg
+                border border-[var(--pc-border)] text-[var(--pc-title)]
+                hover:border-indigo-400/40 transition-colors
               "
             >
-              <SiGithub className="w-4 h-4" />
-              Código
+              <SiGithub className="w-3.5 h-3.5" />
             </a>
           )}
         </div>
