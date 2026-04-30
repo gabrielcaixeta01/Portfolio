@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiNestjs } from "react-icons/si";
@@ -99,14 +100,21 @@ const fadeUp: Variants = {
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function Hero() {
   const { language } = useLanguage();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  const isDark = !mounted || resolvedTheme === "dark";
 
   return (
     <section
       id="hero"
       className="relative overflow-hidden min-h-[100svh] flex items-center px-6 sm:px-10"
     >
-      {/* Always-on dark overlay — ensures text legibility in both themes */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
+      {/* Dark overlay — only in dark mode */}
+      {isDark && (
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
+      )}
 
       {/* Aurora blobs */}
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
@@ -142,7 +150,7 @@ export default function Hero() {
               mb-7
             "
           >
-            <span className="text-white/90">Gabriel</span>
+            <span className="text-[var(--cc-title)]">Gabriel</span>
             <br />
             <span
               className="text-transparent bg-clip-text"
@@ -157,7 +165,7 @@ export default function Hero() {
           {/* Role */}
           <motion.p
             variants={fadeUp}
-            className="text-base sm:text-lg text-white/50 font-light tracking-wide mb-4"
+            className="text-base sm:text-lg text-[var(--cc-text)] font-light tracking-wide mb-4"
           >
             {language === "pt"
               ? "Desenvolvedor Full-Stack · Engenharia de Computação – UnB"
@@ -167,7 +175,7 @@ export default function Hero() {
           {/* Description */}
           <motion.p
             variants={fadeUp}
-            className="max-w-md text-sm sm:text-base text-white/35 font-light leading-relaxed mb-10 mx-auto lg:mx-0"
+            className="max-w-md text-sm sm:text-base text-[var(--cc-text)] opacity-60 font-light leading-relaxed mb-10 mx-auto lg:mx-0"
           >
             {language === "pt"
               ? "Interfaces rápidas, design consistente e código bem estruturado."
@@ -201,8 +209,8 @@ export default function Hero() {
               onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
               className="
                 rounded-full px-7 py-3 text-sm font-medium
-                border border-white/20 text-white/75
-                hover:bg-white/8 hover:border-white/35 hover:text-white/90
+                border border-[var(--pc-border)] text-[var(--pc-title)]
+                hover:bg-[var(--pc-bg)] hover:border-indigo-400/40
                 transition-all duration-150
               "
             >
@@ -215,18 +223,18 @@ export default function Hero() {
             variants={fadeUp}
             className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
           >
-            <span className="text-[10px] uppercase tracking-[0.18em] text-white/20 font-medium mr-1">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--cc-text)] opacity-40 font-medium mr-1">
               Stack
             </span>
-            <div className="h-px w-6 bg-white/15" />
+            <div className="h-px w-6 bg-[var(--pc-border)]" />
             {stack.map(({ name, Icon, color }) => (
               <span
                 key={name}
                 title={name}
                 className="
                   flex items-center gap-1.5 px-2.5 py-1 rounded-lg
-                  bg-white/[0.05] border border-white/[0.08]
-                  text-white/45 hover:text-white/75
+                  bg-[var(--pc-bg)] border border-[var(--pc-border)]
+                  text-[var(--pc-text)] hover:text-[var(--pc-title)]
                   transition-colors duration-150 cursor-default
                 "
               >
@@ -242,6 +250,28 @@ export default function Hero() {
           <CodeCard language={language} />
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.2, duration: 0.8 }}
+        onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Rolar para baixo"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-[var(--cc-text)] opacity-30 hover:opacity-70 transition-opacity cursor-pointer"
+      >
+        <span className="text-[10px] uppercase tracking-widest font-light">scroll</span>
+        <motion.svg
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </motion.svg>
+      </motion.button>
     </section>
   );
 }
