@@ -250,28 +250,6 @@ export default function Hero() {
           <CodeCard language={language} />
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.8 }}
-        onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
-        aria-label="Rolar para baixo"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-[var(--cc-text)] opacity-30 hover:opacity-70 transition-opacity cursor-pointer"
-      >
-        <span className="text-[10px] uppercase tracking-widest font-light">scroll</span>
-        <motion.svg
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-        </motion.svg>
-      </motion.button>
     </section>
   );
 }

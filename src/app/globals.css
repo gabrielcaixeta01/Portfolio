@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/* ── Custom cursor ────────────────────────────────────────────────── */
-html.custom-cursor,
-html.custom-cursor * {
-  cursor: none !important;
-}
 
 @layer base {
   :root {

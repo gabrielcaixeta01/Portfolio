@@ -71,11 +71,6 @@ export default function CircularScramble() {
           </li>
         ))}
       </ul>
-
-      {/* Eyebrow */}
-      <p className="absolute bottom-8 text-[10px] uppercase tracking-[0.35em] text-white/20 font-light">
-        scroll
-      </p>
     </section>
   );
 }
