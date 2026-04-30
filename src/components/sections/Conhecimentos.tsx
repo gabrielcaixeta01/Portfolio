@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useMemo, useState } from "react";
+import SplitText from "@/components/SplitText";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -152,7 +153,7 @@ export default function Conhecimentos() {
               mb-4 sm:mb-5
             "
           >
-            {t.skills.title}
+            <SplitText text={t.skills.title} />
           </h2>
 
           <p

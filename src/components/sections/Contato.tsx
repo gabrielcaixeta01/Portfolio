@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
+import SplitText from "@/components/SplitText";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { FiMail, FiCheck, FiCopy, FiSend } from "react-icons/fi";
 
@@ -56,7 +57,7 @@ function ContactRow({ icon, iconBg, label, value, href, onCopy, isCopied, delay,
         <p className="text-[10.5px] uppercase tracking-[0.18em] font-medium text-[var(--cc-text)] opacity-50 mb-0.5">
           {label}
         </p>
-        <p className="text-sm font-semibold text-[var(--cc-title)] truncate">{value}</p>
+        <p className="text-sm font-semibold text-[var(--cc-title)] truncate leading-tight">{value}</p>
       </div>
 
       {/* Action */}
@@ -148,11 +149,11 @@ export default function Contato() {
   const pt = language === "pt";
 
   return (
-    <section id="contato" className="scroll-mt-20 px-4 py-16 sm:py-20">
+    <section id="contato" className="scroll-mt-20 px-4 sm:px-6 py-16 sm:py-20">
       <div className="max-w-5xl mx-auto">
 
         {/* ── Layout: split on desktop ─────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 sm:gap-12 lg:gap-16 items-start">
 
           {/* ── LEFT: CTA ───────────────────────────────────────────────────── */}
           <div>
@@ -160,12 +161,12 @@ export default function Contato() {
               <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-indigo-500 dark:text-indigo-400">
                 {pt ? "contato" : "contact"}
               </span>
-              <h2 className="mt-1.5 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
-                {t.contact.title}
+              <h2 className="mt-1.5 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
+                <SplitText text={t.contact.title} />
               </h2>
             </motion.div>
 
-            <motion.p {...fu(0.1)} className="mt-4 text-sm sm:text-base text-[var(--cc-text)] opacity-65 leading-relaxed max-w-sm">
+            <motion.p {...fu(0.1)} className="mt-3 sm:mt-4 text-sm sm:text-base text-[var(--cc-text)] opacity-65 leading-relaxed">
               {t.contact.description}
             </motion.p>
           </div>

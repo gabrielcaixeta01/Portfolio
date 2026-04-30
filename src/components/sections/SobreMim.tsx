@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import Image from "next/image";
 import { useState, useCallback } from "react";
+import SplitText from "@/components/SplitText";
 
 const fu = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -43,7 +44,7 @@ export default function SobreMim() {
             {language === "pt" ? "sobre mim" : "about me"}
           </span>
           <h2 className="mt-1.5 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
-            {t.about.title}
+            <SplitText text={t.about.title} />
           </h2>
         </motion.div>
 

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import ProjectCard, { Project } from "../ProjectCard";
+import SplitText from "@/components/SplitText";
 
 export default function Projetos() {
   const { t, language } = useLanguage();
@@ -50,14 +51,14 @@ export default function Projetos() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           className="mb-10 sm:mb-12"
         >
           <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-indigo-500 dark:text-indigo-400">
             {language === "pt" ? "projetos" : "projects"}
           </span>
           <h2 className="mt-1.5 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
-            {t.projects.title}
+            <SplitText text={t.projects.title} />
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[var(--cc-text)] opacity-60 max-w-xl">
             {t.projects.description}

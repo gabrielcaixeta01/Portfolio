@@ -162,6 +162,7 @@ nav button[aria-label="Change language"] [title*="English"] {
   html.dark section#conhecimentos .skills-card .skills-text  { color: #cbd5e1 !important; }
 }
 
+
 /* ── Circular Scramble ────────────────────────────────────────────── */
 .scramble-circle {
   --sw-size: min(58vw, 380px);

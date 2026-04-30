@@ -24,7 +24,6 @@ export default function Navbar() {
 
   useEffect(() => setMounted(true), []);
 
-  // Scroll: dá "presença" premium quando sai do topo
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
     onScroll();
@@ -32,7 +31,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active section via IntersectionObserver
   useEffect(() => {
     if (!mounted) return;
     const ids = ["hero", "sobre", "timeline", "projetos", "conhecimentos", "contato"];
@@ -51,7 +49,6 @@ export default function Navbar() {
     return () => obs.disconnect();
   }, [mounted]);
 
-  // ESC fecha menus
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -63,12 +60,10 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
       if (menuButtonRef.current?.contains(target)) return;
-
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setIsLanguageDropdownOpen(false);
       }
@@ -76,57 +71,39 @@ export default function Navbar() {
         setIsMobileMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navItems = useMemo(
     () => [
-      { id: "hero", label: t.navbar.home },
-      { id: "sobre", label: t.navbar.about },
-      { id: "timeline", label: t.navbar.timeline },
-      { id: "projetos", label: t.navbar.projects },
+      { id: "hero",          label: t.navbar.home },
+      { id: "sobre",         label: t.navbar.about },
+      { id: "timeline",      label: t.navbar.timeline },
+      { id: "projetos",      label: t.navbar.projects },
       { id: "conhecimentos", label: t.navbar.skills },
-      { id: "contato", label: t.navbar.contact },
+      { id: "contato",       label: t.navbar.contact },
     ],
     [t]
   );
 
+  // ── SSR skeleton ────────────────────────────────────────────────────────────
   if (!mounted) {
     return (
-      <nav
-        className="
-          fixed top-0 left-0 w-full z-50
-          px-4 py-3
-          bg-transparent
-          border-b border-gray-200/40 dark:border-white/10
-          backdrop-blur-md
-        "
-      >
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-3 bg-transparent border-b border-transparent backdrop-blur-md">
         <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
-          <button
-            className="
-              md:hidden p-2 rounded-xl
-              text-gray-900 dark:text-gray-50
-              opacity-70
-            "
-            disabled
-          >
-            <svg className="w-6 h-6" fill="none" strokeWidth={2} stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          <div className="w-7 h-7 rounded-lg bg-indigo-500/20" />
           <div className="hidden md:flex items-center space-x-2" />
-          <div className="hidden md:flex items-center space-x-4" />
+          <div className="flex items-center gap-2">
+            <div className="md:hidden w-9 h-9 rounded-xl" />
+          </div>
         </div>
       </nav>
     );
   }
 
   const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setIsMobileMenuOpen(false);
   };
 
@@ -136,113 +113,73 @@ export default function Navbar() {
   };
 
   const getCurrentFlag = () =>
-    language === "pt" ? (
-      <BR title="Português (Brasil)" style={{ width: "18px", height: "12px" }} />
-    ) : (
-      <US title="English (United States)" style={{ width: "18px", height: "12px" }} />
-    );
+    language === "pt"
+      ? <BR title="Português (Brasil)" style={{ width: "18px", height: "12px" }} />
+      : <US title="English (United States)" style={{ width: "18px", height: "12px" }} />;
 
-  const glassNav = `
-    fixed top-0 left-0 w-full z-50
-    px-4 py-3
-    transition-[background-color,border-color,box-shadow] duration-200 ease-out
-    backdrop-blur-md
-    ${isScrolled
+  const glassNav = [
+    "fixed top-0 left-0 w-full z-50",
+    "px-4 py-3",
+    "transition-[background-color,border-color,box-shadow] duration-200 ease-out",
+    "backdrop-blur-md",
+    isScrolled
       ? "bg-[var(--pc-bg)] border-b border-[var(--pc-border)] shadow-[var(--pc-shadow)]"
-      : "bg-transparent border-b border-transparent"}
-  `;
+      : "bg-transparent border-b border-transparent",
+  ].join(" ");
 
-  const iconBtn = `
-    inline-flex items-center justify-center
-    w-9 h-9 rounded-full
-    border border-transparent
-    text-[var(--pc-title)]
-    bg-white/0
-    hover:bg-[var(--pc-bg)] hover:border-[var(--pc-border)]
-    transition-[transform,background-color,border-color,color] duration-200
-    hover:scale-[1.04]
-    focus-visible:outline-none
-    focus-visible:ring-2 focus-visible:ring-indigo-500/40
-  `;
+  const iconBtn = [
+    "inline-flex items-center justify-center",
+    "w-9 h-9 rounded-full",
+    "border border-transparent",
+    "text-[var(--pc-title)]",
+    "hover:bg-[var(--pc-bg)] hover:border-[var(--pc-border)]",
+    "transition-[background-color,border-color] duration-200",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40",
+  ].join(" ");
 
-  const desktopLink = `
-    relative
-    px-4 py-2
-    rounded-full
-    text-sm font-medium
-    text-[var(--pc-title)]
-    hover:text-[var(--pc-title)]
-    transition-colors duration-200
-    focus-visible:outline-none
-    focus-visible:ring-2 focus-visible:ring-indigo-500/35
-  `;
+  const desktopLink = [
+    "relative px-4 py-2 rounded-full",
+    "text-sm font-medium text-[var(--pc-title)]",
+    "transition-colors duration-200",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35",
+  ].join(" ");
 
   return (
     <nav className={glassNav}>
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
-        {/* Left: Logo + Mobile menu */}
-        <div className="flex items-center gap-2">
-          {/* GC logo */}
-          <button
-            onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-2 group"
-            aria-label="Ir ao início"
-          >
-            <span className="
-              w-7 h-7 rounded-lg
-              bg-gradient-to-br from-indigo-500 to-purple-600
-              flex items-center justify-center
-              text-white text-[11px] font-bold tracking-tight
-              shadow-[0_2px_8px_rgba(99,102,241,0.4)]
-              group-hover:shadow-[0_4px_14px_rgba(99,102,241,0.55)]
-              transition-shadow duration-200
-            ">
-              GC
-            </span>
-            <span className="hidden sm:block text-sm font-medium text-[var(--pc-title)] group-hover:text-indigo-500 transition-colors duration-150">
-              Gabriel Caixeta
-            </span>
-          </button>
 
-          <button
-            ref={menuButtonRef}
-            onMouseDown={(e) => e.stopPropagation()}
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className={`
-              md:hidden
-              inline-flex items-center justify-center
-              w-10 h-10 rounded-xl
-              border border-[var(--pc-border)]
-              bg-[var(--pc-bg)]
-              text-[var(--pc-title)]
-              backdrop-blur
-              transition-[transform,background-color] duration-200
-              active:scale-[0.98]
-              focus-visible:outline-none
-              focus-visible:ring-2 focus-visible:ring-indigo-500/40
-            `}
-            aria-label="Toggle mobile menu"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            <svg className="w-6 h-6" fill="none" strokeWidth={2} stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
+        {/* ── Left: Logo ─────────────────────────────────────────────────── */}
+        <button
+          onClick={() => scrollToSection("hero")}
+          className="flex items-center gap-2 group"
+          aria-label="Ir ao início"
+        >
+          <span className="
+            w-7 h-7 rounded-lg
+            bg-gradient-to-br from-indigo-500 to-purple-600
+            flex items-center justify-center
+            text-white text-[11px] font-bold tracking-tight
+            shadow-[0_2px_8px_rgba(99,102,241,0.4)]
+            group-hover:shadow-[0_4px_14px_rgba(99,102,241,0.55)]
+            transition-shadow duration-200
+          ">
+            GC
+          </span>
+          <span className="hidden sm:block text-sm font-medium text-[var(--pc-title)] group-hover:text-indigo-500 transition-colors duration-150">
+            Gabriel Caixeta
+          </span>
+        </button>
 
-        {/* Center: Desktop nav */}
-        <div className="hidden md:flex items-center justify-center gap-2">
-          <div
-            className="
-              inline-flex items-center gap-1
-              rounded-full
-              border border-[var(--pc-border)]
-              bg-[var(--pc-bg)]
-              backdrop-blur
-              p-1
-            "
-          >
+        {/* ── Center: Desktop nav pill ────────────────────────────────────── */}
+        <div className="hidden md:flex items-center justify-center">
+          <div className="
+            inline-flex items-center gap-1
+            rounded-full
+            border border-[var(--pc-border)]
+            bg-[var(--pc-bg)]
+            backdrop-blur
+            p-1
+          ">
             {navItems.map((it) => {
               const isActive = activeSection === it.id;
               return (
@@ -252,8 +189,6 @@ export default function Navbar() {
                   className={desktopLink + (isActive ? " !text-indigo-500" : "")}
                 >
                   <span className="relative z-10">{it.label}</span>
-
-                  {/* Active dot */}
                   {isActive && (
                     <motion.span
                       layoutId="nav-active-dot"
@@ -261,8 +196,6 @@ export default function Navbar() {
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-
-                  {/* Hover glow */}
                   <span className="
                     pointer-events-none absolute inset-0 rounded-full
                     opacity-0 hover:opacity-100 transition-opacity duration-200
@@ -274,24 +207,23 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right: icons / language / theme */}
-        <div className="flex items-center gap-2">
+        {/* ── Right: actions ──────────────────────────────────────────────── */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+
+          {/* Social — desktop only */}
           <a
             href="https://github.com/gabrielcaixeta01"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             aria-label="GitHub"
-            className={`hidden sm:inline-flex ${iconBtn}`}
+            className={`hidden md:inline-flex ${iconBtn}`}
           >
             <FaGithub size={16} />
           </a>
-
           <a
             href="https://linkedin.com/in/gabriel-caixeta-romero"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className={`hidden sm:inline-flex ${iconBtn}`}
+            className={`hidden md:inline-flex ${iconBtn}`}
           >
             <FaLinkedin size={16} />
           </a>
@@ -300,39 +232,36 @@ export default function Navbar() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsLanguageDropdownOpen((open) => !open)}
-              className={`
-                inline-flex items-center gap-2
-                px-3 h-9 rounded-full
-                border border-white/10
-                bg-white/8 dark:bg-white/6
+              className="
+                inline-flex items-center gap-1.5
+                px-2.5 h-9 rounded-full
+                border border-[var(--pc-border)]
+                bg-[var(--pc-bg)]
                 backdrop-blur
-                text-gray-900/90 dark:text-gray-100/85
-                transition-[transform,background-color,border-color] duration-200
-                hover:bg-white/12 dark:hover:bg-white/10
-                focus-visible:outline-none
-                focus-visible:ring-2 focus-visible:ring-indigo-500/40
-              `}
+                text-[var(--pc-title)]
+                transition-[background-color,border-color] duration-200
+                hover:border-indigo-400/30
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
+              "
               aria-label="Change language"
               aria-expanded={isLanguageDropdownOpen}
             >
               {getCurrentFlag()}
               <FaChevronDown
-                size={10}
-                className={`text-[var(--pc-text)] transition-transform duration-200 ${
-                  isLanguageDropdownOpen ? "rotate-180" : ""
-                }`}
+                size={9}
+                className={`text-[var(--pc-text)] transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
               />
             </button>
 
             <AnimatePresence>
               {isLanguageDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                  initial={{ opacity: 0, y: -8, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
                   className="
-                    absolute right-0 mt-2 z-50 min-w-[170px]
+                    absolute right-0 mt-2 z-50 min-w-[160px]
                     rounded-2xl
                     bg-[var(--pc-bg)]
                     border border-[var(--pc-border)]
@@ -342,27 +271,29 @@ export default function Navbar() {
                   "
                 >
                   {[
-                    { key: "pt", flag: BR, label: t.navbar.portuguese },
-                    { key: "en", flag: US, label: t.navbar.english },
-                  ].map((lang, idx) => (
-                    <motion.button
-                      key={lang.key}
-                      initial={{ opacity: 0, x: 12 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.04, duration: 0.18 }}
-                      onClick={() => handleLanguageChange(lang.key)}
-                      className="
+                    { key: "pt", Flag: BR, label: t.navbar.portuguese },
+                    { key: "en", Flag: US, label: t.navbar.english },
+                  ].map(({ key, Flag, label }, idx) => (
+                    <button
+                      key={key}
+                      onClick={() => handleLanguageChange(key)}
+                      className={`
                         w-full px-4 py-3
                         text-left text-sm
-                        flex items-center gap-2
+                        flex items-center gap-2.5
                         text-[var(--pc-title)]
-                        hover:bg-[var(--pc-bg)]
-                        transition-colors
-                      "
+                        transition-colors duration-150
+                        hover:bg-indigo-500/8
+                        ${idx === 0 ? "" : "border-t border-[var(--pc-border)]"}
+                        ${language === key ? "text-indigo-500" : ""}
+                      `}
                     >
-                      <lang.flag style={{ width: "18px", height: "12px" }} />
-                      <span className="font-medium">{lang.label}</span>
-                    </motion.button>
+                      <Flag style={{ width: "18px", height: "12px" }} />
+                      <span className="font-medium">{label}</span>
+                      {language === key && (
+                        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                      )}
+                    </button>
                   ))}
                 </motion.div>
               )}
@@ -377,85 +308,150 @@ export default function Navbar() {
           >
             {resolvedTheme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
           </button>
+
+          {/* Hamburger — mobile only */}
+          <button
+            ref={menuButtonRef}
+            onMouseDown={(e) => e.stopPropagation()}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="
+              md:hidden
+              inline-flex items-center justify-center
+              w-9 h-9 rounded-full
+              border border-[var(--pc-border)]
+              bg-[var(--pc-bg)]
+              text-[var(--pc-title)]
+              transition-[background-color,border-color] duration-200
+              hover:border-indigo-400/30
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
+            "
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {isMobileMenuOpen ? (
+                <motion.svg
+                  key="close"
+                  initial={{ rotate: -45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 45, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="w-4.5 h-4.5"
+                  fill="none" strokeWidth={2.2} stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </motion.svg>
+              ) : (
+                <motion.svg
+                  key="open"
+                  initial={{ rotate: 45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -45, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="w-4.5 h-4.5"
+                  fill="none" strokeWidth={2.2} stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </motion.svg>
+              )}
+            </AnimatePresence>
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ── Mobile Menu ─────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             id="mobile-menu"
             ref={mobileMenuRef}
-            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="
               md:hidden
-              absolute left-4 right-4 top-full mt-2 z-50
+              absolute left-3 right-3 top-full mt-2 z-50
               rounded-2xl
               bg-[var(--pc-bg)]
               border border-[var(--pc-border)]
-              shadow-[var(--pc-shadow)]
+              shadow-[0_16px_48px_-12px_rgba(0,0,0,0.18)]
+              dark:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.55)]
               backdrop-blur-xl
               overflow-hidden
             "
           >
+            {/* Nav links */}
             <div className="p-2">
-              {navItems.map((it, index) => (
-                <motion.button
-                  key={it.id}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.03, duration: 0.18 }}
-                  onClick={() => scrollToSection(it.id)}
-                  className="
-                    w-full px-3 py-3
-                    text-left text-sm font-medium
-                    rounded-xl
-                    text-[var(--pc-title)]
-                    hover:bg-[var(--pc-bg)]
-                    transition-colors
-                  "
-                >
-                  {it.label}
-                </motion.button>
-              ))}
+              {navItems.map((it, index) => {
+                const isActive = activeSection === it.id;
+                return (
+                  <motion.button
+                    key={it.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.025, duration: 0.15 }}
+                    onClick={() => scrollToSection(it.id)}
+                    className={`
+                      w-full flex items-center gap-3
+                      px-3 py-2.5 rounded-xl
+                      text-left text-sm font-medium
+                      transition-colors duration-150
+                      ${isActive
+                        ? "text-indigo-500 bg-indigo-500/8"
+                        : "text-[var(--pc-title)] hover:bg-black/4 dark:hover:bg-white/6"
+                      }
+                    `}
+                  >
+                    <span className={`
+                      w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-150
+                      ${isActive ? "bg-indigo-500" : "bg-[var(--pc-border)]"}
+                    `} />
+                    {it.label}
+                    {isActive && (
+                      <span className="ml-auto text-[10px] font-medium text-indigo-400 opacity-70">
+                        ●
+                      </span>
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
 
-              <div className="mt-2 grid grid-cols-2 gap-2">
+            {/* Divider + Social */}
+            <div className="px-2 pb-2 border-t border-[var(--pc-border)]">
+              <div className="pt-2 grid grid-cols-2 gap-2">
                 <a
                   href="https://github.com/gabrielcaixeta01"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="
                     inline-flex items-center justify-center gap-2
-                    px-3 py-3 rounded-xl
+                    px-3 py-2.5 rounded-xl text-sm font-medium
                     border border-[var(--pc-border)]
-                    bg-[var(--pc-bg)]
                     text-[var(--pc-title)]
-                    hover:bg-[var(--pc-bg)]
-                    transition-colors
+                    hover:bg-black/4 dark:hover:bg-white/6
+                    transition-colors duration-150
                   "
                 >
-                  <FaGithub size={16} />
+                  <FaGithub size={14} />
                   GitHub
                 </a>
-
                 <a
                   href="https://linkedin.com/in/gabriel-caixeta-romero"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="
                     inline-flex items-center justify-center gap-2
-                    px-3 py-3 rounded-xl
+                    px-3 py-2.5 rounded-xl text-sm font-medium
                     border border-[var(--pc-border)]
-                    bg-[var(--pc-bg)]
                     text-[var(--pc-title)]
-                    hover:bg-[var(--pc-bg)]
-                    transition-colors
+                    hover:bg-black/4 dark:hover:bg-white/6
+                    transition-colors duration-150
                   "
                 >
-                  <FaLinkedin size={16} />
+                  <FaLinkedin size={14} className="text-[#0A66C2]" />
                   LinkedIn
                 </a>
               </div>

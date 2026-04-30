@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SplitText from "@/components/SplitText";
 
 interface TimelineItem {
   title: string;
@@ -47,7 +48,7 @@ export default function TimeLine() {
             {language === "pt" ? "trajetória" : "journey"}
           </span>
           <h2 className="mt-1.5 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)]">
-            {t.timeline.title}
+            <SplitText text={t.timeline.title} />
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[var(--cc-text)] opacity-60 max-w-md">
             {t.timeline.description}

@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import MagneticWrapper from "@/components/MagneticWrapper";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiNestjs } from "react-icons/si";
 
@@ -109,7 +110,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden min-h-[100svh] flex items-center px-6 sm:px-10"
+      className="relative overflow-hidden min-h-[100svh] flex items-center px-5 sm:px-8 lg:px-10"
     >
       {/* Dark overlay — only in dark mode */}
       {isDark && (
@@ -131,7 +132,7 @@ export default function Hero() {
       </div>
 
       {/* Main grid */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-14 lg:gap-10 py-28 lg:py-0 min-h-[100svh]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10 py-24 sm:py-28 lg:py-0 min-h-[100svh]">
 
         {/* ── LEFT: text ─────────────────────────────────────────────────── */}
         <motion.div
@@ -146,8 +147,8 @@ export default function Hero() {
             variants={fadeUp}
             className="
               font-light tracking-[-0.05em] leading-[0.88]
-              text-[clamp(3.5rem,10vw,8.5rem)]
-              mb-7
+              text-[clamp(2.8rem,9vw,8.5rem)]
+              mb-6 sm:mb-7
             "
           >
             <span className="text-[var(--cc-title)]">Gabriel</span>
@@ -185,63 +186,72 @@ export default function Hero() {
           {/* CTA buttons */}
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-12"
+            className="flex flex-col xs:flex-row sm:flex-row gap-3 justify-center lg:justify-start mb-10 sm:mb-12"
           >
-            <motion.button
-              whileHover={{ y: -2, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
-              className="
-                rounded-full px-7 py-3 text-sm font-medium
-                bg-gradient-to-r from-indigo-500 to-purple-600
-                text-white
-                shadow-[0_8px_30px_-10px_rgba(99,102,241,0.7)]
-                border border-white/10
-                transition-shadow duration-200
-              "
-            >
-              {language === "pt" ? "Ver projetos" : "View projects"}
-            </motion.button>
+            <MagneticWrapper>
+              <button
+                onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
+                className="
+                  rounded-full px-7 py-3 text-sm font-medium
+                  bg-gradient-to-r from-indigo-500 to-purple-600
+                  text-white
+                  shadow-[0_8px_30px_-10px_rgba(99,102,241,0.7)]
+                  border border-white/10
+                  hover:shadow-[0_12px_36px_-10px_rgba(99,102,241,0.85)]
+                  transition-shadow duration-200
+                "
+              >
+                {language === "pt" ? "Ver projetos" : "View projects"}
+              </button>
+            </MagneticWrapper>
 
-            <motion.button
-              whileHover={{ y: -2, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-              className="
-                rounded-full px-7 py-3 text-sm font-medium
-                border border-[var(--pc-border)] text-[var(--pc-title)]
-                hover:bg-[var(--pc-bg)] hover:border-indigo-400/40
-                transition-all duration-150
-              "
-            >
-              {language === "pt" ? "Vamos conversar" : "Let's talk"}
-            </motion.button>
+            <MagneticWrapper>
+              <button
+                onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
+                className="
+                  rounded-full px-7 py-3 text-sm font-medium
+                  border border-[var(--pc-border)] text-[var(--pc-title)]
+                  hover:bg-[var(--pc-bg)] hover:border-indigo-400/40
+                  transition-all duration-150
+                "
+              >
+                {language === "pt" ? "Vamos conversar" : "Let's talk"}
+              </button>
+            </MagneticWrapper>
           </motion.div>
 
           {/* Tech strip */}
-          <motion.div
-            variants={fadeUp}
-            className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
-          >
-            <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--cc-text)] opacity-40 font-medium mr-1">
-              Stack
-            </span>
-            <div className="h-px w-6 bg-[var(--pc-border)]" />
-            {stack.map(({ name, Icon, color }) => (
-              <span
-                key={name}
-                title={name}
-                className="
-                  flex items-center gap-1.5 px-2.5 py-1 rounded-lg
-                  bg-[var(--pc-bg)] border border-[var(--pc-border)]
-                  text-[var(--pc-text)] hover:text-[var(--pc-title)]
-                  transition-colors duration-150 cursor-default
-                "
-              >
-                <Icon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
-                <span className="text-[11px] font-medium">{name}</span>
+          <motion.div variants={fadeUp} className="w-full">
+            <div className="flex items-center gap-2 mb-2.5">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--cc-text)] opacity-40 font-medium">
+                Stack
               </span>
-            ))}
+              <div className="h-px w-6 bg-[var(--pc-border)]" />
+            </div>
+            <div className="
+              flex gap-2
+              overflow-x-auto pb-1
+              sm:flex-wrap sm:overflow-visible sm:pb-0
+              justify-start
+              scrollbar-none
+              [-ms-overflow-style:none] [scrollbar-width:none]
+            ">
+              {stack.map(({ name, Icon, color }) => (
+                <span
+                  key={name}
+                  title={name}
+                  className="
+                    flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg
+                    bg-[var(--pc-bg)] border border-[var(--pc-border)]
+                    text-[var(--pc-text)] hover:text-[var(--pc-title)]
+                    transition-colors duration-150 cursor-default
+                  "
+                >
+                  <Icon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
+                  <span className="text-[11px] font-medium">{name}</span>
+                </span>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
 
