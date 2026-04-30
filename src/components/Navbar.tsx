@@ -371,11 +371,10 @@ export default function Navbar() {
               md:hidden
               absolute left-3 right-3 top-full mt-2 z-50
               rounded-2xl
-              bg-[var(--pc-bg)]
-              border border-[var(--pc-border)]
+              bg-white dark:bg-zinc-900
+              border border-zinc-200 dark:border-zinc-700/60
               shadow-[0_16px_48px_-12px_rgba(0,0,0,0.18)]
-              dark:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.55)]
-              backdrop-blur-xl
+              dark:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.7)]
               overflow-hidden
             "
           >
@@ -396,14 +395,14 @@ export default function Navbar() {
                       text-left text-sm font-medium
                       transition-colors duration-150
                       ${isActive
-                        ? "text-indigo-500 bg-indigo-500/8"
-                        : "text-[var(--pc-title)] hover:bg-black/4 dark:hover:bg-white/6"
+                        ? "text-indigo-500 bg-indigo-500/10"
+                        : "text-zinc-800 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                       }
                     `}
                   >
                     <span className={`
                       w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-150
-                      ${isActive ? "bg-indigo-500" : "bg-[var(--pc-border)]"}
+                      ${isActive ? "bg-indigo-500" : "bg-zinc-300 dark:bg-zinc-600"}
                     `} />
                     {it.label}
                     {isActive && (
@@ -417,7 +416,7 @@ export default function Navbar() {
             </div>
 
             {/* Divider + Social */}
-            <div className="px-2 pb-2 border-t border-[var(--pc-border)]">
+            <div className="px-2 pb-2 border-t border-zinc-200 dark:border-zinc-700/60">
               <div className="pt-2 grid grid-cols-2 gap-2">
                 <a
                   href="https://github.com/gabrielcaixeta01"
@@ -426,9 +425,9 @@ export default function Navbar() {
                   className="
                     inline-flex items-center justify-center gap-2
                     px-3 py-2.5 rounded-xl text-sm font-medium
-                    border border-[var(--pc-border)]
-                    text-[var(--pc-title)]
-                    hover:bg-black/4 dark:hover:bg-white/6
+                    border border-zinc-200 dark:border-zinc-700/60
+                    text-zinc-800 dark:text-zinc-100
+                    hover:bg-zinc-100 dark:hover:bg-zinc-800
                     transition-colors duration-150
                   "
                 >
@@ -442,9 +441,9 @@ export default function Navbar() {
                   className="
                     inline-flex items-center justify-center gap-2
                     px-3 py-2.5 rounded-xl text-sm font-medium
-                    border border-[var(--pc-border)]
-                    text-[var(--pc-title)]
-                    hover:bg-black/4 dark:hover:bg-white/6
+                    border border-zinc-200 dark:border-zinc-700/60
+                    text-zinc-800 dark:text-zinc-100
+                    hover:bg-zinc-100 dark:hover:bg-zinc-800
                     transition-colors duration-150
                   "
                 >

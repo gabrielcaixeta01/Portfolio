@@ -132,7 +132,7 @@ export default function Hero() {
       </div>
 
       {/* Main grid */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10 py-24 sm:py-28 lg:py-0 min-h-[100svh]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 pt-24 pb-12 sm:pt-28 sm:pb-16 lg:py-0">
 
         {/* ── LEFT: text ─────────────────────────────────────────────────── */}
         <motion.div

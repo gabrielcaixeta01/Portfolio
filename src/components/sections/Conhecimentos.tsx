@@ -179,9 +179,12 @@ export default function Conhecimentos() {
         </div>
 
         {/* TechSphere — mobile only */}
-        <div className="block md:hidden mb-6">
+        <div className="md:hidden">
           <TechSphere className="w-full h-[420px]" />
         </div>
+
+        {/* Cards + filters — desktop only */}
+        <div className="hidden md:block">
 
         {/* Category filter tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
@@ -290,6 +293,7 @@ export default function Conhecimentos() {
             );
           })}
         </motion.div>
+        </div>{/* end desktop-only */}
       </motion.div>
     </section>
   );
