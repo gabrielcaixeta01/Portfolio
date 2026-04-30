@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ── Custom cursor ────────────────────────────────────────────────── */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -9,13 +15,13 @@
     --pc-bg: rgba(255, 255, 255, 0.92);
     --pc-border: rgba(15, 23, 42, 0.10);
     --pc-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
-    --pc-title: #0f172a;   /* slate-900 */
-    --pc-text: #475569;    /* slate-600 */
-    --pc-chip-bg: #f1f5f9; /* slate-100 */
-    --pc-chip-text: #334155; /* slate-700 */
+    --pc-title: #0f172a;
+    --pc-text: #475569;
+    --pc-chip-bg: #f1f5f9;
+    --pc-chip-text: #334155;
     --pc-badge-bg: rgba(0, 0, 0, 0.85);
     --pc-badge-text: #ffffff;
-    --pc-btn-bg: #0f172a;  /* slate-900 */
+    --pc-btn-bg: #0f172a;
     --pc-btn-text: #ffffff;
     --pc-outline: rgba(15, 23, 42, 0.08);
 
@@ -30,9 +36,9 @@
     --cc-link-hover-border: rgba(15, 23, 42, 0.12);
     --cc-link-shadow: 0 4px 16px rgba(2, 6, 23, 0.04);
     --cc-link-hover-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
-    --cc-icon: #374151;  /* slate-700 */
-    --cc-label: #64748b; /* slate-500 */
-    --cc-value: #0f172a; /* slate-900 */
+    --cc-icon: #374151;
+    --cc-label: #64748b;
+    --cc-value: #0f172a;
   }
 
   .dark {
@@ -43,9 +49,9 @@
     --pc-bg: rgba(24, 24, 27, 0.55);
     --pc-border: transparent;
     --pc-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-    --pc-title: #e5e7eb;  /* zinc-200/300 */
-    --pc-text: #cbd5e1;   /* slate-300 */
-    --pc-chip-bg: rgba(39, 39, 42, 0.80); /* zinc-800 */
+    --pc-title: #e5e7eb;
+    --pc-text: #cbd5e1;
+    --pc-chip-bg: rgba(39, 39, 42, 0.80);
     --pc-chip-text: #e5e7eb;
     --pc-badge-bg: rgba(255, 255, 255, 0.92);
     --pc-badge-text: #0a0a0a;
@@ -64,28 +70,35 @@
     --cc-link-hover-border: rgba(255, 255, 255, 0.08);
     --cc-link-shadow: 0 4px 16px rgba(0, 0, 0, 0.20);
     --cc-link-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.30);
-    --cc-icon: #d1d5db;  /* gray-300 */
-    --cc-label: #9ca3af; /* gray-400 */
-    --cc-value: #e5e7eb; /* gray-200 */
+    --cc-icon: #d1d5db;
+    --cc-label: #9ca3af;
+    --cc-value: #e5e7eb;
   }
 
-body {
+  body {
     background-color: var(--background);
     color: var(--foreground);
+    /* Subtle dot grid — light mode */
+    background-image: radial-gradient(circle, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
     transition: background-color 0.4s ease, color 0.2s ease;
     font-family: var(--font-family, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
       Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol");
   }
+
+  html.dark body {
+    /* Dot grid — dark mode */
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
 }
 
-/* Navbar */
-nav .nav-link { color: #111827 !important; }        
+/* Navbar overrides */
+nav .nav-link { color: #111827 !important; }
 html.dark nav .nav-link { color: #e5e7eb !important; }
 
-nav .nav-link .nav-label {
-  -webkit-text-fill-color: currentColor !important;
-}
+nav .nav-link .nav-label { -webkit-text-fill-color: currentColor !important; }
 
 nav .nav-link:hover .nav-label {
   color: transparent !important;
@@ -97,29 +110,23 @@ nav .nav-link:hover .nav-label {
 
 nav a,
 nav button[aria-label="Toggle theme"] {
-  color: #111827 !important; /* light: gray-900 */
+  color: #111827 !important;
   transition: color 0.25s ease, transform 0.2s ease !important;
 }
-
 html.dark nav a,
-html.dark nav button[aria-label="Toggle theme"] {
-  color: #e5e7eb !important; /* dark: gray-200 */
-}
+html.dark nav button[aria-label="Toggle theme"] { color: #e5e7eb !important; }
 
 nav a:hover,
 nav button[aria-label="Toggle theme"]:hover {
-  color: #6366f1 !important; /* indigo-500 */
+  color: #6366f1 !important;
   transform: scale(1.1);
 }
 
 nav button[aria-label="Change language"] svg {
-  color: #6b7280 !important; /* gray-500 neutro */
+  color: #6b7280 !important;
   transition: color 0.25s ease !important;
 }
-
-nav button[aria-label="Change language"]:hover svg {
-  color: #8b5cf6 !important; /* purple-500 */
-}
+nav button[aria-label="Change language"]:hover svg { color: #8b5cf6 !important; }
 
 nav .language-dropdown svg,
 nav button[aria-label="Change language"] .react-flag-icon,
@@ -130,45 +137,72 @@ nav button[aria-label="Change language"] [title*="English"] {
   filter: none !important;
 }
 
-/* Conhecimentos Section */
+/* Conhecimentos */
 @layer components {
   section#conhecimentos .skills-card {
-    position: relative;
-    z-index: 1;                          
-    background: #ffffff !important;      
-    border: 1px solid rgb(203 213 225) !important;  
-    border-radius: 1rem;                 
-    backdrop-filter: none;               
+    position: relative; z-index: 1;
+    background: #ffffff !important;
+    border: 1px solid rgb(203 213 225) !important;
+    border-radius: 1rem;
+    backdrop-filter: none;
     transition: box-shadow .2s ease, transform .2s ease;
   }
-
   html.dark section#conhecimentos .skills-card {
-    background: rgba(24, 24, 27, 0.50) !important;   
+    background: rgba(24, 24, 27, 0.50) !important;
     border-color: rgba(255, 255, 255, 0.10) !important;
     backdrop-filter: blur(8px);
   }
-
   section#conhecimentos .skills-icon-box {
     background: #ffffff !important;
-    border: 1px solid rgb(226 232 240) !important;   
+    border: 1px solid rgb(226 232 240) !important;
     box-shadow: 0 2px 8px rgba(2,6,23,0.05);
   }
   html.dark section#conhecimentos .skills-icon-box {
     background: rgba(255,255,255,0.08) !important;
     border-color: rgba(255,255,255,0.10) !important;
   }
-
-  section#conhecimentos .skills-card .skills-title {
-    color: #0f172a !important;           
-  }
-  section#conhecimentos .skills-card .skills-text {
-    color: #475569 !important;           
-  }
-  html.dark section#conhecimentos .skills-card .skills-title {
-    color: #e5e7eb !important;           
-  }
-  html.dark section#conhecimentos .skills-card .skills-text {
-    color: #cbd5e1 !important;          
-  }
+  section#conhecimentos .skills-card .skills-title { color: #0f172a !important; }
+  section#conhecimentos .skills-card .skills-text  { color: #475569 !important; }
+  html.dark section#conhecimentos .skills-card .skills-title { color: #e5e7eb !important; }
+  html.dark section#conhecimentos .skills-card .skills-text  { color: #cbd5e1 !important; }
 }
 
+/* ── Circular Scramble ────────────────────────────────────────────── */
+.scramble-circle {
+  --sw-size: min(58vw, 380px);
+  --sw-radius: calc(var(--sw-size) / 2);
+  --sc-spacing: 0.85ch;
+  --sc-angle-delta: 48deg;
+
+  position: relative;
+  width: var(--sw-size);
+  height: var(--sw-size);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transform: rotate(calc(var(--sr, 0) * 360deg));
+}
+
+.scramble-word {
+  position: absolute;
+  inset: 50%;
+  font-family: ui-monospace, "Cascadia Code", "Fira Mono", monospace;
+  transform: rotate(calc(360deg / var(--sw-count) * (var(--sw-i) - 1)));
+}
+
+.scramble-char {
+  --sc-scramble: calc(var(--sc-i) * var(--sc-angle-delta));
+  --sc-angle: calc(var(--sc-scramble) * (1 - var(--sr, 0)));
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  display: inline-block;
+  font-size: clamp(0.9rem, 2.5vw, 1.75rem);
+  font-weight: 300;
+  transform:
+    rotate(var(--sc-angle))
+    translateX(var(--sw-radius))
+    translateX(calc((var(--sc-i) - 1) * var(--sc-spacing)));
+}

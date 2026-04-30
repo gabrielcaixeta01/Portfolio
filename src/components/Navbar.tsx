@@ -16,6 +16,7 @@ export default function Navbar() {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -23,13 +24,32 @@ export default function Navbar() {
 
   useEffect(() => setMounted(true), []);
 
-  // Scroll: dá “presença” premium quando sai do topo
+  // Scroll: dá "presença" premium quando sai do topo
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Active section via IntersectionObserver
+  useEffect(() => {
+    if (!mounted) return;
+    const ids = ["hero", "sobre", "timeline", "projetos", "conhecimentos", "contato"];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+    );
+
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [mounted]);
 
   // ESC fecha menus
   useEffect(() => {
@@ -160,8 +180,30 @@ export default function Navbar() {
   return (
     <nav className={glassNav}>
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
-        {/* Left: Mobile menu */}
+        {/* Left: Logo + Mobile menu */}
         <div className="flex items-center gap-2">
+          {/* GC logo */}
+          <button
+            onClick={() => scrollToSection("hero")}
+            className="flex items-center gap-2 group"
+            aria-label="Ir ao início"
+          >
+            <span className="
+              w-7 h-7 rounded-lg
+              bg-gradient-to-br from-indigo-500 to-purple-600
+              flex items-center justify-center
+              text-white text-[11px] font-bold tracking-tight
+              shadow-[0_2px_8px_rgba(99,102,241,0.4)]
+              group-hover:shadow-[0_4px_14px_rgba(99,102,241,0.55)]
+              transition-shadow duration-200
+            ">
+              GC
+            </span>
+            <span className="hidden sm:block text-sm font-medium text-[var(--pc-title)] group-hover:text-indigo-500 transition-colors duration-150">
+              Gabriel Caixeta
+            </span>
+          </button>
+
           <button
             ref={menuButtonRef}
             onMouseDown={(e) => e.stopPropagation()}
@@ -201,35 +243,34 @@ export default function Navbar() {
               p-1
             "
           >
-            {navItems.map((it) => (
-              <button
-                key={it.id}
-                onClick={() => scrollToSection(it.id)}
-                className={desktopLink}
-              >
-                <span className="relative z-10">{it.label}</span>
+            {navItems.map((it) => {
+              const isActive = activeSection === it.id;
+              return (
+                <button
+                  key={it.id}
+                  onClick={() => scrollToSection(it.id)}
+                  className={desktopLink + (isActive ? " !text-indigo-500" : "")}
+                >
+                  <span className="relative z-10">{it.label}</span>
 
-                {/* hover highlight “premium” */}
-                <span
-                  className="
-                    absolute inset-0
-                    rounded-full
-                    opacity-0
-                    group-hover:opacity-100
-                  "
-                />
+                  {/* Active dot */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-dot"
+                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-indigo-500"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
 
-                <span
-                  className="
-                    pointer-events-none
-                    absolute inset-0 rounded-full
-                    opacity-0 hover:opacity-100
-                    transition-opacity duration-200
-                    bg-[radial-gradient(60%_80%_at_50%_0%,rgba(99,102,241,0.22),transparent_70%)]
-                  "
-                />
-              </button>
-            ))}
+                  {/* Hover glow */}
+                  <span className="
+                    pointer-events-none absolute inset-0 rounded-full
+                    opacity-0 hover:opacity-100 transition-opacity duration-200
+                    bg-[radial-gradient(60%_80%_at_50%_0%,rgba(99,102,241,0.18),transparent_70%)]
+                  " />
+                </button>
+              );
+            })}
           </div>
         </div>
 
