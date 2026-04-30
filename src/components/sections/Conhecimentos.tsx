@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import SplitText from "@/components/SplitText";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import {
@@ -14,6 +15,11 @@ import {
   SiGooglecolab,
   SiFigma,
 } from "react-icons/si";
+
+const TechSphere = dynamic(
+  () => import("@/components/TechSphere").then((m) => ({ default: m.TechSphere })),
+  { ssr: false }
+);
 
 interface SkillData {
   name: string;
@@ -170,6 +176,11 @@ export default function Conhecimentos() {
           >
             {t.skills.description}
           </p>
+        </div>
+
+        {/* TechSphere — mobile only */}
+        <div className="block md:hidden mb-6">
+          <TechSphere className="w-full h-[420px]" />
         </div>
 
         {/* Category filter tabs */}
