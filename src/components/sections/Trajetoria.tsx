@@ -28,12 +28,12 @@ const badge: Record<string, { ring: string; dot: string; label: Record<string, s
 const isCurrentJob = (t: TimelineItem) => t.title === "ApexBrasil";
 
 // ─── Component ────────────────────────────────────────────────────────────────
-export default function TimeLine() {
+export default function Trajetoria() {
   const { t, language } = useLanguage();
   const years: TimelineYear[] = t.timeline.years;
 
   return (
-    <section id="timeline" className="scroll-mt-20 px-4 py-16 sm:py-20">
+    <section id="trajetoria" className="scroll-mt-20 px-4 py-16 sm:py-20">
       <div className="max-w-2xl mx-auto">
 
         {/* ── Header ──────────────────────────────────────────────────────── */}

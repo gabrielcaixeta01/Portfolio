@@ -23,7 +23,7 @@ const translations = {
     navbar: {
       home: "Início",
       about: "Sobre",
-      timeline: "Linha do Tempo",
+      timeline: "Trajetoria",
       projects: "Projetos",
       skills: "Conhecimentos",
       contact: "Contato",
@@ -190,7 +190,7 @@ const translations = {
     // Timeline Section
     timeline: {
       title: "Minha Jornada",
-      description: "Uma linha do tempo com os principais marcos da minha trajetória acadêmica e profissional.",
+      description: "Uma Trajetoria com os principais marcos da minha trajetória acadêmica e profissional.",
       years: [
         {
           year: "2026",

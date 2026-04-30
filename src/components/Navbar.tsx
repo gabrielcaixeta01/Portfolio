@@ -33,7 +33,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!mounted) return;
-    const ids = ["hero", "sobre", "timeline", "projetos", "conhecimentos", "contato"];
+    const ids = ["hero", "sobre", "trajetoria", "projetos", "conhecimentos", "contato"];
     const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
     const obs = new IntersectionObserver(
@@ -79,7 +79,7 @@ export default function Navbar() {
     () => [
       { id: "hero",          label: t.navbar.home },
       { id: "sobre",         label: t.navbar.about },
-      { id: "timeline",      label: t.navbar.timeline },
+      { id: "trajetoria",    label: t.navbar.timeline },
       { id: "projetos",      label: t.navbar.projects },
       { id: "conhecimentos", label: t.navbar.skills },
       { id: "contato",       label: t.navbar.contact },
@@ -158,15 +158,12 @@ export default function Navbar() {
             w-7 h-7 rounded-lg
             bg-gradient-to-br from-indigo-500 to-purple-600
             flex items-center justify-center
-            text-white text-[11px] font-bold tracking-tight
+            text-white text-[11px] font-light tracking-tight
             shadow-[0_2px_8px_rgba(99,102,241,0.4)]
             group-hover:shadow-[0_4px_14px_rgba(99,102,241,0.55)]
             transition-shadow duration-200
           ">
             GC
-          </span>
-          <span className="hidden sm:block text-sm font-medium text-[var(--pc-title)] group-hover:text-indigo-500 transition-colors duration-150">
-            Gabriel Caixeta
           </span>
         </button>
 
