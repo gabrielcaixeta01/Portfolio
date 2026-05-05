@@ -8,7 +8,7 @@ import MagneticWrapper from "@/components/MagneticWrapper";
 import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiNestjs } from "react-icons/si";
 
-// ─── Syntax token helpers ───────────────────────────────────────────────────
+// ─── Syntax token helpers ────────────────────────────────────────────────────
 const Kw = ({ c }: { c: React.ReactNode }) => <span className="text-[#c678dd]">{c}</span>;
 const Vr = ({ c }: { c: React.ReactNode }) => <span className="text-[#61afef]">{c}</span>;
 const Pr = ({ c }: { c: React.ReactNode }) => <span className="text-[#e06c75]">{c}</span>;
@@ -19,15 +19,12 @@ const Ln = ({ n }: { n: number }) => (
 );
 
 // ─── Code card ───────────────────────────────────────────────────────────────
-function CodeCard({ language }: { language: string }) {
+function CodeCard() {
   const [blink, setBlink] = useState(true);
   useEffect(() => {
     const id = setInterval(() => setBlink((v) => !v), 530);
     return () => clearInterval(id);
   }, []);
-
-  const status = language === "pt" ? "aberto a oportunidades" : "open to opportunities";
-  const loc = "Brasília, BR";
 
   return (
     <motion.div
@@ -35,7 +32,7 @@ function CodeCard({ language }: { language: string }) {
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={{ duration: 0.85, delay: 0.55, ease: "easeOut" }}
       className="
-        w-[330px] xl:w-[390px]
+        w-[300px] xl:w-[370px]
         rounded-2xl overflow-hidden
         bg-[#0d1117]
         border border-white/[0.09]
@@ -51,20 +48,19 @@ function CodeCard({ language }: { language: string }) {
       </div>
 
       {/* Code body */}
-      <div className="px-4 py-5 font-mono text-[12.5px] leading-[1.9] select-none">
+      <div className="px-4 py-5 font-mono text-[12px] xl:text-[12.5px] leading-[1.9] select-none">
         <div><Ln n={1} /><Kw c="const" /> <Vr c="gabriel" /> <Pl c="= {" /></div>
         <div><Ln n={2} /><Pr c="  name" /><Pl c=": " /><St c={`"Gabriel Caixeta"`} /><Pl c="," /></div>
         <div><Ln n={3} /><Pr c="  role" /><Pl c=": " /><St c={`"Full-Stack Dev"`} /><Pl c="," /></div>
-        <div><Ln n={4} /><Pr c="  location" /><Pl c=": " /><St c={`"${loc}"`} /><Pl c="," /></div>
+        <div><Ln n={4} /><Pr c="  location" /><Pl c=": " /><St c={`"Brasília, BR"`} /><Pl c="," /></div>
         <div><Ln n={5} /><Pr c="  stack" /><Pl c=": [" /></div>
         <div><Ln n={6} /><Pl c="    " /><St c='"Next.js"' /><Pl c=", " /><St c='"TypeScript"' /><Pl c="," /></div>
         <div><Ln n={7} /><Pl c="    " /><St c='"NestJS"' /><Pl c=", " /><St c='"Tailwind"' /><Pl c="," /></div>
         <div><Ln n={8} /><Pl c="  ]," /></div>
-        <div><Ln n={9} /><Pr c="  status" /><Pl c=": " /><St c={`"${status}"`} /><Pl c="," /></div>
-        <div><Ln n={10} /><Pl c="}" /></div>
-        <div><Ln n={11} /><Pl c=" " /></div>
+        <div><Ln n={9} /><Pl c="}" /></div>
+        <div><Ln n={10} /><Pl c=" " /></div>
         <div>
-          <Ln n={12} />
+          <Ln n={11} />
           <Kw c="export default" /> <Vr c="gabriel" />
           <span
             className="inline-block w-[2px] h-[13px] ml-0.5 bg-indigo-400 align-middle"
@@ -76,7 +72,7 @@ function CodeCard({ language }: { language: string }) {
   );
 }
 
-// ─── Tech stack strip ────────────────────────────────────────────────────────
+// ─── Tech stack ───────────────────────────────────────────────────────────────
 const stack = [
   { name: "Next.js",    Icon: SiNextdotjs,  color: "#ffffff" },
   { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
@@ -88,17 +84,17 @@ const stack = [
   { name: "Node.js",    Icon: FaNode,       color: "#68A063" },
 ];
 
-// ─── Framer variants ─────────────────────────────────────────────────────────
+// ─── Animation variants ───────────────────────────────────────────────────────
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.11, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
 };
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65 } },
 };
 
-// ─── Component ───────────────────────────────────────────────────────────────
+// ─── Component ────────────────────────────────────────────────────────────────
 export default function Hero() {
   const { language } = useLanguage();
   const { resolvedTheme } = useTheme();
@@ -112,7 +108,7 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden min-h-[100svh] flex items-center px-5 sm:px-8 lg:px-10"
     >
-      {/* Dark overlay — only in dark mode */}
+      {/* Dark overlay */}
       {isDark && (
         <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
       )}
@@ -122,32 +118,38 @@ export default function Hero() {
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.22, 0.34, 0.22] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -left-40 w-[750px] h-[750px] rounded-full bg-indigo-700/25 blur-[130px]"
+          className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-indigo-700/25 blur-[130px]"
         />
         <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.14, 0.22, 0.14] }}
+          animate={{ scale: [1, 1.06, 1], opacity: [0.12, 0.2, 0.12] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-          className="absolute -bottom-56 right-0 w-[650px] h-[650px] rounded-full bg-purple-700/20 blur-[120px]"
+          className="absolute -bottom-56 right-0 w-[600px] h-[600px] rounded-full bg-cyan-700/15 blur-[120px]"
         />
       </div>
 
       {/* Main grid */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 pt-24 pb-12 sm:pt-28 sm:pb-16 lg:py-0">
+      <div className="
+        relative z-10 w-full max-w-7xl mx-auto
+        flex flex-col lg:flex-row
+        items-center lg:items-center
+        justify-between
+        gap-10 lg:gap-12
+        pt-24 pb-14 sm:pt-28 sm:pb-16 lg:py-0
+      ">
 
-        {/* ── LEFT: text ─────────────────────────────────────────────────── */}
+        {/* ── LEFT: text ───────────────────────────────────────────────────── */}
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex-1 text-center lg:text-left"
+          className="flex-1 min-w-0 text-center lg:text-left"
         >
-
-          {/* Name — huge */}
+          {/* Name */}
           <motion.h1
             variants={fadeUp}
             className="
               font-light tracking-[-0.05em] leading-[0.88]
-              text-[clamp(2.8rem,9vw,8.5rem)]
+              text-[clamp(3rem,8.5vw,8.5rem)]
               mb-6 sm:mb-7
             "
           >
@@ -156,7 +158,7 @@ export default function Hero() {
             <span
               className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: "linear-gradient(135deg, #818cf8 0%, #a78bfa 45%, #67e8f9 100%)",
+                backgroundImage: "linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)",
               }}
             >
               Caixeta
@@ -166,38 +168,27 @@ export default function Hero() {
           {/* Role */}
           <motion.p
             variants={fadeUp}
-            className="text-base sm:text-lg text-[var(--cc-text)] font-light tracking-wide mb-4"
+            className="text-sm sm:text-base lg:text-lg text-[var(--cc-text)] opacity-75 font-light tracking-wide mb-4"
           >
             {language === "pt"
               ? "Desenvolvedor Full-Stack · Engenharia de Computação – UnB"
               : "Full-Stack Developer · Computer Engineering – UnB"}
           </motion.p>
 
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            className="max-w-md text-sm sm:text-base text-[var(--cc-text)] opacity-60 font-light leading-relaxed mb-10 mx-auto lg:mx-0"
-          >
-            {language === "pt"
-              ? "Interfaces rápidas, design consistente e código bem estruturado."
-              : "Fast interfaces, consistent design, and well-structured code."}
-          </motion.p>
-
-          {/* CTA buttons */}
+          {/* CTA buttons — fix: sm:flex-row (xs: não existe no Tailwind) */}
           <motion.div
             variants={fadeUp}
-            className="flex flex-col xs:flex-row sm:flex-row gap-3 justify-center lg:justify-start mb-10 sm:mb-12"
+            className="flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start mb-10 sm:mb-12"
           >
             <MagneticWrapper>
               <button
                 onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
                 className="
                   rounded-full px-7 py-3 text-sm font-medium
-                  bg-gradient-to-r from-indigo-500 to-purple-600
+                  bg-gradient-to-r from-indigo-500 to-cyan-500
                   text-white
-                  shadow-[0_8px_30px_-10px_rgba(99,102,241,0.7)]
-                  border border-white/10
-                  hover:shadow-[0_12px_36px_-10px_rgba(99,102,241,0.85)]
+                  shadow-[0_8px_28px_-8px_rgba(99,102,241,0.65)]
+                  hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.85)]
                   transition-shadow duration-200
                 "
               >
@@ -220,28 +211,21 @@ export default function Hero() {
             </MagneticWrapper>
           </motion.div>
 
-          {/* Tech strip */}
+          {/* Tech strip — flex-wrap everywhere, sem overflow-x-auto */}
           <motion.div variants={fadeUp} className="w-full">
-            <div className="flex items-center gap-2 mb-2.5">
+            <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
               <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--cc-text)] opacity-40 font-medium">
                 Stack
               </span>
-              <div className="h-px w-6 bg-[var(--pc-border)]" />
+              <div className="h-px w-6 bg-current opacity-10" />
             </div>
-            <div className="
-              flex gap-2
-              overflow-x-auto pb-1
-              sm:flex-wrap sm:overflow-visible sm:pb-0
-              justify-start
-              scrollbar-none
-              [-ms-overflow-style:none] [scrollbar-width:none]
-            ">
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
               {stack.map(({ name, Icon, color }) => (
                 <span
                   key={name}
                   title={name}
                   className="
-                    flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg
+                    flex items-center gap-1.5 px-2.5 py-1 rounded-lg
                     bg-[var(--pc-bg)] border border-[var(--pc-border)]
                     text-[var(--pc-text)] hover:text-[var(--pc-title)]
                     transition-colors duration-150 cursor-default
@@ -255,10 +239,11 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ── RIGHT: code card (desktop only) ────────────────────────────── */}
+        {/* ── RIGHT: code card (lg+) ───────────────────────────────────────── */}
         <div className="hidden lg:flex flex-shrink-0 items-center">
-          <CodeCard language={language} />
+          <CodeCard />
         </div>
+
       </div>
     </section>
   );
