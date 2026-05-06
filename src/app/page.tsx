@@ -6,7 +6,6 @@ import Conhecimentos from "@/components/sections/Conhecimentos";
 import Contato from "@/components/sections/Contato";
 import Trajetoria from "@/components/sections/Trajetoria";
 import Footer from "@/components/Footer";
-import CircularScramble from "@/components/CircularScramble";
 
 export default function Home() {
   return (
@@ -16,12 +15,6 @@ export default function Home() {
         <SobreMim />
         <Trajetoria />
         <Projetos />
-      </main>
-
-      {/* Circular scramble interlude — between Projetos and Conhecimentos */}
-      <CircularScramble />
-
-      <main className="container mx-auto px-4 sm:px-6 flex flex-col gap-20 sm:gap-16">
         <Conhecimentos />
         <Contato />
       </main>

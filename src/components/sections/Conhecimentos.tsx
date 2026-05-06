@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
@@ -30,7 +30,7 @@ interface SkillData {
 }
 
 const SkillIcon = ({ skillName }: { skillName: string }) => {
-  const base = "w-10 h-10";
+  const base = "w-7 h-7";
   const lowerName = skillName.toLowerCase();
 
   switch (lowerName) {
@@ -40,8 +40,8 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
     case "nextjs":
     case "next":
       return (
-        <div className="w-10 h-10 rounded-lg bg-black dark:bg-white flex items-center justify-center">
-          <SiNextdotjs className="w-7 h-7 text-white dark:text-black" />
+        <div className="w-7 h-7 rounded-md bg-black dark:bg-white flex items-center justify-center">
+          <SiNextdotjs className="w-5 h-5 text-white dark:text-black" />
         </div>
       );
     case "typescript":
@@ -70,7 +70,7 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
       return <SiFigma className={`${base} text-[#F24E1E]`} />;
     default:
       return (
-        <div className="w-10 h-10 rounded-lg bg-gray-400/80 flex items-center justify-center text-white font-semibold text-xs">
+        <div className="w-7 h-7 rounded-md bg-gray-400/80 flex items-center justify-center text-white font-semibold text-[10px]">
           {skillName.slice(0, 2).toUpperCase()}
         </div>
       );
@@ -134,166 +134,138 @@ export default function Conhecimentos() {
   return (
     <section
       id="conhecimentos"
-      className="
-        relative overflow-hidden
-        scroll-mt-20
-        px-4
-        py-20 sm:py-24
-      "
+      className="relative overflow-hidden scroll-mt-20 px-4 py-20 sm:py-24"
     >
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative max-w-6xl mx-auto"
       >
         {/* Header */}
-        <div className="text-center mb-10 sm:mb-12">
+        <div className="mb-10 sm:mb-12">
           <h2
             className="
-              text-3xl sm:text-4xl lg:text-6xl
+              text-3xl sm:text-4xl lg:text-5xl
               font-semibold tracking-[-0.045em]
               leading-[1.05]
-              text-[var(--cc-title)] dark:text-[var(--cc-title)]
-              mb-4 sm:mb-5
+              text-[var(--cc-title)]
+              mb-3 sm:mb-4
             "
           >
             <SplitText text={t.skills.title} />
           </h2>
-
           <p
             className="
-              max-w-3xl mx-auto
-              text-sm sm:text-base md:text-lg
+              max-w-2xl
+              text-sm sm:text-base
               leading-[1.85]
-              tracking-[0.01em]
-              text-[var(--cc-text)] dark:text-[var(--cc-text)]
-              opacity-90
-              px-2 sm:px-0
-              text-center
+              text-[var(--cc-text)]
+              opacity-80
             "
           >
             {t.skills.description}
           </p>
         </div>
 
-        {/* TechSphere — mobile only */}
+        {/* Mobile: TechSphere only */}
         <div className="md:hidden">
-          <TechSphere className="w-full h-[420px]" />
+          <TechSphere className="w-full h-[400px]" />
         </div>
 
-        {/* Cards + filters — desktop only */}
-        <div className="hidden md:block">
+        {/* Desktop: skills list + sticky sphere */}
+        <div className="hidden md:grid grid-cols-[1fr_340px] gap-12 items-start">
 
-        {/* Category filter tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
-          {categories.map(({ key, label }) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setActiveCategory(key)}
-              className={`
-                px-4 py-1.5 rounded-full text-sm font-medium
-                border transition-all duration-200
-                ${
-                  activeCategory === key
-                    ? "bg-indigo-500 border-indigo-500 text-white shadow-[0_4px_14px_-4px_rgba(99,102,241,0.6)]"
-                    : "bg-[var(--pc-bg)] border-[var(--pc-border)] text-[var(--pc-text)] hover:border-indigo-400/50"
-                }
-              `}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+          {/* Left: filters + skill grid */}
+          <div>
+            {/* Category filter tabs */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {categories.map(({ key, label }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setActiveCategory(key)}
+                  className={`
+                    px-4 py-1.5 rounded-full text-sm font-medium
+                    border transition-all duration-200
+                    ${
+                      activeCategory === key
+                        ? "bg-indigo-500 border-indigo-500 text-white shadow-[0_4px_14px_-4px_rgba(99,102,241,0.55)]"
+                        : "bg-[var(--pc-bg)] border-[var(--pc-border)] text-[var(--pc-text)] hover:border-indigo-400/50"
+                    }
+                  `}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
 
-        {/* Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"
-        >
-          {filtered.map((s, i) => {
-            const progress = s.maxExperience > 0 ? (s.experience / s.maxExperience) * 100 : 0;
-            const yearsText =
-              s.experience === 1
-                ? `1 ${t.skills.yearsLabel === "anos" ? "ano" : "year"}`
-                : `${s.experience} ${t.skills.yearsLabel}`;
-
-            return (
-              <motion.article
-                key={s.name}
+            {/* Skill grid */}
+            <AnimatePresence mode="popLayout">
+              <motion.div
                 layout
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.3, delay: i * 0.03, ease: "easeOut" }}
-                className="
-                  group relative flex flex-col
-                  rounded-2xl
-                  bg-[var(--pc-bg)]
-                  border border-[var(--pc-border)]
-                  shadow-[var(--pc-shadow),_inset_0_0_0_1px_var(--pc-outline)]
-                  backdrop-blur-[10px]
-                  overflow-hidden
-                  p-5
-                  transition-[transform,box-shadow] duration-200 ease-out
-                  hover:-translate-y-1 hover:shadow-[0_18px_50px_-34px_rgba(2,6,23,0.55)]
-                "
+                className="grid grid-cols-2 sm:grid-cols-3 gap-3"
               >
-                {/* Subtle hover glow */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(45%_45%_at_50%_0%,rgba(99,102,241,0.12),transparent_60%)]" />
+                {filtered.map((s, i) => {
+                  const progress = s.maxExperience > 0 ? (s.experience / s.maxExperience) * 100 : 0;
 
-                <div className="relative flex h-full flex-col gap-3">
-                  {/* Icon + name */}
-                  <div className="flex items-center gap-3">
-                    <div
+                  return (
+                    <motion.article
+                      key={s.name}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.2, delay: i * 0.025, ease: "easeOut" }}
                       className="
-                        shrink-0 w-12 h-12 rounded-xl
-                        bg-white/70 dark:bg-white/8
-                        border border-black/5 dark:border-white/10
-                        flex items-center justify-center shadow-sm
+                        group relative flex items-center gap-3
+                        rounded-xl p-3
+                        bg-[var(--pc-bg)]
+                        border border-[var(--pc-border)]
+                        hover:-translate-y-0.5
+                        hover:border-indigo-500/20
+                        hover:shadow-[0_8px_30px_-12px_rgba(99,102,241,0.25)]
+                        transition-all duration-200 ease-out
                       "
                     >
-                      <SkillIcon skillName={s.name} />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold tracking-[-0.02em] text-[var(--cc-title)] leading-tight">
-                        {s.name}
-                      </h3>
-                      <span className={`text-xs font-medium ${levelColor(progress)}`}>
-                        {levelLabel(progress, language)}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm leading-[1.7] text-[var(--cc-text)] opacity-90 text-left flex-1">
-                    {s.description}
-                  </p>
-
-                  {/* Progress bar */}
-                  <div className="pt-1">
-                    <div className="flex items-center justify-between text-xs mb-1.5">
-                      <span className="text-[var(--cc-text)] opacity-70">{t.skills.experienceLabel}</span>
-                      <span className="text-[var(--cc-title)] font-semibold">{yearsText}</span>
-                    </div>
-                    <div className="relative h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
+                      {/* Icon container */}
                       <div
-                        style={{ width: `${progress}%` }}
-                        className="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-[width] duration-700 ease-out"
-                      />
-                    </div>
-                  </div>
-                </div>
+                        className="
+                          shrink-0 w-11 h-11 rounded-xl
+                          bg-white/70 dark:bg-white/8
+                          border border-black/5 dark:border-white/10
+                          flex items-center justify-center
+                          shadow-sm
+                        "
+                      >
+                        <SkillIcon skillName={s.name} />
+                      </div>
 
-                {/* Hover ring */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-transparent group-hover:ring-indigo-500/15 transition duration-200" />
-              </motion.article>
-            );
-          })}
-        </motion.div>
-        </div>{/* end desktop-only */}
+                      {/* Name + level */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold tracking-[-0.02em] text-[var(--cc-title)] truncate leading-tight">
+                          {s.name}
+                        </h3>
+                        <span className={`text-xs font-medium ${levelColor(progress)}`}>
+                          {levelLabel(progress, language)}
+                        </span>
+                      </div>
+
+                      {/* Hover ring */}
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-transparent group-hover:ring-indigo-500/12 transition duration-200" />
+                    </motion.article>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Right: TechSphere — sticky */}
+          <div className="sticky top-28">
+            <TechSphere className="w-full h-[420px]" />
+          </div>
+        </div>
       </motion.div>
     </section>
   );

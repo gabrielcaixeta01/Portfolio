@@ -25,7 +25,12 @@ export default function Navbar() {
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        setActiveSection("contato");
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -42,7 +47,7 @@ export default function Navbar() {
           if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
     );
 
     els.forEach((el) => obs.observe(el));
