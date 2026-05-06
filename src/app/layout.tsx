@@ -1,5 +1,4 @@
 import "./globals.css";
-import { ThemeProvider } from "../components/ThemeProvider";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
@@ -40,15 +39,13 @@ const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", di
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-br" className={`${inter.variable} ${space.variable}`} suppressHydrationWarning>
+    <html lang="pt-br" className={`${inter.variable} ${space.variable} dark`} suppressHydrationWarning>
       <body className="font-sans">
-        <ThemeProvider>
-          <LanguageProvider>
-            <ScrollProgress />
-            <Navbar />
-            <main>{children}</main>
-          </LanguageProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ScrollProgress />
+          <Navbar />
+          <main>{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );

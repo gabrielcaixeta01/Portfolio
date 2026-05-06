@@ -145,11 +145,14 @@ export default function Conhecimentos() {
       >
         {/* Header */}
         <div className="mb-10 sm:mb-12">
+          <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-indigo-500 dark:text-indigo-400">
+            {language === "pt" ? "conhecimentos" : "skills"}
+          </span>
           <h2
             className="
               text-3xl sm:text-4xl lg:text-5xl
               font-semibold tracking-[-0.045em]
-              leading-[1.05]
+              leading-[1.2]
               text-[var(--cc-title)]
               mb-3 sm:mb-4
             "

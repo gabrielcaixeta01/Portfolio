@@ -1,15 +1,12 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaGithub, FaLinkedin, FaChevronDown } from "react-icons/fa";
-import { BsSun, BsMoon } from "react-icons/bs";
 import { BR, US } from "country-flag-icons/react/3x2";
 import { useLanguage } from "../contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-  const { setTheme, resolvedTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
 
   const [mounted, setMounted] = useState(false);
@@ -301,15 +298,6 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </div>
-
-          {/* Theme */}
-          <button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            aria-label="Toggle theme"
-            className={iconBtn}
-          >
-            {resolvedTheme === "dark" ? <BsSun size={16} /> : <BsMoon size={16} />}
-          </button>
 
           {/* Hamburger — mobile only */}
           <button

@@ -15,7 +15,7 @@ const ICON_PLANE_SIZE = 0.8;
 const LABEL_PLANE_WIDTH = 0.9;
 const LABEL_PLANE_HEIGHT = 0.22;
 const LABEL_OFFSET_Y = -(ICON_PLANE_SIZE / 2 + LABEL_PLANE_HEIGHT / 2 + 0.04);
-const MIN_OPACITY = 0.12;
+const MIN_OPACITY = 0.9;
 const MAX_OPACITY = 1.0;
 const LERP_SPEED = 6;
 const AUTO_ROTATE_Y = 0.06;
@@ -99,23 +99,28 @@ export function SphereScene() {
     const domEl = gl.domElement;
     let dragging = false;
     let lastX = 0;
+    let lastY = 0;
 
-    const onDown = (e: MouseEvent) => { dragging = true; lastX = e.clientX; };
+    const onDown = (e: MouseEvent) => { dragging = true; lastX = e.clientX; lastY = e.clientY; };
     const onUp = () => { dragging = false; };
     const onDrag = (e: MouseEvent) => {
       if (!dragging || !groupRef.current) return;
       groupRef.current.rotation.y += (e.clientX - lastX) * DRAG_ROTATE_SPEED;
+      groupRef.current.rotation.x += (e.clientY - lastY) * DRAG_ROTATE_SPEED;
       lastX = e.clientX;
+      lastY = e.clientY;
     };
 
     const onTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) { dragging = true; lastX = e.touches[0].clientX; }
+      if (e.touches.length === 1) { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
     };
     const onTouchEnd = () => { dragging = false; };
     const onTouchMove = (e: TouchEvent) => {
       if (!dragging || !groupRef.current || e.touches.length !== 1) return;
       groupRef.current.rotation.y += (e.touches[0].clientX - lastX) * DRAG_ROTATE_SPEED;
+      groupRef.current.rotation.x += (e.touches[0].clientY - lastY) * DRAG_ROTATE_SPEED;
       lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
     };
 
     domEl.addEventListener("mousedown", onDown);
