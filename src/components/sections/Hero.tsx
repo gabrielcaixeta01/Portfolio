@@ -8,16 +8,17 @@ import MagneticWrapper from "@/components/MagneticWrapper";
 
 const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
 
-// ── Typewriter engine ─────────────────────────────────────────────────────────
+// ── Typewriter ────────────────────────────────────────────────────────────────
 function sleep(ms: number) {
   return new Promise<void>((r) => setTimeout(r, ms));
 }
 
-function useTypewriter(language: string) {
+function useTypewriter(language: string, enabled: boolean) {
   const [text, setText] = useState("");
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    if (!enabled) return;
     const pt = language === "pt";
     const seq = [
       { str: "❯ whoami",                                               speed: 55              },
@@ -35,7 +36,7 @@ function useTypewriter(language: string) {
     let buf = "";
 
     (async () => {
-      await sleep(800);
+      await sleep(300);
       for (const step of seq) {
         if (cancelled) return;
         if (step.delay) await sleep(step.delay);
@@ -50,86 +51,53 @@ function useTypewriter(language: string) {
     })();
 
     return () => { cancelled = true; };
-  }, [language]);
+  }, [language, enabled]);
 
   return { text, done };
 }
 
-// ── Terminal text renderer ────────────────────────────────────────────────────
 function renderTerminal(raw: string): React.ReactNode[] {
   const nodes: React.ReactNode[] = [];
-  let rem = raw;
-  let k = 0;
-
+  let rem = raw, k = 0;
   while (rem.length > 0) {
     const idx = rem.indexOf("❯");
-
-    if (idx === -1) {
-      nodes.push(<span key={k++} className="text-zinc-500">{rem}</span>);
-      break;
-    }
-
-    // output text before this prompt
-    if (idx > 0) {
-      nodes.push(<span key={k++} className="text-zinc-500">{rem.slice(0, idx)}</span>);
-    }
-
-    // the ❯ glyph
+    if (idx === -1) { nodes.push(<span key={k++} className="text-zinc-500">{rem}</span>); break; }
+    if (idx > 0) nodes.push(<span key={k++} className="text-zinc-500">{rem.slice(0, idx)}</span>);
     nodes.push(<span key={k++} className="text-green-400">❯</span>);
-
-    // command text until next newline
     const nl = rem.indexOf("\n", idx + 1);
     const end = nl === -1 ? rem.length : nl;
     nodes.push(<span key={k++} className="text-zinc-200">{rem.slice(idx + 1, end)}</span>);
-
     rem = nl === -1 ? "" : rem.slice(nl);
   }
-
   return nodes;
 }
 
-// ── Terminal card ─────────────────────────────────────────────────────────────
-function Terminal({ language }: { language: string }) {
-  const { text, done } = useTypewriter(language);
+// ── Terminal card (inside screen) ─────────────────────────────────────────────
+function ScreenTerminal({ language, enabled }: { language: string; enabled: boolean }) {
+  const { text, done } = useTypewriter(language, enabled);
   const [blink, setBlink] = useState(true);
 
   useEffect(() => {
-    const id = setInterval(() => setBlink((v) => !v), 530);
+    const id = setInterval(() => setBlink(v => !v), 530);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <div
-      className="
-        w-[min(480px,90vw)]
-        rounded-2xl overflow-hidden
-        bg-[#0b0e14]/95
-        border border-white/[0.08]
-        shadow-[0_48px_100px_-24px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.03)]
-        backdrop-blur-sm
-      "
-    >
+    <div className="w-full h-full flex flex-col">
       {/* Window chrome */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.015]">
-        <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-        <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-        <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-        <span className="ml-auto text-[11px] text-white/[0.18] font-mono tracking-wide">
-          ~ gabriel
-        </span>
+      <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06] bg-white/[0.015] shrink-0">
+        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-auto text-[10px] text-white/[0.18] font-mono">~ gabriel</span>
       </div>
-
       {/* Body */}
-      <div className="px-5 pt-5 pb-7 min-h-[190px]">
-        <pre className="font-mono text-[13px] sm:text-[13.5px] leading-[1.9] whitespace-pre-wrap break-words">
+      <div className="flex-1 px-4 py-4 overflow-hidden">
+        <pre className="font-mono text-[12px] leading-[1.85] whitespace-pre-wrap break-words h-full">
           {renderTerminal(text)}
           <span
-            className="inline-block w-[8px] h-[14px] align-middle ml-px"
-            style={{
-              background: done ? "#4ade80" : "#6b7280",
-              opacity: blink ? 1 : 0,
-              transition: "opacity 50ms",
-            }}
+            className="inline-block w-[7px] h-[13px] align-middle ml-px"
+            style={{ background: done ? "#4ade80" : "#6b7280", opacity: blink ? 1 : 0, transition: "opacity 50ms" }}
           />
         </pre>
       </div>
@@ -137,74 +105,184 @@ function Terminal({ language }: { language: string }) {
   );
 }
 
-// ── Hero section ──────────────────────────────────────────────────────────────
+// ── CSS 3D Laptop ─────────────────────────────────────────────────────────────
+function CSSLaptop({ language }: { language: string }) {
+  const [open, setOpen] = useState(false);
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setOpen(true), 500);
+    const t2 = setTimeout(() => setTyping(true), 1900);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  return (
+    <div style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}>
+      {/* Laptop group — slight downward tilt for depth */}
+      <div style={{ transform: "rotateX(18deg)", transformStyle: "preserve-3d" }}>
+
+        {/* ── LID ─────────────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ rotateX: -90 }}
+          animate={{ rotateX: open ? -22 : -90 }}
+          transition={{ duration: 1.9, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            width:            "min(540px, 86vw)",
+            height:           "min(338px, calc(86vw * 0.625))",
+            transformOrigin:  "bottom center",
+            transformStyle:   "preserve-3d",
+            position:         "relative",
+            marginBottom:     "-1px",
+          }}
+        >
+          {/* Screen face */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "#0b0e14",
+            borderRadius: "10px 10px 3px 3px",
+            border: "9px solid #1e1e1e",
+            borderBottom: "5px solid #1e1e1e",
+            overflow: "hidden",
+            boxShadow: open ? "inset 0 0 60px rgba(99,102,241,0.08)" : "none",
+          }}>
+            <ScreenTerminal language={language} enabled={typing} />
+          </div>
+
+          {/* Lid back face */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%)",
+            borderRadius: "10px 10px 3px 3px",
+            transform: "rotateX(180deg) translateZ(1px)",
+            backfaceVisibility: "hidden",
+          }}>
+            {/* Apple logo hint */}
+            <div style={{
+              position: "absolute", top: "50%", left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "26px", height: "30px",
+              background: "rgba(255,255,255,0.04)",
+              borderRadius: "5px",
+            }} />
+          </div>
+        </motion.div>
+
+        {/* ── BASE ─────────────────────────────────────────────────────────── */}
+        <div style={{
+          width:        "min(540px, 86vw)",
+          height:       "20px",
+          position:     "relative",
+          background:   "linear-gradient(to bottom, #282828, #1e1e1e)",
+          borderRadius: "0 0 8px 8px",
+          border:       "1px solid #333",
+          borderTop:    "1px solid #2c2c2c",
+        }}>
+          {/* Trackpad */}
+          <div style={{
+            position:     "absolute",
+            top: "50%", left: "50%",
+            transform:    "translate(-50%, -50%)",
+            width:        "min(72px, 13vw)",
+            height:       "9px",
+            background:   "#232323",
+            borderRadius: "3px",
+            border:       "1px solid #2e2e2e",
+          }} />
+        </div>
+
+        {/* ── BOTTOM EDGE (3D depth strip) ──────────────────────────────────── */}
+        <div style={{
+          width:      "min(530px, 84vw)",
+          height:     "4px",
+          margin:     "0 auto",
+          background: "#141414",
+          borderRadius: "0 0 6px 6px",
+        }} />
+
+      </div>
+
+      {/* Shadow under laptop */}
+      <div style={{
+        width:     "min(400px, 70vw)",
+        height:    "24px",
+        margin:    "4px auto 0",
+        background: "radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%)",
+        filter:    "blur(8px)",
+      }} />
+    </div>
+  );
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
 export default function Hero() {
   const { language } = useLanguage();
   const pt = language === "pt";
+  const [ctasVisible, setCtasVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setCtasVisible(true), 2200);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section
       id="hero"
-      className="relative overflow-hidden min-h-[100svh] flex flex-col items-center justify-center"
+      className="relative overflow-hidden min-h-[100svh] flex flex-col items-center justify-center gap-8 px-4 py-24"
     >
-      {/* Particle field */}
+      {/* Particle background */}
       <div className="absolute inset-0 pointer-events-none">
         <HeroScene />
       </div>
 
-      {/* Vignette — darkens edges so terminal reads clearly */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,transparent_20%,rgba(10,10,10,0.65)_100%)]" />
+      {/* Vignette */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_30%,rgba(10,10,10,0.6)_100%)]" />
 
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-7 px-4 py-24">
+      {/* Laptop */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+        className="relative z-10"
+      >
+        <CSSLaptop language={language} />
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.2, ease: "easeOut" }}
-        >
-          <Terminal language={language} />
-        </motion.div>
+      {/* CTAs */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: ctasVisible ? 1 : 0, y: ctasVisible ? 0 : 12 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 flex flex-col sm:flex-row gap-3 w-[min(480px,90vw)] sm:w-auto"
+      >
+        <MagneticWrapper>
+          <button
+            onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
+            className="
+              w-full sm:w-auto rounded-full px-7 py-3 text-sm font-medium
+              bg-gradient-to-r from-indigo-500 to-indigo-400 text-white
+              shadow-[0_8px_28px_-8px_rgba(99,102,241,0.7)]
+              hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.9)]
+              transition-shadow duration-200
+            "
+          >
+            {pt ? "Ver projetos" : "View projects"}
+          </button>
+        </MagneticWrapper>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-3 w-[min(480px,90vw)] sm:w-auto"
-        >
-          <MagneticWrapper>
-            <button
-              onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
-              className="
-                w-full sm:w-auto
-                rounded-full px-7 py-3 text-sm font-medium
-                bg-gradient-to-r from-indigo-500 to-indigo-400
-                text-white
-                shadow-[0_8px_28px_-8px_rgba(99,102,241,0.7)]
-                hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.9)]
-                transition-shadow duration-200
-              "
-            >
-              {pt ? "Ver projetos" : "View projects"}
-            </button>
-          </MagneticWrapper>
-
-          <MagneticWrapper>
-            <button
-              onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-              className="
-                w-full sm:w-auto
-                rounded-full px-7 py-3 text-sm font-medium
-                border border-white/[0.14] text-zinc-300
-                hover:bg-white/[0.06] hover:border-white/[0.25]
-                transition-all duration-200
-              "
-            >
-              {pt ? "Entrar em contato" : "Get in touch"}
-            </button>
-          </MagneticWrapper>
-        </motion.div>
-      </div>
+        <MagneticWrapper>
+          <button
+            onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
+            className="
+              w-full sm:w-auto rounded-full px-7 py-3 text-sm font-medium
+              border border-white/[0.14] text-zinc-300
+              hover:bg-white/[0.06] hover:border-white/[0.25]
+              transition-all duration-200
+            "
+          >
+            {pt ? "Entrar em contato" : "Get in touch"}
+          </button>
+        </MagneticWrapper>
+      </motion.div>
     </section>
   );
 }
