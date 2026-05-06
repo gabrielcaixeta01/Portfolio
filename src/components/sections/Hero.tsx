@@ -1,249 +1,209 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import MagneticWrapper from "@/components/MagneticWrapper";
-import { FaReact, FaNode, FaPython, FaGitAlt } from "react-icons/fa";
-import { SiNextdotjs, SiTypescript, SiTailwindcss, SiNestjs } from "react-icons/si";
 
-// ─── Syntax token helpers ────────────────────────────────────────────────────
-const Kw = ({ c }: { c: React.ReactNode }) => <span className="text-[#c678dd]">{c}</span>;
-const Vr = ({ c }: { c: React.ReactNode }) => <span className="text-[#61afef]">{c}</span>;
-const Pr = ({ c }: { c: React.ReactNode }) => <span className="text-[#e06c75]">{c}</span>;
-const St = ({ c }: { c: React.ReactNode }) => <span className="text-[#98c379]">{c}</span>;
-const Pl = ({ c }: { c: React.ReactNode }) => <span className="text-[#abb2bf]">{c}</span>;
-const Ln = ({ n }: { n: number }) => (
-  <span className="inline-block w-5 text-right mr-5 text-[#3d4350] select-none text-[11px]">{n}</span>
-);
+const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
 
-// ─── Code card ───────────────────────────────────────────────────────────────
-function CodeCard() {
+// ── Typewriter engine ─────────────────────────────────────────────────────────
+function sleep(ms: number) {
+  return new Promise<void>((r) => setTimeout(r, ms));
+}
+
+function useTypewriter(language: string) {
+  const [text, setText] = useState("");
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const pt = language === "pt";
+    const seq = [
+      { str: "❯ whoami",                                               speed: 55              },
+      { str: "\n\n  Gabriel Caixeta\n  " + (pt
+          ? "Desenvolvedor Full-Stack"
+          : "Full-Stack Developer"),                                    speed: 12, delay: 280  },
+      { str: "\n\n❯ echo $STATUS",                                     speed: 55, delay: 520  },
+      { str: "\n\n  " + (pt
+          ? "Eng. de Computação · UnB, Brasília"
+          : "Computer Engineering · UnB, Brasília"),                   speed: 12, delay: 260  },
+      { str: "\n\n❯ ",                                                  speed: 55, delay: 440  },
+    ];
+
+    let cancelled = false;
+    let buf = "";
+
+    (async () => {
+      await sleep(800);
+      for (const step of seq) {
+        if (cancelled) return;
+        if (step.delay) await sleep(step.delay);
+        for (const ch of step.str) {
+          if (cancelled) return;
+          buf += ch;
+          setText(buf);
+          await sleep(step.speed + (Math.random() * 16 - 8));
+        }
+      }
+      if (!cancelled) setDone(true);
+    })();
+
+    return () => { cancelled = true; };
+  }, [language]);
+
+  return { text, done };
+}
+
+// ── Terminal text renderer ────────────────────────────────────────────────────
+function renderTerminal(raw: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = [];
+  let rem = raw;
+  let k = 0;
+
+  while (rem.length > 0) {
+    const idx = rem.indexOf("❯");
+
+    if (idx === -1) {
+      nodes.push(<span key={k++} className="text-zinc-500">{rem}</span>);
+      break;
+    }
+
+    // output text before this prompt
+    if (idx > 0) {
+      nodes.push(<span key={k++} className="text-zinc-500">{rem.slice(0, idx)}</span>);
+    }
+
+    // the ❯ glyph
+    nodes.push(<span key={k++} className="text-green-400">❯</span>);
+
+    // command text until next newline
+    const nl = rem.indexOf("\n", idx + 1);
+    const end = nl === -1 ? rem.length : nl;
+    nodes.push(<span key={k++} className="text-zinc-200">{rem.slice(idx + 1, end)}</span>);
+
+    rem = nl === -1 ? "" : rem.slice(nl);
+  }
+
+  return nodes;
+}
+
+// ── Terminal card ─────────────────────────────────────────────────────────────
+function Terminal({ language }: { language: string }) {
+  const { text, done } = useTypewriter(language);
   const [blink, setBlink] = useState(true);
+
   useEffect(() => {
     const id = setInterval(() => setBlink((v) => !v), 530);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 36, y: 8 }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
-      transition={{ duration: 0.85, delay: 0.55, ease: "easeOut" }}
+    <div
       className="
-        w-[300px] xl:w-[370px]
+        w-[min(480px,90vw)]
         rounded-2xl overflow-hidden
-        bg-[#0d1117]
-        border border-white/[0.09]
-        shadow-[0_48px_100px_-24px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.04)]
+        bg-[#0b0e14]/95
+        border border-white/[0.08]
+        shadow-[0_48px_100px_-24px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.03)]
+        backdrop-blur-sm
       "
     >
       {/* Window chrome */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.07] bg-white/[0.025]">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.015]">
         <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
         <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
         <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-        <span className="ml-3 text-[11px] text-white/25 font-mono tracking-wide">gabriel.ts</span>
+        <span className="ml-auto text-[11px] text-white/[0.18] font-mono tracking-wide">
+          ~ gabriel
+        </span>
       </div>
 
-      {/* Code body */}
-      <div className="px-4 py-5 font-mono text-[12px] xl:text-[12.5px] leading-[1.9] select-none">
-        <div><Ln n={1} /><Kw c="const" /> <Vr c="gabriel" /> <Pl c="= {" /></div>
-        <div><Ln n={2} /><Pr c="  name" /><Pl c=": " /><St c={`"Gabriel Caixeta"`} /><Pl c="," /></div>
-        <div><Ln n={3} /><Pr c="  role" /><Pl c=": " /><St c={`"Full-Stack Dev"`} /><Pl c="," /></div>
-        <div><Ln n={4} /><Pr c="  location" /><Pl c=": " /><St c={`"Brasília, BR"`} /><Pl c="," /></div>
-        <div><Ln n={5} /><Pr c="  stack" /><Pl c=": [" /></div>
-        <div><Ln n={6} /><Pl c="    " /><St c='"Next.js"' /><Pl c=", " /><St c='"TypeScript"' /><Pl c="," /></div>
-        <div><Ln n={7} /><Pl c="    " /><St c='"NestJS"' /><Pl c=", " /><St c='"Tailwind"' /><Pl c="," /></div>
-        <div><Ln n={8} /><Pl c="  ]," /></div>
-        <div><Ln n={9} /><Pl c="}" /></div>
-        <div><Ln n={10} /><Pl c=" " /></div>
-        <div>
-          <Ln n={11} />
-          <Kw c="export default" /> <Vr c="gabriel" />
+      {/* Body */}
+      <div className="px-5 pt-5 pb-7 min-h-[190px]">
+        <pre className="font-mono text-[13px] sm:text-[13.5px] leading-[1.9] whitespace-pre-wrap break-words">
+          {renderTerminal(text)}
           <span
-            className="inline-block w-[2px] h-[13px] ml-0.5 bg-indigo-400 align-middle"
-            style={{ opacity: blink ? 1 : 0, transition: "opacity 60ms" }}
+            className="inline-block w-[8px] h-[14px] align-middle ml-px"
+            style={{
+              background: done ? "#4ade80" : "#6b7280",
+              opacity: blink ? 1 : 0,
+              transition: "opacity 50ms",
+            }}
           />
-        </div>
+        </pre>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-// ─── Tech stack ───────────────────────────────────────────────────────────────
-const stack = [
-  { name: "Next.js",    Icon: SiNextdotjs,  color: "#ffffff" },
-  { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
-  { name: "React",      Icon: FaReact,      color: "#61DAFB" },
-  { name: "Tailwind",   Icon: SiTailwindcss,color: "#38BDF8" },
-  { name: "NestJS",     Icon: SiNestjs,     color: "#E0234E" },
-  { name: "Python",     Icon: FaPython,     color: "#FFD43B" },
-  { name: "Git",        Icon: FaGitAlt,     color: "#F05032" },
-  { name: "Node.js",    Icon: FaNode,       color: "#68A063" },
-];
-
-// ─── Animation variants ───────────────────────────────────────────────────────
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
-};
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65 } },
-};
-
-// ─── Component ────────────────────────────────────────────────────────────────
+// ── Hero section ──────────────────────────────────────────────────────────────
 export default function Hero() {
   const { language } = useLanguage();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
-  const isDark = !mounted || resolvedTheme === "dark";
+  const pt = language === "pt";
 
   return (
     <section
       id="hero"
-      className="relative overflow-hidden min-h-[100svh] flex items-center px-5 sm:px-8 lg:px-10"
+      className="relative overflow-hidden min-h-[100svh] flex flex-col items-center justify-center"
     >
-      {/* Dark overlay */}
-      {isDark && (
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
-      )}
-
-      {/* Aurora blobs */}
-      <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.22, 0.34, 0.22] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-indigo-700/25 blur-[130px]"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.12, 0.2, 0.12] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-          className="absolute -bottom-56 right-0 w-[600px] h-[600px] rounded-full bg-cyan-700/15 blur-[120px]"
-        />
+      {/* Particle field */}
+      <div className="absolute inset-0 pointer-events-none">
+        <HeroScene />
       </div>
 
-      {/* Main grid */}
-      <div className="
-        relative z-10 w-full max-w-7xl mx-auto
-        flex flex-col lg:flex-row
-        items-center lg:items-center
-        justify-between
-        gap-10 lg:gap-12
-        pt-24 pb-14 sm:pt-28 sm:pb-16 lg:py-0
-      ">
+      {/* Vignette — darkens edges so terminal reads clearly */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,transparent_20%,rgba(10,10,10,0.65)_100%)]" />
 
-        {/* ── LEFT: text ───────────────────────────────────────────────────── */}
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center gap-7 px-4 py-24">
+
         <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="flex-1 min-w-0 text-center lg:text-left"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, delay: 0.2, ease: "easeOut" }}
         >
-          {/* Name */}
-          <motion.h1
-            variants={fadeUp}
-            className="
-              font-light tracking-[-0.05em] leading-[0.88]
-              text-[clamp(3rem,8.5vw,8.5rem)]
-              mb-6 sm:mb-7
-            "
-          >
-            <span className="text-[var(--cc-title)]">Gabriel</span>
-            <br />
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage: "linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)",
-              }}
-            >
-              Caixeta
-            </span>
-          </motion.h1>
-
-          {/* Role */}
-          <motion.p
-            variants={fadeUp}
-            className="text-sm sm:text-base lg:text-lg text-[var(--cc-text)] opacity-75 font-light tracking-wide mb-4"
-          >
-            {language === "pt"
-              ? "Desenvolvedor Full-Stack · Engenharia de Computação – UnB"
-              : "Full-Stack Developer · Computer Engineering – UnB"}
-          </motion.p>
-
-          {/* CTA buttons — fix: sm:flex-row (xs: não existe no Tailwind) */}
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start mb-10 sm:mb-12"
-          >
-            <MagneticWrapper>
-              <button
-                onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
-                className="
-                  rounded-full px-7 py-3 text-sm font-medium
-                  bg-gradient-to-r from-indigo-500 to-cyan-500
-                  text-white
-                  shadow-[0_8px_28px_-8px_rgba(99,102,241,0.65)]
-                  hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.85)]
-                  transition-shadow duration-200
-                "
-              >
-                {language === "pt" ? "Ver projetos" : "View projects"}
-              </button>
-            </MagneticWrapper>
-
-            <MagneticWrapper>
-              <button
-                onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-                className="
-                  rounded-full px-7 py-3 text-sm font-medium
-                  border border-[var(--pc-border)] text-[var(--pc-title)]
-                  hover:bg-[var(--pc-bg)] hover:border-indigo-400/40
-                  transition-all duration-150
-                "
-              >
-                {language === "pt" ? "Vamos conversar" : "Let's talk"}
-              </button>
-            </MagneticWrapper>
-          </motion.div>
-
-          {/* Tech strip — flex-wrap everywhere, sem overflow-x-auto */}
-          <motion.div variants={fadeUp} className="w-full">
-            <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
-              <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--cc-text)] opacity-40 font-medium">
-                Stack
-              </span>
-              <div className="h-px w-6 bg-current opacity-10" />
-            </div>
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-              {stack.map(({ name, Icon, color }) => (
-                <span
-                  key={name}
-                  title={name}
-                  className="
-                    flex items-center gap-1.5 px-2.5 py-1 rounded-lg
-                    bg-[var(--pc-bg)] border border-[var(--pc-border)]
-                    text-[var(--pc-text)] hover:text-[var(--pc-title)]
-                    transition-colors duration-150 cursor-default
-                  "
-                >
-                  <Icon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
-                  <span className="text-[11px] font-medium">{name}</span>
-                </span>
-              ))}
-            </div>
-          </motion.div>
+          <Terminal language={language} />
         </motion.div>
 
-        {/* ── RIGHT: code card (lg+) ───────────────────────────────────────── */}
-        <div className="hidden lg:flex flex-shrink-0 items-center">
-          <CodeCard />
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row gap-3 w-[min(480px,90vw)] sm:w-auto"
+        >
+          <MagneticWrapper>
+            <button
+              onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
+              className="
+                w-full sm:w-auto
+                rounded-full px-7 py-3 text-sm font-medium
+                bg-gradient-to-r from-indigo-500 to-indigo-400
+                text-white
+                shadow-[0_8px_28px_-8px_rgba(99,102,241,0.7)]
+                hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.9)]
+                transition-shadow duration-200
+              "
+            >
+              {pt ? "Ver projetos" : "View projects"}
+            </button>
+          </MagneticWrapper>
 
+          <MagneticWrapper>
+            <button
+              onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
+              className="
+                w-full sm:w-auto
+                rounded-full px-7 py-3 text-sm font-medium
+                border border-white/[0.14] text-zinc-300
+                hover:bg-white/[0.06] hover:border-white/[0.25]
+                transition-all duration-200
+              "
+            >
+              {pt ? "Entrar em contato" : "Get in touch"}
+            </button>
+          </MagneticWrapper>
+        </motion.div>
       </div>
     </section>
   );
