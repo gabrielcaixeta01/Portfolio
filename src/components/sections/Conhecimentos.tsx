@@ -30,7 +30,7 @@ interface SkillData {
 }
 
 const SkillIcon = ({ skillName }: { skillName: string }) => {
-  const base = "w-7 h-7";
+  const base = "w-6 h-6";
   const lowerName = skillName.toLowerCase();
 
   switch (lowerName) {
@@ -40,8 +40,8 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
     case "nextjs":
     case "next":
       return (
-        <div className="w-7 h-7 rounded-md bg-black dark:bg-white flex items-center justify-center">
-          <SiNextdotjs className="w-5 h-5 text-white dark:text-black" />
+        <div className="w-6 h-6 rounded-md bg-white flex items-center justify-center">
+          <SiNextdotjs className="w-4 h-4 text-black" />
         </div>
       );
     case "typescript":
@@ -70,7 +70,7 @@ const SkillIcon = ({ skillName }: { skillName: string }) => {
       return <SiFigma className={`${base} text-[#F24E1E]`} />;
     default:
       return (
-        <div className="w-7 h-7 rounded-md bg-gray-400/80 flex items-center justify-center text-white font-semibold text-[10px]">
+        <div className="w-6 h-6 rounded-md bg-zinc-600 flex items-center justify-center text-white font-semibold text-[10px]">
           {skillName.slice(0, 2).toUpperCase()}
         </div>
       );
@@ -94,19 +94,13 @@ const categoryMap: Record<string, "frontend" | "backend" | "tools"> = {
 
 const levelLabel = (progress: number, lang: string) => {
   if (lang === "pt") {
-    if (progress >= 80) return "Avançado";
-    if (progress >= 50) return "Intermediário";
-    return "Iniciante";
+    if (progress >= 80) return "avançado";
+    if (progress >= 50) return "intermediário";
+    return "iniciante";
   }
-  if (progress >= 80) return "Advanced";
-  if (progress >= 50) return "Intermediate";
-  return "Beginner";
-};
-
-const levelColor = (progress: number) => {
-  if (progress >= 80) return "text-emerald-400";
-  if (progress >= 50) return "text-amber-400";
-  return "text-blue-400";
+  if (progress >= 80) return "advanced";
+  if (progress >= 50) return "intermediate";
+  return "beginner";
 };
 
 export default function Conhecimentos() {
@@ -125,10 +119,10 @@ export default function Conhecimentos() {
   const filtered = activeCategory === "all" ? skills : skills.filter((s) => s.category === activeCategory);
 
   const categories = [
-    { key: "all" as const, label: language === "pt" ? "Todos" : "All" },
-    { key: "frontend" as const, label: "Front-end" },
-    { key: "backend" as const, label: "Back-end" },
-    { key: "tools" as const, label: language === "pt" ? "Ferramentas" : "Tools" },
+    { key: "all" as const, label: language === "pt" ? "todos" : "all" },
+    { key: "frontend" as const, label: "front-end" },
+    { key: "backend" as const, label: "back-end" },
+    { key: "tools" as const, label: language === "pt" ? "ferramentas" : "tools" },
   ];
 
   return (
@@ -143,46 +137,32 @@ export default function Conhecimentos() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative max-w-6xl mx-auto"
       >
-        {/* Header */}
+        {/* ── header ── */}
         <div className="mb-10 sm:mb-12">
-          <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-indigo-500 dark:text-indigo-400">
+          <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-indigo-400">
             {language === "pt" ? "conhecimentos" : "skills"}
           </span>
           <h2
-            className="
-              text-3xl sm:text-4xl lg:text-5xl
-              font-semibold tracking-[-0.045em]
-              leading-[1.2]
-              text-[var(--cc-title)]
-              mb-3 sm:mb-4
-            "
+            className="mt-2 text-4xl sm:text-5xl font-semibold tracking-[-0.045em] leading-[1.05] text-[var(--cc-title)] mb-3 sm:mb-4"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             <SplitText text={t.skills.title} />
           </h2>
-          <p
-            className="
-              max-w-2xl
-              text-sm sm:text-base
-              leading-[1.85]
-              text-[var(--cc-text)]
-              opacity-80
-            "
-          >
+          <p className="max-w-2xl text-sm sm:text-base leading-relaxed text-[var(--cc-text)] opacity-60">
             {t.skills.description}
           </p>
         </div>
 
-        {/* Mobile: TechSphere only */}
-        <div className="md:hidden">
-          <TechSphere className="w-full h-[400px]" />
+        {/* ── mobile: sphere on top ── */}
+        <div className="md:hidden -mt-2 mb-8">
+          <TechSphere className="w-full h-[320px]" />
         </div>
 
-        {/* Desktop: skills list + sticky sphere */}
-        <div className="hidden md:grid grid-cols-[1fr_340px] gap-12 items-start">
+        <div className="md:grid md:grid-cols-[1fr_340px] md:gap-12 items-start">
 
-          {/* Left: filters + skill grid */}
+          {/* ── left: filters + skill grid ── */}
           <div>
-            {/* Category filter tabs */}
+            {/* category filters — mono, terminal-flavoured */}
             <div className="flex flex-wrap gap-2 mb-8">
               {categories.map(({ key, label }) => (
                 <button
@@ -190,12 +170,12 @@ export default function Conhecimentos() {
                   type="button"
                   onClick={() => setActiveCategory(key)}
                   className={`
-                    px-4 py-1.5 rounded-full text-sm font-medium
+                    px-4 py-1.5 rounded-full font-mono text-[12px] tracking-[0.08em]
                     border transition-all duration-200
                     ${
                       activeCategory === key
-                        ? "bg-indigo-500 border-indigo-500 text-white shadow-[0_4px_14px_-4px_rgba(99,102,241,0.55)]"
-                        : "bg-[var(--pc-bg)] border-[var(--pc-border)] text-[var(--pc-text)] hover:border-indigo-400/50"
+                        ? "bg-indigo-500/15 border-indigo-400/50 text-indigo-300 shadow-[0_0_20px_-6px_rgba(99,102,241,0.5)]"
+                        : "bg-white/[0.03] border-white/[0.08] text-zinc-400 hover:border-indigo-400/40 hover:text-zinc-200"
                     }
                   `}
                 >
@@ -204,12 +184,9 @@ export default function Conhecimentos() {
               ))}
             </div>
 
-            {/* Skill grid */}
+            {/* skill grid */}
             <AnimatePresence mode="popLayout">
-              <motion.div
-                layout
-                className="grid grid-cols-2 sm:grid-cols-3 gap-3"
-              >
+              <motion.div layout className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {filtered.map((s, i) => {
                   const progress = s.maxExperience > 0 ? (s.experience / s.maxExperience) * 100 : 0;
 
@@ -222,41 +199,48 @@ export default function Conhecimentos() {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.2, delay: i * 0.025, ease: "easeOut" }}
                       className="
-                        group relative flex items-center gap-3
-                        rounded-xl p-3
+                        group relative rounded-xl p-4
                         bg-[var(--pc-bg)]
                         border border-[var(--pc-border)]
                         hover:-translate-y-0.5
-                        hover:border-indigo-500/20
-                        hover:shadow-[0_8px_30px_-12px_rgba(99,102,241,0.25)]
+                        hover:border-indigo-500/25
+                        hover:shadow-[0_8px_30px_-12px_rgba(99,102,241,0.3)]
                         transition-all duration-200 ease-out
                       "
                     >
-                      {/* Icon container */}
-                      <div
-                        className="
-                          shrink-0 w-11 h-11 rounded-xl
-                          bg-white/70 dark:bg-white/8
-                          border border-black/5 dark:border-white/10
-                          flex items-center justify-center
-                          shadow-sm
-                        "
-                      >
-                        <SkillIcon skillName={s.name} />
+                      <div className="flex items-center gap-3 mb-3">
+                        <div
+                          className="
+                            shrink-0 w-10 h-10 rounded-lg
+                            bg-white/[0.06] border border-white/[0.08]
+                            flex items-center justify-center
+                          "
+                        >
+                          <SkillIcon skillName={s.name} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-semibold tracking-[-0.02em] text-[var(--cc-title)] truncate leading-tight">
+                            {s.name}
+                          </h3>
+                          <span className="font-mono text-[10.5px] text-zinc-500">
+                            {levelLabel(progress, language)}
+                          </span>
+                        </div>
                       </div>
 
-                      {/* Name + level */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold tracking-[-0.02em] text-[var(--cc-title)] truncate leading-tight">
-                          {s.name}
-                        </h3>
-                        <span className={`text-xs font-medium ${levelColor(progress)}`}>
-                          {levelLabel(progress, language)}
-                        </span>
+                      {/* proficiency bar */}
+                      <div className="h-[3px] rounded-full bg-white/[0.06] overflow-hidden">
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: progress / 100 }}
+                          transition={{ duration: 0.9, delay: 0.15 + i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                          viewport={{ once: true }}
+                          style={{ transformOrigin: "left" }}
+                          className="h-full w-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400"
+                        />
                       </div>
 
-                      {/* Hover ring */}
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-transparent group-hover:ring-indigo-500/12 transition duration-200" />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-transparent group-hover:ring-indigo-500/15 transition duration-200" />
                     </motion.article>
                   );
                 })}
@@ -264,8 +248,8 @@ export default function Conhecimentos() {
             </AnimatePresence>
           </div>
 
-          {/* Right: TechSphere — sticky */}
-          <div className="sticky top-28">
+          {/* ── right: TechSphere, sticky (desktop only) ── */}
+          <div className="hidden md:block sticky top-28">
             <TechSphere className="w-full h-[420px]" />
           </div>
         </div>
