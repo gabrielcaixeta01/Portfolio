@@ -18,6 +18,7 @@ export default function RedeProjetos() {
         name: t.projects.electrumSite.title,
         sub: t.projects.electrumSite.description,
         href: "https://gabrielcaixeta01.github.io/electrum-observatory/",
+        github: "https://github.com/gabrielcaixeta01/electrum-observatory",
         tech: ["Python", "Jupyter", "Network Analysis", "scikit-learn"],
       },
       {

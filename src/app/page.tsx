@@ -2,7 +2,6 @@
 import Hero from "@/components/sections/Hero";
 import SobreMim from "@/components/sections/SobreMim";
 import RedeProjetos from "@/components/sections/RedeProjetos";
-import Projetos from "@/components/sections/Projetos";
 import Conhecimentos from "@/components/sections/Conhecimentos";
 import Contato from "@/components/sections/Contato";
 import Trajetoria from "@/components/sections/Trajetoria";
@@ -18,11 +17,10 @@ export default function Home() {
           <Trajetoria />
         </div>
 
-        {/* full-bleed 3D network journey */}
+        {/* full-bleed 3D network — the projects section */}
         <RedeProjetos />
 
         <div className="container mx-auto px-4 sm:px-6 flex flex-col gap-20 sm:gap-16">
-          <Projetos />
           <Conhecimentos />
           <Contato />
         </div>

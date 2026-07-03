@@ -8,6 +8,7 @@ export type NetProject = {
   name: string;
   sub: string;
   href?: string;
+  github?: string;
   tech?: string[];
 };
 
@@ -338,7 +339,7 @@ export default function ScrollNetworkHero({ projects, labels, heightVh = 340 }: 
   return (
     <section
       ref={wrapRef}
-      id="rede"
+      id="projetos"
       style={{ height: `${heightVh}vh` }}
       className="relative"
       aria-label={labels.eyebrow}
@@ -397,16 +398,28 @@ export default function ScrollNetworkHero({ projects, labels, heightVh = 340 }: 
                 {p.tech.join(" · ")}
               </p>
             )}
-            {p.href && (
-              <a
-                href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 font-mono text-[13px] text-indigo-400 border-b border-indigo-400/40 hover:border-indigo-400 transition-colors"
-              >
-                {labels.cta} →
-              </a>
-            )}
+            <div className="flex items-center gap-5 mt-4">
+              {p.href && (
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[13px] text-indigo-400 border-b border-indigo-400/40 hover:border-indigo-400 transition-colors"
+                >
+                  {labels.cta} →
+                </a>
+              )}
+              {p.github && (
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[13px] text-zinc-500 border-b border-zinc-500/30 hover:text-zinc-300 hover:border-zinc-400 transition-colors"
+                >
+                  github ↗
+                </a>
+              )}
+            </div>
           </div>
         ))}
 
