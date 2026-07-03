@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import MagneticWrapper from "@/components/MagneticWrapper";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
 
@@ -254,34 +254,30 @@ export default function Hero() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 flex flex-col sm:flex-row gap-3 w-[min(480px,90vw)] sm:w-auto"
       >
-        <MagneticWrapper>
-          <button
-            onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
-            className="
-              w-full sm:w-auto rounded-full px-7 py-3 text-sm font-medium
-              bg-gradient-to-r from-indigo-500 to-indigo-400 text-white
-              shadow-[0_8px_28px_-8px_rgba(99,102,241,0.7)]
-              hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.9)]
-              transition-shadow duration-200
-            "
-          >
-            {pt ? "Ver projetos" : "View projects"}
-          </button>
-        </MagneticWrapper>
+        <MagneticButton
+          onClick={() => document.getElementById("projetos")?.scrollIntoView({ behavior: "smooth" })}
+          className="
+            w-full sm:w-auto items-center justify-center rounded-full px-7 py-3 text-sm font-medium
+            bg-gradient-to-r from-indigo-500 to-indigo-400 text-white
+            shadow-[0_8px_28px_-8px_rgba(99,102,241,0.7)]
+            hover:shadow-[0_12px_36px_-8px_rgba(99,102,241,0.9)]
+            transition-shadow duration-200
+          "
+        >
+          {pt ? "Ver projetos" : "View projects"}
+        </MagneticButton>
 
-        <MagneticWrapper>
-          <button
-            onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
-            className="
-              w-full sm:w-auto rounded-full px-7 py-3 text-sm font-medium
-              border border-white/[0.14] text-zinc-300
-              hover:bg-white/[0.06] hover:border-white/[0.25]
-              transition-all duration-200
-            "
-          >
-            {pt ? "Entrar em contato" : "Get in touch"}
-          </button>
-        </MagneticWrapper>
+        <MagneticButton
+          onClick={() => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })}
+          className="
+            w-full sm:w-auto items-center justify-center rounded-full px-7 py-3 text-sm font-medium
+            border border-white/[0.14] text-zinc-300
+            hover:bg-white/[0.06] hover:border-white/[0.25]
+            transition-all duration-200
+          "
+        >
+          {pt ? "Entrar em contato" : "Get in touch"}
+        </MagneticButton>
       </motion.div>
     </section>
   );
