@@ -68,7 +68,16 @@ const translations = {
           "Aplicação web para agendamento de serviços em barbearias, com painel administrativo para gerenciamento de horários e clientes.",
         image: "/barber-agenda.png",
       },
-      
+
+    },
+    // Network Section (3D)
+    network: {
+      eyebrow: "rede de projetos",
+      title: "Uma rede, três destinos",
+      intro: "Role para viajar de nó em nó.",
+      node: "nó",
+      hint: "role para navegar pela rede ↓",
+      cta: "ver projeto",
     },
     // Skills Section
     skills: {
@@ -302,6 +311,15 @@ const translations = {
           "Web application for scheduling services in barbershops, with an admin panel for managing appointments and clients.",
         image: "/barber-agenda.png",
       },
+    },
+    // Network Section (3D)
+    network: {
+      eyebrow: "project network",
+      title: "One network, three destinations",
+      intro: "Scroll to travel from node to node.",
+      node: "node",
+      hint: "scroll to navigate the network ↓",
+      cta: "view project",
     },
     // Skills Section
     skills: {
