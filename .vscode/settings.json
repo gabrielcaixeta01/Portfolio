@@ -1,0 +1,11 @@
+{
+  "workbench.externalBrowser": "default",
+  "remote.portsAttributes": {
+    "3000": {
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "remote.otherPortsAttributes": {
+    "onAutoForward": "openBrowser"
+  }
+}
