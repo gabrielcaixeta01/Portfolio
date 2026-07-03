@@ -53,6 +53,7 @@ export default function SobreMim() {
                   font-semibold tracking-[-0.04em] leading-[1.05]
                   text-zinc-100
                 "
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 <SplitText text={t.about.title} />
               </h2>
