@@ -10,6 +10,11 @@ export type NetProject = {
   href?: string;
   github?: string;
   tech?: string[];
+  role?: string;
+  problem?: string;
+  solution?: string;
+  result?: string;
+  image?: string;
 };
 
 type Labels = {
