@@ -10,11 +10,11 @@ export type NetProject = {
   href?: string;
   github?: string;
   tech?: string[];
-  role?: string;
-  problem?: string;
-  solution?: string;
-  result?: string;
-  image?: string;
+  role: string;
+  problem: string;
+  solution: string;
+  result: string;
+  image: string;
 };
 
 type Labels = {
@@ -24,12 +24,14 @@ type Labels = {
   node: string;
   hint: string;
   cta: string;
+  details: string;
 };
 
 type Props = {
   projects: NetProject[];
   labels: Labels;
   heightVh?: number;
+  onSelect?: (p: NetProject) => void;
 };
 
 /* Palette — derived from the site's indigo/cyan identity on #0a0a0a */
@@ -48,7 +50,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * glowing node per project while captions fade in sync. A clickable route
  * rail on the right mirrors the journey. Respects prefers-reduced-motion.
  */
-export default function ScrollNetworkHero({ projects, labels, heightVh = 340 }: Props) {
+export default function ScrollNetworkHero({ projects, labels, heightVh = 340, onSelect }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
@@ -404,6 +406,14 @@ export default function ScrollNetworkHero({ projects, labels, heightVh = 340 }: 
               </p>
             )}
             <div className="flex items-center gap-5 mt-4">
+              {onSelect && (
+                <button
+                  onClick={() => onSelect(p)}
+                  className="font-mono text-[13px] text-cyan-300 border-b border-cyan-300/40 hover:border-cyan-300 transition-colors cursor-pointer"
+                >
+                  {labels.details} +
+                </button>
+              )}
               {p.href && (
                 <a
                   href={p.href}
