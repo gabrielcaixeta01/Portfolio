@@ -16,7 +16,7 @@ export const metadata = {
     siteName: "Gabriel Caixeta",
     images: [
       {
-        url: "https://gabrielcaixeta01.github.io/Portfolio/gabriel.jpg",
+        url: "https://gabrielcaixeta01.github.io/Portfolio/og.png",
         width: 1200,
         height: 630,
         alt: "Gabriel Caixeta — Desenvolvedor Full-Stack",
@@ -29,9 +29,25 @@ export const metadata = {
     card: "summary_large_image",
     title: "Gabriel Caixeta — Desenvolvedor Full-Stack",
     description: "Interfaces rápidas, design consistente e código bem estruturado.",
-    images: ["https://gabrielcaixeta01.github.io/Portfolio/gabriel.jpg"],
+    images: ["https://gabrielcaixeta01.github.io/Portfolio/og.png"],
   },
   metadataBase: new URL("https://gabrielcaixeta01.github.io/Portfolio/"),
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Gabriel Caixeta Romero",
+  jobTitle: "Full-Stack Developer",
+  url: "https://gabrielcaixeta01.github.io/Portfolio/",
+  sameAs: [
+    "https://github.com/gabrielcaixeta01",
+    "https://www.linkedin.com/in/gabriel-caixeta-romero",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Universidade de Brasília",
+  },
 };
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
@@ -41,6 +57,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-br" className={`${inter.variable} ${space.variable} dark`} suppressHydrationWarning>
       <body className="font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <LanguageProvider>
           <ScrollProgress />
           <Navbar />
