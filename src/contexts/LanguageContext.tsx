@@ -43,32 +43,46 @@ const translations = {
       title: "Projetos",
       description:
         "Aqui estão alguns dos projetos que desenvolvi, aplicando tecnologias modernas e boas práticas de engenharia de software:",
-      
+
       electrumSite: {
         title: "Observatório Electrum",
         description:
           "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
         image: "/electrum.png",
+        role: "Autor único — pesquisa, engenharia de dados e análise",
+        problem:
+          "O ecossistema de servidores Electrum (Bitcoin) é opaco: não se sabe quantos servidores existem, quem os opera, nem quão centralizada é a infraestrutura da qual milhares de carteiras dependem.",
+        solution:
+          "Construí um pipeline de varredura e fingerprinting comportamental que coleta metadados dos servidores e os agrupa via clustering, revelando operadores recorrentes e padrões de infraestrutura.",
+        result:
+          "Um observatório reprodutível do ecossistema, com análises e visualizações que mapeiam a concentração real da rede.",
       },
       giogas: {
         title: "Site GIOGÁS",
         description:
           "Site institucional para a GIOGÁS, empresa do Rio de Janeiro.",
         image: "/giogas.png",
-      },
-      kodo: {
-        title: "Kodo",
-        description:
-          "App PWA de gerenciamento de tarefas com foco em produtividade, utilizando Next.js, Tailwind CSS e Supabase para armazenamento dos dados.",
-        image: "/kodo.png",
+        role: "Desenvolvimento completo — do design à publicação",
+        problem:
+          "A GIOGÁS não tinha presença digital própria: dependia de canais de terceiros para apresentar seus serviços e receber contatos comerciais.",
+        solution:
+          "Site institucional em Next.js e Tailwind, com seções de serviços e contato direto, responsivo e otimizado para carregamento rápido.",
+        result:
+          "Presença online própria e profissional, com canal direto de contato para clientes, publicada na Vercel.",
       },
       baberAgenda: {
         title: "Agenda de Barbearia",
         description:
           "Aplicação web para agendamento de serviços em barbearias, com painel administrativo para gerenciamento de horários e clientes.",
         image: "/barber-agenda.png",
+        role: "Desenvolvimento full-stack — do modelo de dados à interface",
+        problem:
+          "Barbearias pequenas ainda agendam por telefone e mensagem, o que gera conflitos de horário e nenhum histórico de clientes.",
+        solution:
+          "Aplicação web com agendamento self-service para o cliente e painel administrativo para gerenciar horários, serviços e clientes, com dados no Supabase.",
+        result:
+          "Fluxo de agendamento de ponta a ponta, centralizando a agenda e eliminando a coordenação manual.",
       },
-
     },
     // Network Section (3D)
     network: {
@@ -78,6 +92,12 @@ const translations = {
       node: "nó",
       hint: "role para navegar pela rede ↓",
       cta: "ver projeto",
+      details: "ver detalhes",
+      problem: "problema",
+      solution: "solução",
+      result: "resultado",
+      close: "fechar",
+      visit: "ver projeto",
     },
     // Skills Section
     skills: {
@@ -286,30 +306,45 @@ const translations = {
       title: "Projects",
       description:
         "Here are some of the projects I've developed, applying modern technologies and software engineering best practices:",
-      
+
       electrumSite: {
         title: "Electrum Observatory",
         description:
           "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
         image: "/electrum.png",
+        role: "Sole author — research, data engineering, and analysis",
+        problem:
+          "The Electrum (Bitcoin) server ecosystem is opaque: nobody knows how many servers exist, who operates them, or how centralized the infrastructure thousands of wallets depend on really is.",
+        solution:
+          "I built a scanning and behavioral-fingerprinting pipeline that collects server metadata and groups it via clustering, revealing recurring operators and infrastructure patterns.",
+        result:
+          "A reproducible observatory of the ecosystem, with analyses and visualizations mapping the network's actual concentration.",
       },
       giogas: {
         title: "GIOGÁS Website",
         description:
           "Institutional website for GIOGÁS, a company based in Rio de Janeiro.",
         image: "/giogas.png",
-      },
-      kodo: {
-        title: "Kodo",
-        description:
-          "PWA task management app focused on productivity, using Next.js, Tailwind CSS, and Supabase for data storage.",
-        image: "/kodo.png",
+        role: "End-to-end development — from design to deployment",
+        problem:
+          "GIOGÁS had no digital presence of its own: it relied on third-party channels to present its services and receive business inquiries.",
+        solution:
+          "Institutional website built with Next.js and Tailwind, with service sections and direct contact, responsive and optimized for fast loading.",
+        result:
+          "A professional online presence with a direct contact channel for clients, deployed on Vercel.",
       },
       baberAgenda: {
-        title: "Baber Agenda",
+        title: "Barber Agenda",
         description:
           "Web application for scheduling services in barbershops, with an admin panel for managing appointments and clients.",
         image: "/barber-agenda.png",
+        role: "Full-stack development — from data model to interface",
+        problem:
+          "Small barbershops still schedule by phone and text, which causes booking conflicts and leaves no client history.",
+        solution:
+          "Web app with self-service booking for clients and an admin panel to manage schedules, services, and clients, with data on Supabase.",
+        result:
+          "An end-to-end booking flow that centralizes the schedule and removes manual coordination.",
       },
     },
     // Network Section (3D)
@@ -320,6 +355,12 @@ const translations = {
       node: "node",
       hint: "scroll to navigate the network ↓",
       cta: "view project",
+      details: "view details",
+      problem: "problem",
+      solution: "solution",
+      result: "result",
+      close: "close",
+      visit: "view project",
     },
     // Skills Section
     skills: {
