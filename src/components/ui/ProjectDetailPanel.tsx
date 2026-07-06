@@ -24,8 +24,16 @@ type Props = {
  * a cena. Fecha por ×, Esc ou clique no backdrop; trava o scroll enquanto
  * aberto e devolve o foco ao elemento de origem ao fechar.
  */
+const FOCUSABLE_SELECTOR =
+  'a[href], button, [tabindex]:not([tabindex="-1"])';
+
 export default function ProjectDetailPanel({ project, labels, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!project) return;
@@ -35,7 +43,34 @@ export default function ProjectDetailPanel({ project, labels, onClose }: Props) 
     panelRef.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key === "Tab") {
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusable = Array.from(
+          panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+        ).filter((el) => !el.hasAttribute("disabled"));
+        if (focusable.length === 0) {
+          e.preventDefault();
+          panel.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey) {
+          if (active === first || !panel.contains(active)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (active === last || !panel.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -43,7 +78,8 @@ export default function ProjectDetailPanel({ project, labels, onClose }: Props) 
       window.removeEventListener("keydown", onKey);
       prevFocus?.focus();
     };
-  }, [project, onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project?.id]);
 
   const caseBlocks = project
     ? ([
@@ -71,6 +107,7 @@ export default function ProjectDetailPanel({ project, labels, onClose }: Props) 
 
           {/* painel */}
           <motion.div
+            key={project.id}
             ref={panelRef}
             role="dialog"
             aria-modal="true"
@@ -134,7 +171,7 @@ export default function ProjectDetailPanel({ project, labels, onClose }: Props) 
                 )}
               </div>
 
-              {project.tech && (
+              {project.tech && project.tech.length > 0 && (
                 <div className="mt-8 flex flex-wrap gap-2">
                   {project.tech.map((tech) => (
                     <span
