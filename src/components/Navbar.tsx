@@ -6,6 +6,14 @@ import { BR, US } from "country-flag-icons/react/3x2";
 import { useLanguage } from "../contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 
+/* Painéis flutuantes (dropdown, menu mobile) são SÓLIDOS de propósito:
+   translúcido + backdrop-blur solto sobre conteúdo variado lê como
+   "transparente/quebrado". Blur só na barra, que cobre a página inteira. */
+const PANEL =
+  "bg-[#101014] border border-white/[0.10] shadow-[0_24px_64px_-16px_rgba(0,0,0,0.85)]";
+
+const springMenu = { type: "spring" as const, stiffness: 420, damping: 32, mass: 0.7 };
+
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
 
@@ -92,7 +100,7 @@ export default function Navbar() {
   // ── SSR skeleton ────────────────────────────────────────────────────────────
   if (!mounted) {
     return (
-      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-3 bg-transparent border-b border-transparent backdrop-blur-md">
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-3 bg-transparent border-b border-transparent">
         <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
           <div className="w-7 h-7 rounded-lg bg-indigo-500/20" />
           <div className="hidden md:flex items-center space-x-2" />
@@ -122,10 +130,9 @@ export default function Navbar() {
   const glassNav = [
     "fixed top-0 left-0 w-full z-50",
     "px-4 py-3",
-    "transition-[background-color,border-color,box-shadow] duration-200 ease-out",
-    "backdrop-blur-md",
+    "transition-[background-color,border-color,backdrop-filter] duration-300 ease-out",
     isScrolled
-      ? "bg-[var(--pc-bg)] border-b border-[var(--pc-border)] shadow-[var(--pc-shadow)]"
+      ? "bg-[#0a0a0a]/75 backdrop-blur-xl border-b border-white/[0.06]"
       : "bg-transparent border-b border-transparent",
   ].join(" ");
 
@@ -133,17 +140,10 @@ export default function Navbar() {
     "inline-flex items-center justify-center",
     "w-9 h-9 rounded-full",
     "border border-transparent",
-    "text-[var(--pc-title)]",
-    "hover:bg-[var(--pc-bg)] hover:border-[var(--pc-border)]",
-    "transition-[background-color,border-color] duration-200",
+    "text-zinc-400",
+    "hover:text-zinc-100 hover:border-white/[0.12] hover:bg-white/[0.04]",
+    "transition-all duration-200",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40",
-  ].join(" ");
-
-  const desktopLink = [
-    "relative px-4 py-2 rounded-full",
-    "text-sm font-medium text-[var(--pc-title)]",
-    "transition-colors duration-200",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35",
   ].join(" ");
 
   return (
@@ -162,8 +162,9 @@ export default function Navbar() {
             flex items-center justify-center
             text-white text-[11px] font-light tracking-tight
             shadow-[0_2px_8px_rgba(99,102,241,0.4)]
-            group-hover:shadow-[0_4px_14px_rgba(99,102,241,0.55)]
-            transition-shadow duration-200
+            group-hover:shadow-[0_4px_16px_rgba(99,102,241,0.6)]
+            group-hover:scale-105
+            transition-[box-shadow,transform] duration-200
           ">
             GC
           </span>
@@ -172,11 +173,11 @@ export default function Navbar() {
         {/* ── Center: Desktop nav pill ────────────────────────────────────── */}
         <div className="hidden md:flex items-center justify-center">
           <div className="
-            inline-flex items-center gap-1
+            inline-flex items-center gap-0.5
             rounded-full
-            border border-[var(--pc-border)]
-            bg-[var(--pc-bg)]
-            backdrop-blur
+            border border-white/[0.08]
+            bg-white/[0.03]
+            backdrop-blur-md
             p-1
           ">
             {navItems.map((it) => {
@@ -185,21 +186,21 @@ export default function Navbar() {
                 <button
                   key={it.id}
                   onClick={() => scrollToSection(it.id)}
-                  className={desktopLink + (isActive ? " !text-indigo-500" : "")}
+                  className={`
+                    relative px-4 py-1.5 rounded-full text-sm font-medium
+                    transition-colors duration-200
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35
+                    ${isActive ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-200"}
+                  `}
                 >
-                  <span className="relative z-10">{it.label}</span>
                   {isActive && (
                     <motion.span
-                      layoutId="nav-active-dot"
-                      className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-indigo-500"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/[0.06]"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   )}
-                  <span className="
-                    pointer-events-none absolute inset-0 rounded-full
-                    opacity-0 hover:opacity-100 transition-opacity duration-200
-                    bg-[radial-gradient(60%_80%_at_50%_0%,rgba(99,102,241,0.18),transparent_70%)]
-                  " />
+                  <span className="relative z-10">{it.label}</span>
                 </button>
               );
             })}
@@ -234,12 +235,11 @@ export default function Navbar() {
               className="
                 inline-flex items-center gap-1.5
                 px-2.5 h-9 rounded-full
-                border border-[var(--pc-border)]
-                bg-[var(--pc-bg)]
-                backdrop-blur
-                text-[var(--pc-title)]
+                border border-white/[0.08]
+                bg-white/[0.03]
+                text-zinc-300
                 transition-[background-color,border-color] duration-200
-                hover:border-indigo-400/30
+                hover:border-white/[0.16] hover:bg-white/[0.05]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
               "
               aria-label="Change language"
@@ -248,49 +248,40 @@ export default function Navbar() {
               {getCurrentFlag()}
               <FaChevronDown
                 size={9}
-                className={`text-[var(--pc-text)] transition-transform duration-200 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
+                className={`text-zinc-500 transition-transform duration-300 ${isLanguageDropdownOpen ? "rotate-180" : ""}`}
               />
             </button>
 
             <AnimatePresence>
               {isLanguageDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                  initial={{ opacity: 0, y: -6, scale: 0.96 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
-                  transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="
-                    absolute right-0 mt-2 z-50 min-w-[160px]
-                    rounded-2xl
-                    bg-[var(--pc-bg)]
-                    border border-[var(--pc-border)]
-                    shadow-[var(--pc-shadow)]
-                    backdrop-blur-xl
-                    overflow-hidden
-                  "
+                  exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                  transition={springMenu}
+                  className={`absolute right-0 mt-2 z-50 min-w-[170px] rounded-2xl overflow-hidden p-1.5 ${PANEL}`}
                 >
                   {[
                     { key: "pt", Flag: BR, label: t.navbar.portuguese },
                     { key: "en", Flag: US, label: t.navbar.english },
-                  ].map(({ key, Flag, label }, idx) => (
+                  ].map(({ key, Flag, label }) => (
                     <button
                       key={key}
                       onClick={() => handleLanguageChange(key)}
                       className={`
-                        w-full px-4 py-3
-                        text-left text-sm
+                        w-full px-3 py-2.5 rounded-xl
+                        text-left text-sm font-medium
                         flex items-center gap-2.5
-                        text-[var(--pc-title)]
                         transition-colors duration-150
-                        hover:bg-indigo-500/8
-                        ${idx === 0 ? "" : "border-t border-[var(--pc-border)]"}
-                        ${language === key ? "text-indigo-500" : ""}
+                        ${language === key
+                          ? "text-indigo-300 bg-indigo-500/10"
+                          : "text-zinc-300 hover:bg-white/[0.05]"}
                       `}
                     >
-                      <Flag style={{ width: "18px", height: "12px" }} />
-                      <span className="font-medium">{label}</span>
+                      <Flag style={{ width: "18px", height: "12px" }} className="rounded-[2px]" />
+                      <span>{label}</span>
                       {language === key && (
-                        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-400" />
                       )}
                     </button>
                   ))}
@@ -308,11 +299,11 @@ export default function Navbar() {
               md:hidden
               inline-flex items-center justify-center
               w-9 h-9 rounded-full
-              border border-[var(--pc-border)]
-              bg-[var(--pc-bg)]
-              text-[var(--pc-title)]
+              border border-white/[0.08]
+              bg-white/[0.03]
+              text-zinc-300
               transition-[background-color,border-color] duration-200
-              hover:border-indigo-400/30
+              hover:border-white/[0.16] hover:bg-white/[0.05]
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
             "
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
@@ -356,20 +347,11 @@ export default function Navbar() {
           <motion.div
             id="mobile-menu"
             ref={mobileMenuRef}
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="
-              md:hidden
-              absolute left-3 right-3 top-full mt-2 z-50
-              rounded-2xl
-              bg-white dark:bg-zinc-900
-              border border-zinc-200 dark:border-zinc-700/60
-              shadow-[0_16px_48px_-12px_rgba(0,0,0,0.18)]
-              dark:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.7)]
-              overflow-hidden
-            "
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={springMenu}
+            className={`md:hidden absolute left-3 right-3 top-full mt-2 z-50 rounded-2xl overflow-hidden ${PANEL}`}
           >
             {/* Nav links */}
             <div className="p-2">
@@ -378,38 +360,33 @@ export default function Navbar() {
                 return (
                   <motion.button
                     key={it.id}
-                    initial={{ opacity: 0, x: -8 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.025, duration: 0.15 }}
+                    transition={{ delay: 0.03 + index * 0.035, duration: 0.2, ease: "easeOut" }}
                     onClick={() => scrollToSection(it.id)}
                     className={`
                       w-full flex items-center gap-3
-                      px-3 py-2.5 rounded-xl
+                      px-3.5 py-2.5 rounded-xl
                       text-left text-sm font-medium
                       transition-colors duration-150
                       ${isActive
-                        ? "text-indigo-500 bg-indigo-500/10"
-                        : "text-zinc-800 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                        ? "text-indigo-300 bg-indigo-500/10"
+                        : "text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100"
                       }
                     `}
                   >
                     <span className={`
                       w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-150
-                      ${isActive ? "bg-indigo-500" : "bg-zinc-300 dark:bg-zinc-600"}
+                      ${isActive ? "bg-indigo-400" : "bg-zinc-700"}
                     `} />
                     {it.label}
-                    {isActive && (
-                      <span className="ml-auto text-[10px] font-medium text-indigo-400 opacity-70">
-                        ●
-                      </span>
-                    )}
                   </motion.button>
                 );
               })}
             </div>
 
             {/* Divider + Social */}
-            <div className="px-2 pb-2 border-t border-zinc-200 dark:border-zinc-700/60">
+            <div className="px-2 pb-2 border-t border-white/[0.06]">
               <div className="pt-2 grid grid-cols-2 gap-2">
                 <a
                   href="https://github.com/gabrielcaixeta01"
@@ -418,9 +395,9 @@ export default function Navbar() {
                   className="
                     inline-flex items-center justify-center gap-2
                     px-3 py-2.5 rounded-xl text-sm font-medium
-                    border border-zinc-200 dark:border-zinc-700/60
-                    text-zinc-800 dark:text-zinc-100
-                    hover:bg-zinc-100 dark:hover:bg-zinc-800
+                    border border-white/[0.08]
+                    text-zinc-300
+                    hover:bg-white/[0.05] hover:text-zinc-100
                     transition-colors duration-150
                   "
                 >
@@ -434,9 +411,9 @@ export default function Navbar() {
                   className="
                     inline-flex items-center justify-center gap-2
                     px-3 py-2.5 rounded-xl text-sm font-medium
-                    border border-zinc-200 dark:border-zinc-700/60
-                    text-zinc-800 dark:text-zinc-100
-                    hover:bg-zinc-100 dark:hover:bg-zinc-800
+                    border border-white/[0.08]
+                    text-zinc-300
+                    hover:bg-white/[0.05] hover:text-zinc-100
                     transition-colors duration-150
                   "
                 >
