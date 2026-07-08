@@ -39,10 +39,10 @@ export default function SobreMim() {
           {/* ── LEFT: Content ─────────────────────────────────────────────── */}
           <div className="flex flex-col gap-7">
 
-            {/* Terminal-style label */}
+            {/* Eyebrow — same pattern as the other sections */}
             <motion.div {...fu(0)}>
-              <span className="font-mono text-[11px] tracking-[0.22em] text-indigo-400 select-none">
-                &gt;_ {pt ? "sobre mim" : "about me"}
+              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-indigo-400 select-none">
+                {pt ? "sobre mim" : "about me"}
               </span>
             </motion.div>
 
@@ -74,6 +74,30 @@ export default function SobreMim() {
               <p className="text-[15px] sm:text-base leading-[1.9] text-zinc-400">
                 {t.about.paragraph2}
               </p>
+            </motion.div>
+
+            {/* How I work — AI-relevant highlights */}
+            <motion.div {...fu(0.23)} className="flex flex-col gap-3">
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-zinc-600">
+                {t.about.workLabel}
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {t.about.highlights.map(({ title, text }) => (
+                  <div
+                    key={title}
+                    className="
+                      rounded-xl p-4
+                      bg-white/[0.02] border border-white/[0.07]
+                      hover:border-indigo-500/25 transition-colors duration-200
+                    "
+                  >
+                    <h3 className="text-sm font-semibold tracking-[-0.02em] text-zinc-100 mb-1.5">
+                      {title}
+                    </h3>
+                    <p className="text-[13px] leading-relaxed text-zinc-400">{text}</p>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             {/* Currently — status indicator */}
@@ -148,31 +172,11 @@ export default function SobreMim() {
               priority
             />
 
-            {/* Scan-line overlay — subtle tech texture */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.035) 3px, rgba(0,0,0,0.035) 4px)",
-              }}
-            />
-
-            {/* Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
-
-            {/* Identity tag */}
-            <div className="absolute bottom-0 left-0 right-0 p-5">
-              <p className="font-mono text-white/90 text-sm font-medium leading-tight tracking-tight">
-                gabriel_caixeta
-              </p>
-              <p className="font-mono text-white/40 text-[11px] mt-0.5">
-                {pt ? "desenvolvedor · brasília" : "developer · brasília"}
-              </p>
-            </div>
+            {/* Soft depth gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
             {/* Corner accent */}
             <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-white/[0.15] rounded-tr-sm pointer-events-none" />
-            <div className="absolute bottom-12 left-4 w-5 h-5 border-b border-l border-indigo-500/30 rounded-bl-sm pointer-events-none" />
           </motion.div>
 
         </div>

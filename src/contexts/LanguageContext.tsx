@@ -37,6 +37,17 @@ const translations = {
         "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) e desenvolvedor com foco na construção de aplicações modernas, performáticas e centradas no usuário. Atuo principalmente no desenvolvimento front-end com Next.js, TypeScript e Tailwind CSS, priorizando usabilidade, arquitetura de componentes e experiência do usuário.",
       paragraph2:
         "Possuo também experiência em desenvolvimento full stack, utilizando NestJS, PostgreSQL e Prisma, o que me permite desenvolver aplicações completas, escaláveis e bem integradas. Busco entregar soluções bem estruturadas, de fácil manutenção e alinhadas às necessidades reais dos usuários.",
+      workLabel: "como eu trabalho",
+      highlights: [
+        {
+          title: "Desenvolvimento acelerado por IA",
+          text: "Claude Code e Copilot no fluxo diário — prototipagem e entrega mais rápidas, com revisão crítica de cada linha gerada.",
+        },
+        {
+          title: "ML e dados na prática",
+          text: "Clustering, fingerprinting comportamental e análise exploratória com scikit-learn e Jupyter no Electrum Observatory.",
+        },
+      ],
     },
     // Projects Section
     projects: {
@@ -300,6 +311,17 @@ const translations = {
         "I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB) and a developer focused on building modern, high-performance, user-centered applications. I primarily work in front-end development with Next.js, TypeScript, and Tailwind CSS, prioritizing usability, component architecture, and user experience.",
       paragraph2:
         "I also have experience in full stack development, using NestJS, PostgreSQL, and Prisma, which allows me to develop complete, scalable, and well-integrated applications. I aim to deliver well-structured solutions, easy to maintain and aligned with real user needs.",
+      workLabel: "how I work",
+      highlights: [
+        {
+          title: "AI-accelerated development",
+          text: "Claude Code and Copilot in the daily workflow — faster prototyping and delivery, with critical review of every generated line.",
+        },
+        {
+          title: "Hands-on ML and data",
+          text: "Clustering, behavioral fingerprinting, and exploratory analysis with scikit-learn and Jupyter on the Electrum Observatory.",
+        },
+      ],
     },
     // Projects Section
     projects: {
