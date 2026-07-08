@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { NetProject } from "../three/ScrollNetworkHero";
+import { asset } from "../../lib/asset";
 
 export type PanelLabels = {
   problem: string;
@@ -123,7 +124,7 @@ export default function ProjectDetailPanel({ project, labels, onClose }: Props) 
             {project.image && (
               <div className="relative aspect-video w-full border-b border-white/10">
                 <Image
-                  src={project.image}
+                  src={asset(project.image)}
                   alt={project.name}
                   fill
                   unoptimized

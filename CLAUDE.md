@@ -32,4 +32,4 @@ Single-page portfolio built with Next.js App Router, TypeScript, Tailwind CSS v4
 
 ## Deployment
 
-The site is deployed as a static export to GitHub Pages. `next.config.ts` sets `output: "export"`, `basePath: "/Portfolio"`, and `assetPrefix: "/Portfolio/"` in production. Public assets go in `/public/` and are referenced without the base path in JSX (Next.js handles prefixing).
+The site is deployed as a static export to GitHub Pages. `next.config.ts` sets `output: "export"`, `basePath: "/Portfolio"`, and `assetPrefix: "/Portfolio/"` in production. Public assets go in `/public/`, but **`next/image` and `<img>` do NOT get the base path automatically** — always wrap the src with `asset()` from `src/lib/asset.ts` (e.g. `src={asset("/foto.png")}`), which prefixes `/Portfolio` in production. Referencing `"/foto.png"` directly works in dev and 404s on GitHub Pages.

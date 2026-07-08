@@ -5,6 +5,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import Image from "next/image";
 import { useState, useCallback } from "react";
 import SplitText from "@/components/SplitText";
+import { asset } from "../../lib/asset";
 
 const fu = (delay = 0) => ({
   initial:    { opacity: 0, y: 22 },
@@ -28,7 +29,7 @@ export default function SobreMim() {
 
   const handleMouseLeave = useCallback(() => setTilt({ x: 0, y: 0 }), []);
 
-  const imgSrc = `${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}/gabriel.jpg`;
+  const imgSrc = asset("/gabriel.jpg");
 
   return (
     <section id="sobre" className="scroll-mt-20 px-4 py-16 sm:py-24">
