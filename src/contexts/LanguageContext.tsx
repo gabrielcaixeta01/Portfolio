@@ -87,7 +87,7 @@ const translations = {
     // Network Section (3D)
     network: {
       eyebrow: "projetos",
-      title: "Uma rede, três destinos",
+      title: "Navegue pelos meus projetos",
       intro: "Role para viajar de nó em nó.",
       node: "nó",
       hint: "role para navegar pela rede ↓",
@@ -350,7 +350,7 @@ const translations = {
     // Network Section (3D)
     network: {
       eyebrow: "projects",
-      title: "One network, three destinations",
+      title: "Navigate through my projects",
       intro: "Scroll to travel from node to node.",
       node: "node",
       hint: "scroll to navigate the network ↓",
