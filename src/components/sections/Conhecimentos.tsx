@@ -186,7 +186,7 @@ export default function Conhecimentos() {
 
             {/* skill grid */}
             <AnimatePresence mode="popLayout">
-              <motion.div layout className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <motion.div layout className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                 {filtered.map((s, i) => {
                   const progress = s.maxExperience > 0 ? (s.experience / s.maxExperience) * 100 : 0;
 
@@ -198,8 +198,10 @@ export default function Conhecimentos() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.2, delay: i * 0.025, ease: "easeOut" }}
+                      title={s.name}
+                      aria-label={s.name}
                       className="
-                        group relative rounded-xl p-4
+                        group relative rounded-xl p-3 sm:p-4
                         bg-[var(--pc-bg)]
                         border border-[var(--pc-border)]
                         hover:-translate-y-0.5
@@ -208,7 +210,7 @@ export default function Conhecimentos() {
                         transition-all duration-200 ease-out
                       "
                     >
-                      <div className="flex items-center gap-3 mb-3">
+                      <div className="flex items-center justify-center sm:justify-start gap-3 mb-0 sm:mb-3">
                         <div
                           className="
                             shrink-0 w-10 h-10 rounded-lg
@@ -218,7 +220,7 @@ export default function Conhecimentos() {
                         >
                           <SkillIcon skillName={s.name} />
                         </div>
-                        <div className="flex-1 min-w-0">
+                        <div className="hidden sm:block flex-1 min-w-0">
                           <h3 className="text-sm font-semibold tracking-[-0.02em] text-[var(--cc-title)] truncate leading-tight">
                             {s.name}
                           </h3>
@@ -228,8 +230,8 @@ export default function Conhecimentos() {
                         </div>
                       </div>
 
-                      {/* proficiency bar */}
-                      <div className="h-[3px] rounded-full bg-white/[0.06] overflow-hidden">
+                      {/* proficiency bar — hidden on mobile (icon-only tiles) */}
+                      <div className="hidden sm:block h-[3px] rounded-full bg-white/[0.06] overflow-hidden">
                         <motion.div
                           initial={{ scaleX: 0 }}
                           whileInView={{ scaleX: progress / 100 }}
