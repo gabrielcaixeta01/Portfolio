@@ -22,7 +22,7 @@ Single-page portfolio built with Next.js App Router, TypeScript, Tailwind CSS v4
 
 **Sections** live in `src/components/sections/` — one file per section (Hero, SobreMim, Trajetoria, RedeProjetos, Conhecimentos, Contato).
 
-**Shared components** in `src/components/`: Navbar, Footer, ScrollProgress, SplitText, HeroScene (hero particle field), TechSphere/ (skills 3D sphere), `ui/` (MagneticButton, ScrollReveal), `three/` (ScrollNetworkHero — the scroll-driven 3D project network).
+**Shared components** in `src/components/`: Navbar, Footer, ScrollProgress, SplitText, TechSphere/ (skills 3D sphere), `ui/` (MagneticButton, ScrollReveal, ProjectDetailPanel), `three/` (ScrollNetworkHero — the scroll-driven 3D project network; NeuralCore — the hero's neural sphere).
 
 **Visual identity**: background `#0a0a0a`, indigo/purple/cyan accents (`#6366f1` → `#a855f7` → `#22d3ee`), Space Grotesk (`--font-display`) for headings with occasional text-stroke ghost treatment, Inter (`--font-sans`) for body, monospace for terminal-flavoured labels/eyebrows.
 
