@@ -70,16 +70,19 @@ export default function NeuralCore({ className = "" }: { className?: string }) {
     });
     core.add(new THREE.Points(nodeGeo, nodeMat));
 
-    /* — edges: nearest neighbours below threshold — */
-    const edges: [THREE.Vector3, THREE.Vector3][] = [];
-    outer: for (let i = 0; i < NODE_COUNT; i++) {
+    /* — edges: neighbours below threshold, sampled uniformly so the cap
+       não esvazia um hemisfério (os pares vêm em ordem polo→polo) — */
+    const candidates: [THREE.Vector3, THREE.Vector3][] = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
       for (let j = i + 1; j < NODE_COUNT; j++) {
-        if (pts[i].distanceTo(pts[j]) < EDGE_DIST) {
-          edges.push([pts[i], pts[j]]);
-          if (edges.length >= MAX_EDGES) break outer;
-        }
+        if (pts[i].distanceTo(pts[j]) < EDGE_DIST) candidates.push([pts[i], pts[j]]);
       }
     }
+    for (let i = candidates.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+    const edges = candidates.slice(0, MAX_EDGES);
     const edgePos = new Float32Array(edges.length * 6);
     edges.forEach(([a, b], i) => {
       edgePos.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6);
