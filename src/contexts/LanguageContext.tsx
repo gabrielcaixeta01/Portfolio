@@ -222,9 +222,9 @@ const translations = {
       title: "Contato",
       description:
         "Ficarei feliz em conversar com você sobre oportunidades, ideias ou qualquer projeto interessante. Sinta-se à vontade para entrar em contato pelas redes abaixo ou por e-mail.",
-      linkedin: "LinkedIn:",
-      github: "GitHub:",
-      email: "E-mail:",
+      linkedin: "LinkedIn",
+      github: "GitHub",
+      email: "E-mail",
       copy: "Copiar",
     },
     // Timeline Section
@@ -496,9 +496,9 @@ const translations = {
       title: "Contact",
       description:
         "I'll be happy to talk with you about opportunities, ideas or any interesting project. Feel free to get in touch through the networks below or by email.",
-      linkedin: "LinkedIn:",
-      github: "GitHub:",
-      email: "Email:",
+      linkedin: "LinkedIn",
+      github: "GitHub",
+      email: "Email",
       copy: "Copy",
     },
     // Timeline Section

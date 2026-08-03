@@ -135,7 +135,7 @@ export default function Contato() {
                 <FaLinkedin size={18} className="text-[#0A66C2]" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-0.5">LinkedIn</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-0.5">{t.contact.linkedin}</p>
                 <p className="text-sm font-semibold text-white truncate">gabriel-caixeta-romero</p>
               </div>
               <FiArrowUpRight
@@ -161,7 +161,7 @@ export default function Contato() {
                 <FaGithub size={18} className="text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-0.5">GitHub</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-0.5">{t.contact.github}</p>
                 <p className="text-sm font-semibold text-white truncate">gabrielcaixeta01</p>
               </div>
               <FiArrowUpRight
@@ -189,7 +189,7 @@ export default function Contato() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-0.5">
                   {t.contact.email}
                 </p>
-                <p className="text-sm font-semibold text-white truncate">{emailAddress}</p>
+                <p className="text-sm font-semibold text-white break-all">{emailAddress}</p>
               </div>
               <span
                 className={`shrink-0 flex items-center gap-1.5 font-mono text-[11px] transition-all duration-200 ${
