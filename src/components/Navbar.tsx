@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { FaGithub, FaLinkedin, FaChevronDown } from "react-icons/fa";
 import { BR, US } from "country-flag-icons/react/3x2";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -14,10 +14,16 @@ const PANEL =
 
 const springMenu = { type: "spring" as const, stiffness: 420, damping: 32, mass: 0.7 };
 
+/* Guarda de hidratação: false no SSR e no primeiro render do cliente,
+   true depois. useSyncExternalStore em vez de setState num effect —
+   mesmo resultado, sem o render em cascata. */
+const noopSubscribe = () => () => {};
+const useMounted = () => useSyncExternalStore(noopSubscribe, () => true, () => false);
+
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
 
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,8 +32,6 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => {

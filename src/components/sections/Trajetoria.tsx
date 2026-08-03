@@ -160,7 +160,7 @@ export default function Trajetoria() {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={`Ver ${event.title}`}
-                              className="flex-shrink-0 mt-1.5 text-zinc-600 hover:text-indigo-400 transition-colors"
+                              className="flex-shrink-0 -mt-0.5 -mx-2 -mb-2 p-2 text-zinc-600 hover:text-indigo-400 transition-colors"
                             >
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

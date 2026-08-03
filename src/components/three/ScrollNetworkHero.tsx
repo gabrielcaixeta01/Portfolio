@@ -450,7 +450,7 @@ export default function ScrollNetworkHero({ projects, labels, heightVh = 340, on
                 key={p.id}
                 onClick={() => goToNode(i)}
                 aria-label={`${labels.node} ${pad(i + 1)} — ${p.name}`}
-                className="absolute left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-zinc-700 transition-all duration-300 cursor-pointer"
+                className="absolute left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-zinc-700 transition-all duration-300 cursor-pointer before:absolute before:-inset-3 before:content-['']"
                 style={{ top: `${((i + 0.5) / count) * 100}%`, marginTop: -4 }}
               />
             ))}
