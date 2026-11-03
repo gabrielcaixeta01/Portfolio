@@ -1,6 +1,6 @@
 # Portfolio
 
-Meu portfólio pessoal desenvolvido com Next.js, TypeScript e Tailwind CSS.
+Meu portfólio pessoal — machine learning, dados e automação. Feito com Next.js, TypeScript e Tailwind CSS, publicado no GitHub Pages.
 
-**🔗 [gabrielcaixetaromero.github.io/Portfolio](https://gabrielcaixetaromero.github.io/Portfolio/)**
+**🔗 [gabrielcaixeta01.github.io/Portfolio](https://gabrielcaixeta01.github.io/Portfolio/)**
 
