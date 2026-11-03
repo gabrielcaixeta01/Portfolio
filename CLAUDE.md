@@ -14,22 +14,26 @@ No test suite is configured.
 
 ## Architecture
 
-Single-page portfolio built with Next.js App Router, TypeScript, Tailwind CSS v4, Framer Motion, and Three.js. Dark theme only (`dark` class hardcoded on `<html>`).
+Minimal single-page portfolio (Next.js App Router, TypeScript, Tailwind CSS v4), focused on ML/data. No animation or 3D libraries — keep it simple and text-first.
 
-**Page structure** (`src/app/page.tsx`): sections render in a fixed order — Hero → SobreMim → Trajetoria → RedeProjetos (full-bleed 3D network, `id="projetos"`) → Conhecimentos → Contato → Footer.
+**Layout**: `src/app/layout.tsx` (metadata, JSON-LD, Inter font, `LanguageProvider`) → `src/app/page.tsx`, which holds the whole page: a sticky left sidebar on `lg` (name, role, tagline, section nav with active-section highlight via IntersectionObserver, socials, résumé link, PT/EN toggle) and a right column with sections `about` → `experience` → `education` → `projects` → `skills`.
 
-**Layout** (`src/app/layout.tsx`): wraps everything in `LanguageProvider` → `ScrollProgress` + `Navbar`.
+**Visual identity**: dark only, background `#0b0d12`, gray body text, light headings, single teal accent (`--accent: #5eead4`). Colour tokens live on `:root` in `src/app/globals.css`; `.link` is the shared link style.
 
-**Sections** live in `src/components/sections/` — one file per section (Hero, SobreMim, Trajetoria, RedeProjetos, Conhecimentos, Contato).
+**Internationalisation**: all copy (PT and EN) lives in the `translations` object in `src/contexts/LanguageContext.tsx` (experience/education as `Entry[]`, projects as `Project[]`). Edit both `pt` and `en`.
 
-**Shared components** in `src/components/`: Navbar, Footer, ScrollProgress, SplitText, TechSphere/ (skills 3D sphere), `ui/` (MagneticButton, ScrollReveal, ProjectDetailPanel), `three/` (ScrollNetworkHero — the scroll-driven 3D project network; NeuralCore — the hero's neural sphere).
-
-**Visual identity**: background `#0a0a0a`, indigo/purple/cyan accents (`#6366f1` → `#a855f7` → `#22d3ee`), Space Grotesk (`--font-display`) for headings with occasional text-stroke ghost treatment, Inter (`--font-sans`) for body, monospace for terminal-flavoured labels/eyebrows.
-
-**Internationalisation**: all copy (PT and EN) lives in a single `translations` object inside `src/contexts/LanguageContext.tsx`. Components consume it via `const { t } = useLanguage()`. To add or change visible text, edit that file — both `pt` and `en` keys.
-
-**Fonts**: Inter (`--font-sans`, body) and Space Grotesk (`--font-display`), loaded via `next/font/google`.
+**Résumé**: `public/cv.pdf`, linked via `asset("/cv.pdf")`. Replace the file to update it.
 
 ## Deployment
 
 The site is deployed as a static export to GitHub Pages. `next.config.ts` sets `output: "export"`, `basePath: "/Portfolio"`, and `assetPrefix: "/Portfolio/"` in production. Public assets go in `/public/`, but **`next/image` and `<img>` do NOT get the base path automatically** — always wrap the src with `asset()` from `src/lib/asset.ts` (e.g. `src={asset("/foto.png")}`), which prefixes `/Portfolio` in production. Referencing `"/foto.png"` directly works in dev and 404s on GitHub Pages.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -2,101 +2,49 @@
 
 @layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0d12;
+    --text: #9ca3af;
+    --heading: #e5e7eb;
+    --muted: #6b7280;
+    --accent: #5eead4;
+    --border: rgba(255, 255, 255, 0.12);
+  }
 
-    /* Project Card */
-    --pc-bg: rgba(24, 24, 27, 0.55);
-    --pc-border: rgba(255, 255, 255, 0.08);
-    --pc-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-    --pc-title: #e5e7eb;
-    --pc-text: #cbd5e1;
-    --pc-chip-bg: rgba(39, 39, 42, 0.80);
-    --pc-chip-text: #e5e7eb;
-    --pc-badge-bg: rgba(255, 255, 255, 0.92);
-    --pc-badge-text: #0a0a0a;
-    --pc-btn-bg: #ffffff;
-    --pc-btn-text: #0a0a0a;
-    --pc-outline: rgba(255, 255, 255, 0.06);
-
-    /* Contact Card */
-    --cc-bg: rgba(24, 24, 27, 0.50);
-    --cc-border: rgba(255, 255, 255, 0.05);
-    --cc-shadow: 0 16px 40px rgba(0, 0, 0, 0.40);
-    --cc-title: #e5e7eb;
-    --cc-text: #cbd5e1;
-    --cc-link-bg: rgba(39, 39, 42, 0.60);
-    --cc-link-border: rgba(255, 255, 255, 0.04);
-    --cc-link-hover-border: rgba(255, 255, 255, 0.08);
-    --cc-link-shadow: 0 4px 16px rgba(0, 0, 0, 0.20);
-    --cc-link-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.30);
-    --cc-icon: #d1d5db;
-    --cc-label: #9ca3af;
-    --cc-value: #e5e7eb;
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--background);
-    color: var(--foreground);
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 28px 28px;
-    font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol");
+    color: var(--text);
+    font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(94, 234, 212, 0.25);
+    color: var(--heading);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-/* Navbar */
-nav .nav-link { color: #e5e7eb !important; }
-nav .nav-link .nav-label { -webkit-text-fill-color: currentColor !important; }
-
-nav .nav-link:hover .nav-label {
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-  background-image: linear-gradient(90deg, #3b82f6, #9333ea);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-nav a {
-  color: #e5e7eb !important;
-  transition: color 0.25s ease, transform 0.2s ease !important;
-}
-
-nav a:hover {
-  color: #6366f1 !important;
-  transform: scale(1.1);
-}
-
-nav button[aria-label="Change language"] svg {
-  color: #6b7280 !important;
-  transition: color 0.25s ease !important;
-}
-nav button[aria-label="Change language"]:hover svg { color: #8b5cf6 !important; }
-
-nav .language-dropdown svg,
-nav button[aria-label="Change language"] .react-flag-icon,
-nav button[aria-label="Change language"] [title*="Português"],
-nav button[aria-label="Change language"] [title*="English"] {
-  color: unset !important;
-  fill: unset !important;
-  filter: none !important;
-}
-
-/* Conhecimentos */
 @layer components {
-  section#conhecimentos .skills-card {
-    position: relative; z-index: 1;
-    background: rgba(24, 24, 27, 0.50) !important;
-    border: 1px solid rgba(255, 255, 255, 0.10) !important;
-    border-radius: 1rem;
-    backdrop-filter: blur(8px);
-    transition: box-shadow .2s ease, transform .2s ease;
+  .link {
+    color: var(--heading);
+    transition: color 0.15s ease;
   }
-  section#conhecimentos .skills-icon-box {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  .link:hover {
+    color: var(--accent);
   }
-  section#conhecimentos .skills-card .skills-title { color: #e5e7eb !important; }
-  section#conhecimentos .skills-card .skills-text  { color: #cbd5e1 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

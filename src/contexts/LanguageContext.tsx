@@ -2,589 +2,265 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Timeline Event Interface
-interface TimelineItem {
+export interface Entry {
   title: string;
-  subtitle?: string;
+  org: string;
+  href?: string;
+  period: string;
+  bullets: string[];
+}
+
+export interface Project {
+  title: string;
+  stack: string;
+  year?: string;
   description: string;
-  type?: "education" | "work" | "achievement" | "other";
-  link?: string;
+  href?: string;
+  github?: string;
 }
 
-interface TimelineYear {
-  year: string;
-  events: TimelineItem[];
-}
-
-// Define all translations for the entire portfolio
 const translations = {
   pt: {
-    // Navbar
-    navbar: {
-      home: "Início",
+    role: "Engenharia de Computação · Machine Learning & Dados",
+    tagline:
+      "Estudante da UnB construindo modelos de ML e curtindo um vibe coding nas horas livres.",
+    location: "Brasília, DF",
+    nav: {
       about: "Sobre",
-      timeline: "Trajetoria",
+      experience: "Experiência",
+      education: "Formação",
       projects: "Projetos",
-      skills: "Conhecimentos",
-      contact: "Contato",
-      portuguese: "Português",
-      english: "English",
+      skills: "Competências",
     },
-    // About Section
-    about: {
-      title: "Sobre",
-      paragraph1:
-        "Sou Gabriel, estudante de Engenharia de Computação na Universidade de Brasília (UnB) e desenvolvedor com foco na construção de aplicações modernas, performáticas e centradas no usuário. Atuo principalmente no desenvolvimento front-end com Next.js, TypeScript e Tailwind CSS, priorizando usabilidade, arquitetura de componentes e experiência do usuário.",
-      paragraph2:
-        "Possuo também experiência em desenvolvimento full stack, utilizando NestJS, PostgreSQL e Prisma, o que me permite desenvolver aplicações completas, escaláveis e bem integradas. Busco entregar soluções bem estruturadas, de fácil manutenção e alinhadas às necessidades reais dos usuários.",
-      workLabel: "como eu trabalho",
-      highlights: [
-        {
-          title: "Desenvolvimento acelerado por IA",
-          text: "Claude Code e Copilot no fluxo diário — prototipagem e entrega mais rápidas, com revisão crítica de cada linha gerada.",
-        },
-        {
-          title: "ML e dados na prática",
-          text: "Clustering, fingerprinting comportamental e análise exploratória com scikit-learn e Jupyter no Electrum Observatory.",
-        },
-      ],
-    },
-    // Projects Section
-    projects: {
-      title: "Projetos",
-      description:
-        "Aqui estão alguns dos projetos que desenvolvi, aplicando tecnologias modernas e boas práticas de engenharia de software:",
-
-      electrumSite: {
+    resume: "Ver currículo",
+    switchLang: "English",
+    about: [
+      "Estudo Engenharia de Computação na UnB e atualmente estou no sétimo semestre. O que mais me interessa em machine learning é usar dados para tomar decisões que as IAs não tomam sozinhas: entender o que está acontecendo num negócio e onde dá para otimizar. Hoje estou participando do programa GCI World em Data Science, da Universidade de Tóquio, e estagio na Apex-Brasil, onde aprendi as etapas de desenvolvimento de um sistema de escala nacional.",
+      "Gosto de desenvolver pensando em me divertir: construir algo que resolva um problema real e que meus amigos gostem de usar. Também me interesso por finanças e pelo mercado financeiro.",
+      "Fora da tela, gosto de praticar esportes para manter a mente descansada: jogando tênis e futebol e correndo de vez em nunca.",
+    ],
+    experience: [
+      {
+        title: "Estagiário de Sistemas e Aplicações",
+        org: "Apex-Brasil",
+        href: "https://apexbrasil.com.br/",
+        period: "mar 2026 — atual",
+        bullets: [
+          "Homologação de sistemas: execução de casos de teste e reporte de bugs antes da produção.",
+          "Uso do Claude para estruturar chamados de bug a partir da descrição, reprodução e correção esperada.",
+          "Automação de fluxos do sistema de convênios HARPIA a partir das requisições da API.",
+        ],
+      },
+      {
+        title: "Estagiário de Dados e Automação",
+        org: "TJDFT",
+        href: "https://www.tjdft.jus.br/",
+        period: "ago 2025 — fev 2026",
+        bullets: [
+          "Painéis em Power BI de frequência dos servidores dos fóruns, usados pela gerência.",
+          "Automação de processos internos com Power Apps.",
+        ],
+      },
+      {
+        title: "Desenvolvedor Full Stack",
+        org: "CJR — Empresa Júnior da UnB",
+        period: "jan 2024 — dez 2024",
+        bullets: [
+          "Aplicações web em React, Next.js e TypeScript para clientes reais.",
+        ],
+      },
+    ] as Entry[],
+    education: [
+      {
+        title: "GCI World 2026 — Data Science",
+        org: "Universidade de Tóquio (Matsuo-Iwasawa Lab)",
+        period: "em andamento",
+        bullets: [
+          "Programa de 14 semanas em ML supervisionado, avaliação de modelos e engenharia de features.",
+          "Competição Home Credit Default Risk: modelo de risco de inadimplência avaliado por AUC-ROC.",
+          "Projeto final: modelo de churn e proposta de retenção para uma operadora de telecom.",
+        ],
+      },
+      {
+        title: "Engenharia de Computação",
+        org: "Universidade de Brasília (UnB)",
+        period: "2023 — 2028 (previsão)",
+        bullets: [],
+      },
+      {
+        title: "CS50 — Introduction to Computer Science",
+        org: "Harvard (online)",
+        href: "https://cs50.harvard.edu/x/",
+        period: "2025",
+        bullets: [],
+      },
+    ] as Entry[],
+    projects: [
+      {
+        title: "Radar de Vagas",
+        stack: "Python · Claude API · GitHub Actions",
+        year: "2026",
+        description:
+          "Triagem de oportunidades com LLM: coleta vagas de estágio e concursos e usa a Claude API para dar nota e justificativa a cada uma. Roda semanalmente no GitHub Actions e envia um relatório priorizado por e-mail toda segunda-feira.",
+      },
+      {
         title: "Observatório Electrum",
+        stack: "Python · scikit-learn · Jupyter",
         description:
-          "Um projeto de pesquisa que analisa o ecossistema de servidores Electrum por meio de varredura de rede, fingerprinting comportamental e clustering de metadados.",
-        image: "/electrum.png",
-        role: "Autor único — pesquisa, engenharia de dados e análise",
-        problem:
-          "O ecossistema de servidores Electrum (Bitcoin) é opaco: não se sabe quantos servidores existem, quem os opera, nem quão centralizada é a infraestrutura da qual milhares de carteiras dependem.",
-        solution:
-          "Construí um pipeline de varredura e fingerprinting comportamental que coleta metadados dos servidores e os agrupa via clustering, revelando operadores recorrentes e padrões de infraestrutura.",
-        result:
-          "Um observatório reprodutível do ecossistema, com análises e visualizações que mapeiam a concentração real da rede.",
+          "Pesquisa sobre o ecossistema de servidores Electrum (Bitcoin): pipeline de varredura e fingerprinting comportamental, com clustering de metadados para identificar operadores recorrentes e medir a centralização da rede.",
+        href: "https://gabrielcaixeta01.github.io/electrum-observatory/",
+        github: "https://github.com/gabrielcaixeta01/electrum-observatory",
       },
-      giogas: {
-        title: "Site GIOGÁS",
+      {
+        title: "Home Credit Default Risk",
+        stack: "Python · pandas · scikit-learn",
+        year: "2026",
         description:
-          "Site institucional para a GIOGÁS, empresa do Rio de Janeiro.",
-        image: "/giogas.png",
-        role: "Desenvolvimento completo — do design à publicação",
-        problem:
-          "A GIOGÁS não tinha presença digital própria: dependia de canais de terceiros para apresentar seus serviços e receber contatos comerciais.",
-        solution:
-          "Site institucional em Next.js e Tailwind, com seções de serviços e contato direto, responsivo e otimizado para carregamento rápido.",
-        result:
-          "Presença online própria e profissional, com canal direto de contato para clientes, publicada na Vercel.",
+          "Competição do GCI World: modelo de risco de inadimplência com engenharia de features sobre dados tabulares de crédito, avaliado por AUC-ROC.",
       },
-      baberAgenda: {
-        title: "Agenda de Barbearia",
-        description:
-          "Aplicação web para agendamento de serviços em barbearias, com painel administrativo para gerenciamento de horários e clientes.",
-        image: "/barber-agenda.png",
-        role: "Desenvolvimento full-stack — do modelo de dados à interface",
-        problem:
-          "Barbearias pequenas ainda agendam por telefone e mensagem, o que gera conflitos de horário e nenhum histórico de clientes.",
-        solution:
-          "Aplicação web com agendamento self-service para o cliente e painel administrativo para gerenciar horários, serviços e clientes, com dados no Supabase.",
-        result:
-          "Fluxo de agendamento de ponta a ponta, centralizando a agenda e eliminando a coordenação manual.",
+    ] as Project[],
+    skills: [
+      { label: "Linguagens", items: ["Python", "C++", "SQL", "TypeScript"] },
+      {
+        label: "Dados e ML",
+        items: ["scikit-learn", "pandas", "NumPy", "Matplotlib", "Jupyter", "Power BI"],
       },
-    },
-    // Network Section (3D)
-    network: {
-      eyebrow: "projetos",
-      title: "Navegue pelos meus projetos",
-      intro: "Role para viajar de nó em nó.",
-      node: "nó",
-      hint: "role para navegar pela rede ↓",
-      cta: "ver projeto",
-      details: "ver detalhes",
-      problem: "problema",
-      solution: "solução",
-      result: "resultado",
-      close: "fechar",
-      visit: "ver projeto",
-    },
-    // Skills Section
-    skills: {
-      title: "Conhecimentos",
-      description:
-        "Tenho sólida experiência nas principais tecnologias de desenvolvimento web, além de uma base forte em algoritmos e sistemas digitais.",
-      skillsData: [
-        {
-          name: "React",
-          description:
-            "Uma biblioteca JavaScript para criar interfaces de usuário interativas e reativas, com foco em componentes reutilizáveis.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Next.js",
-          description:
-            "Framework React para produção que oferece renderização híbrida, roteamento automático e otimizações de performance.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "TypeScript",
-          description:
-            "Superset do JavaScript que adiciona tipagem estática, melhorando a robustez e manutenibilidade do código.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Tailwind CSS",
-          description:
-            "Framework CSS utilitário que permite criar designs personalizados rapidamente usando classes pré-definidas.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Node.js",
-          description:
-            "Runtime JavaScript que permite executar código JavaScript no servidor, ideal para APIs e aplicações backend.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "NestJS",
-          description:
-            "Framework Node.js progressivo para construir aplicações server-side eficientes e escaláveis com TypeScript.",
-          experience: 2,
-          maxExperience: 3,
-        },
-        {
-          name: "Python",
-          description:
-            "Linguagem versátil usada para desenvolvimento web, análise de dados, machine learning e automação.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Git",
-          description:
-            "Sistema de controle de versão distribuído essencial para colaboração em projetos de desenvolvimento.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "C++",
-          description:
-            "Linguagem de programação para algoritmos, estruturas de dados e soluções de alto desempenho.",
-          experience: 1.5,
-          maxExperience: 3,
-        },
-        {
-          name: "Jupyter",
-          description:
-            "Ambiente interativo para prototipagem e análise exploratória de dados com notebooks.",
-          experience: 1,
-          maxExperience: 3,
-        },
-        {
-          name: "Google Colab",
-          description:
-            "Plataforma de notebooks em nuvem para machine learning com acesso a GPU facilitado.",
-          experience: 1,
-          maxExperience: 3,
-        },
-        {
-          name: "Figma",
-          description:
-            "Ferramenta de design de interfaces, prototipagem colaborativa e handoff para desenvolvimento.",
-          experience: 2.5,
-          maxExperience: 3,
-        },
-      ],
-      frontend: "Front-end:",
-      frontendSkills: "React, Next.js, Tailwind CSS, TypeScript",
-      backend: "Back-end:",
-      backendSkills: "Node.js, NestJS, REST APIs",
-      machineLearning: "Machine Learning:",
-      mlSkills:
-        "Python (scikit-learn, pandas, matplotlib), Random Forest, regressão linear e MLP",
-      others: "Outros:",
-      otherSkills: "Git, GitHub, VHDL, C++, testes automatizados, Figma",
-      conclusion:
-        "Estou constantemente estudando para me manter atualizado com o mercado e as inovações da área.",
-      experienceLabel: "Experiência",
-      yearsLabel: "anos",
-      pauseLabel: "Pausar",
-      playLabel: "Reproduzir",
-    },
-    // Contact Section
-    contact: {
-      title: "Contato",
-      description:
-        "Ficarei feliz em conversar com você sobre oportunidades, ideias ou qualquer projeto interessante. Sinta-se à vontade para entrar em contato pelas redes abaixo ou por e-mail.",
-      linkedin: "LinkedIn",
-      github: "GitHub",
-      email: "E-mail",
-      copy: "Copiar",
-    },
-    // Timeline Section
-    timeline: {
-      title: "Minha Jornada",
-      description: "Uma Trajetoria com os principais marcos da minha trajetória acadêmica e profissional.",
-      years: [
-        {
-          year: "2026",
-          events: [
-            {
-              title: "ApexBrasil",
-              subtitle: "Estagiário — Coordenação de Sistemas e Aplicações",
-              description: "Estágio presencial em Brasília, atuando na Coordenação de Sistemas e Aplicações da Agência Brasileira de Promoção de Exportações e Investimentos.",
-              type: "work" as const,
-            },
-          ],
-        },
-        {
-          year: "2025",
-          events: [
-            {
-              title: "TJDFT",
-              subtitle: "Estágio em TI",
-              description: "Capacitação nas ferramentas do PowerApps e desenvolvimento de painéis PowerBI.",
-              type: "work" as const,
-            },
-            {
-              title: "Site para GIOGÁS",
-              subtitle: "Projeto Freelancer",
-              description: "Desenvolvimento do site institucional da GIOGÁS, empresa sediada no Rio de Janeiro.",
-              type: "work" as const,
-            },
-            {
-              title: "CS50 – Introdução à Ciência da Computação de Harvard",
-              subtitle: "Certificação Online",
-              description: "Conclusão do curso introdutório de ciência da computação de Harvard, abrangendo algoritmos, estruturas de dados, segurança e desenvolvimento web.",
-              type: "achievement" as const,
-              link: "https://cs50.harvard.edu/x/",
-            },
-          ],
-        },
-        {
-          year: "2024",
-          events: [
-            {
-              title: "Desenvolvedor Full Stack",
-              subtitle: "Empresa Júnior de Computação (CJR)",
-              description: "Capacitação em aplicações web, desde de a prototipação com Figma até o desenvolvimento utilizando Next.js, NestJS e Tailwind CSS.",
-              type: "work" as const,
-            },
-          ],
-        },
-        {
-          year: "2023",
-          events: [
-            {
-              title: "Ingresso em Engenharia de Computação",
-              subtitle: "Universidade de Brasília (UnB)",
-              description: "Início da graduação em Engenharia de Computação, com foco em desenvolvimento de software e sistemas digitais.",
-              type: "education" as const,
-            },
-          ],
-        },
-      ] as TimelineYear[],
-    },
+      {
+        label: "IA generativa",
+        items: ["Claude API", "Claude Code", "ChatGPT", "Gemini"],
+      },
+      { label: "Web e ferramentas", items: ["React", "Next.js", "Git", "Power Apps"] },
+      { label: "Idiomas", items: ["Português (nativo)", "Inglês (fluente, C1)"] },
+    ],
+    footer: "Feito com Next.js · hospedado no GitHub Pages",
   },
   en: {
-    // Navbar
-    navbar: {
-      home: "Home",
+    role: "Computer Engineering · Machine Learning & Data",
+    tagline:
+      "Student at UnB building ML models and doing some vibe coding in my free time.",
+    location: "Brasília, Brazil",
+    nav: {
       about: "About",
-      timeline: "Timeline",
+      experience: "Experience",
+      education: "Education",
       projects: "Projects",
       skills: "Skills",
-      contact: "Contact",
-      portuguese: "Português",
-      english: "English",
     },
-    // About Section
-    about: {
-      title: "About",
-      paragraph1:
-        "I'm Gabriel, a Computer Engineering student at the University of Brasília (UnB) and a developer focused on building modern, high-performance, user-centered applications. I primarily work in front-end development with Next.js, TypeScript, and Tailwind CSS, prioritizing usability, component architecture, and user experience.",
-      paragraph2:
-        "I also have experience in full stack development, using NestJS, PostgreSQL, and Prisma, which allows me to develop complete, scalable, and well-integrated applications. I aim to deliver well-structured solutions, easy to maintain and aligned with real user needs.",
-      workLabel: "how I work",
-      highlights: [
-        {
-          title: "AI-accelerated development",
-          text: "Claude Code and Copilot in the daily workflow — faster prototyping and delivery, with critical review of every generated line.",
-        },
-        {
-          title: "Hands-on ML and data",
-          text: "Clustering, behavioral fingerprinting, and exploratory analysis with scikit-learn and Jupyter on the Electrum Observatory.",
-        },
-      ],
-    },
-    // Projects Section
-    projects: {
-      title: "Projects",
-      description:
-        "Here are some of the projects I've developed, applying modern technologies and software engineering best practices:",
-
-      electrumSite: {
+    resume: "View résumé (PT)",
+    switchLang: "Português",
+    about: [
+      "I study Computer Engineering at the University of Brasília and I'm currently in my seventh semester. What interests me most in machine learning is using data to make decisions that AI can't make on its own: understanding what's happening in a business and where it can be optimized. I'm currently in the GCI World program in Data Science from the University of Tokyo and interning at Apex-Brasil, where I've learned the stages of developing a nationwide system.",
+      "I like building things for fun: something that solves a real problem and that my friends enjoy using. I'm also interested in finance and the financial markets.",
+      "Away from the screen, I play sports to rest my mind: tennis, football and, once in a blue moon, a run.",
+    ],
+    experience: [
+      {
+        title: "Systems and Applications Intern",
+        org: "Apex-Brasil",
+        href: "https://apexbrasil.com.br/",
+        period: "Mar 2026 — present",
+        bullets: [
+          "System acceptance testing: running test cases and reporting bugs before production.",
+          "Using Claude to structure bug tickets from description, reproduction steps and expected fix.",
+          "Automating workflows in the HARPIA agreements system from its API requests.",
+        ],
+      },
+      {
+        title: "Data and Automation Intern",
+        org: "TJDFT (Federal District Court)",
+        href: "https://www.tjdft.jus.br/",
+        period: "Aug 2025 — Feb 2026",
+        bullets: [
+          "Power BI dashboards on courthouse staff attendance, used by management.",
+          "Internal process automation with Power Apps.",
+        ],
+      },
+      {
+        title: "Full Stack Developer",
+        org: "CJR — UnB's student-run company",
+        period: "Jan 2024 — Dec 2024",
+        bullets: ["Web applications in React, Next.js and TypeScript for real clients."],
+      },
+    ] as Entry[],
+    education: [
+      {
+        title: "GCI World 2026 — Data Science",
+        org: "University of Tokyo (Matsuo-Iwasawa Lab)",
+        period: "in progress",
+        bullets: [
+          "14-week program on supervised ML, model evaluation and feature engineering.",
+          "Home Credit Default Risk competition: credit default model evaluated by AUC-ROC.",
+          "Final project: churn model and retention proposal for a telecom operator.",
+        ],
+      },
+      {
+        title: "B.Eng. Computer Engineering",
+        org: "University of Brasília (UnB)",
+        period: "2023 — 2028 (expected)",
+        bullets: [],
+      },
+      {
+        title: "CS50 — Introduction to Computer Science",
+        org: "Harvard (online)",
+        href: "https://cs50.harvard.edu/x/",
+        period: "2025",
+        bullets: [],
+      },
+    ] as Entry[],
+    projects: [
+      {
+        title: "Job Radar",
+        stack: "Python · Claude API · GitHub Actions",
+        year: "2026",
+        description:
+          "LLM-based opportunity triage: collects internship and public-sector job postings and uses the Claude API to score and justify each one. Runs weekly on GitHub Actions and emails a prioritized report every Monday.",
+      },
+      {
         title: "Electrum Observatory",
+        stack: "Python · scikit-learn · Jupyter",
         description:
-          "A research project analyzing the Electrum server ecosystem through network scanning, behavioral fingerprinting, and metadata clustering.",
-        image: "/electrum.png",
-        role: "Sole author — research, data engineering, and analysis",
-        problem:
-          "The Electrum (Bitcoin) server ecosystem is opaque: nobody knows how many servers exist, who operates them, or how centralized the infrastructure thousands of wallets depend on really is.",
-        solution:
-          "I built a scanning and behavioral-fingerprinting pipeline that collects server metadata and groups it via clustering, revealing recurring operators and infrastructure patterns.",
-        result:
-          "A reproducible observatory of the ecosystem, with analyses and visualizations mapping the network's actual concentration.",
+          "Research on the Electrum (Bitcoin) server ecosystem: a scanning and behavioral-fingerprinting pipeline, with metadata clustering to identify recurring operators and measure network centralization.",
+        href: "https://gabrielcaixeta01.github.io/electrum-observatory/",
+        github: "https://github.com/gabrielcaixeta01/electrum-observatory",
       },
-      giogas: {
-        title: "GIOGÁS Website",
+      {
+        title: "Home Credit Default Risk",
+        stack: "Python · pandas · scikit-learn",
+        year: "2026",
         description:
-          "Institutional website for GIOGÁS, a company based in Rio de Janeiro.",
-        image: "/giogas.png",
-        role: "End-to-end development — from design to deployment",
-        problem:
-          "GIOGÁS had no digital presence of its own: it relied on third-party channels to present its services and receive business inquiries.",
-        solution:
-          "Institutional website built with Next.js and Tailwind, with service sections and direct contact, responsive and optimized for fast loading.",
-        result:
-          "A professional online presence with a direct contact channel for clients, deployed on Vercel.",
+          "GCI World competition: credit default risk model with feature engineering over tabular credit data, evaluated by AUC-ROC.",
       },
-      baberAgenda: {
-        title: "Barber Agenda",
-        description:
-          "Web application for scheduling services in barbershops, with an admin panel for managing appointments and clients.",
-        image: "/barber-agenda.png",
-        role: "Full-stack development — from data model to interface",
-        problem:
-          "Small barbershops still schedule by phone and text, which causes booking conflicts and leaves no client history.",
-        solution:
-          "Web app with self-service booking for clients and an admin panel to manage schedules, services, and clients, with data on Supabase.",
-        result:
-          "An end-to-end booking flow that centralizes the schedule and removes manual coordination.",
+    ] as Project[],
+    skills: [
+      { label: "Languages", items: ["Python", "C++", "SQL", "TypeScript"] },
+      {
+        label: "Data & ML",
+        items: ["scikit-learn", "pandas", "NumPy", "Matplotlib", "Jupyter", "Power BI"],
       },
-    },
-    // Network Section (3D)
-    network: {
-      eyebrow: "projects",
-      title: "Navigate through my projects",
-      intro: "Scroll to travel from node to node.",
-      node: "node",
-      hint: "scroll to navigate the network ↓",
-      cta: "view project",
-      details: "view details",
-      problem: "problem",
-      solution: "solution",
-      result: "result",
-      close: "close",
-      visit: "view project",
-    },
-    // Skills Section
-    skills: {
-      title: "Skills",
-      description:
-        "I have solid experience in the main web development technologies, in addition to a strong foundation in algorithms and digital systems.",
-      skillsData: [
-        {
-          name: "React",
-          description:
-            "A JavaScript library for building interactive and reactive user interfaces, focusing on reusable components.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Next.js",
-          description:
-            "React framework for production that offers hybrid rendering, automatic routing and performance optimizations.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "TypeScript",
-          description:
-            "JavaScript superset that adds static typing, improving code robustness and maintainability.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Tailwind CSS",
-          description:
-            "Utility-first CSS framework that allows creating custom designs quickly using predefined classes.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Node.js",
-          description:
-            "JavaScript runtime that allows executing JavaScript code on the server, ideal for APIs and backend applications.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "NestJS",
-          description:
-            "Progressive Node.js framework for building efficient and scalable server-side applications with TypeScript.",
-          experience: 2,
-          maxExperience: 3,
-        },
-        {
-          name: "Python",
-          description:
-            "Versatile language used for web development, data analysis, machine learning and automation.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "Git",
-          description:
-            "Distributed version control system essential for collaboration in development projects.",
-          experience: 3,
-          maxExperience: 3,
-        },
-        {
-          name: "C++",
-          description:
-            "Programming language for algorithms, data structures and high-performance solutions.",
-          experience: 1.5,
-          maxExperience: 3,
-        },
-        {
-          name: "Jupyter",
-          description:
-            "Interactive environment for prototyping and exploratory data analysis with notebooks.",
-          experience: 1,
-          maxExperience: 3,
-        },
-        {
-          name: "Google Colab",
-          description:
-            "Cloud notebook platform for machine learning with easy GPU access.",
-          experience: 1,
-          maxExperience: 3,
-        },
-        {
-          name: "Figma",
-          description:
-            "Interface design tool, collaborative prototyping and development handoff.",
-          experience: 2.5,
-          maxExperience: 3,
-        },
-      ],
-      frontend: "Front-end:",
-      frontendSkills: "React, Next.js, Tailwind CSS, TypeScript",
-      backend: "Back-end:",
-      backendSkills: "Node.js, NestJS, REST APIs",
-      machineLearning: "Machine Learning:",
-      mlSkills:
-        "Python (scikit-learn, pandas, matplotlib), Random Forest, linear regression and MLP",
-      others: "Others:",
-      otherSkills: "Git, GitHub, VHDL, C++, automated testing, Figma",
-      conclusion:
-        "I am constantly studying to stay updated with the market and innovations in the field.",
-      experienceLabel: "Experience",
-      yearsLabel: "years",
-      pauseLabel: "Pause",
-      playLabel: "Play",
-    },
-    // Contact Section
-    contact: {
-      title: "Contact",
-      description:
-        "I'll be happy to talk with you about opportunities, ideas or any interesting project. Feel free to get in touch through the networks below or by email.",
-      linkedin: "LinkedIn",
-      github: "GitHub",
-      email: "Email",
-      copy: "Copy",
-    },
-    // Timeline Section
-    timeline: {
-      title: "My Journey",
-      description: "A timeline with the main milestones of my academic and professional journey.",
-      years: [
-        {
-          year: "2026",
-          events: [
-            {
-              title: "ApexBrasil",
-              subtitle: "Intern — Systems and Applications Division",
-              description: "On-site internship in Brasília, working at the Systems and Applications Division of the Brazilian Trade and Investment Promotion Agency.",
-              type: "work" as const,
-            },
-          ],
-        },
-        {
-          year: "2025",
-          events: [
-            {
-              title: "TJDFT",
-              subtitle: "IT Internship",
-              description: "Training in PowerApps tools and PowerBI dashboard development.",
-              type: "work" as const,
-            },
-            {
-              title: "Website for GIOGÁS",
-              subtitle: "Freelance Project",
-              description: "Development of the institutional website for GIOGÁS, a company based in Rio de Janeiro.",
-              type: "work" as const,
-            },
-            {
-              title: "CS50 – Introduction to Computer Science from Harvard",
-              subtitle: "Online Certification",
-              description: "Completion of Harvard's introductory computer science course, covering algorithms, data structures, security and web development.",
-              type: "achievement" as const,
-              link: "https://cs50.harvard.edu/x/",
-            },
-          ],
-        },
-        {
-          year: "2024",
-          events: [
-            {
-              title: "Full Stack Developer",
-              subtitle: "Junior Computing Company (CJR)",
-              description: "Training in web applications, from prototyping with Figma to development using Next.js, NestJS and Tailwind CSS.",
-              type: "work" as const,
-            },
-          ],
-        },
-        {
-          year: "2023",
-          events: [
-            {
-              title: "Computer Engineering Enrollment",
-              subtitle: "University of Brasília (UnB)",
-              description: "Started undergraduate studies in Computer Engineering, focusing on software development and digital systems.",
-              type: "education" as const,
-            },
-          ],
-        },
-      ] as TimelineYear[],
-    },
+      {
+        label: "Generative AI",
+        items: ["Claude API", "Claude Code", "ChatGPT", "Gemini"],
+      },
+      { label: "Web & tools", items: ["React", "Next.js", "Git", "Power Apps"] },
+      { label: "Languages spoken", items: ["Portuguese (native)", "English (fluent, C1)"] },
+    ],
+    footer: "Built with Next.js · hosted on GitHub Pages",
   },
 };
 
-// Context types
+type Language = keyof typeof translations;
+
 interface LanguageContextType {
-  language: string;
-  setLanguage: (lang: string) => void;
+  language: Language;
+  setLanguage: (lang: Language) => void;
   t: typeof translations.pt;
 }
 
-// Create context
-const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
-);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Provider component
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState("pt");
-
-  const t = translations[language as keyof typeof translations];
+  const [language, setLanguage] = useState<Language>("pt");
+  const t = translations[language];
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
@@ -593,7 +269,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Custom hook to use the language context
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (context === undefined) {
